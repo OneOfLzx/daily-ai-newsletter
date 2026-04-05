@@ -2,6 +2,8 @@
 
 **☀️ Start your day with one clear read: what’s moving in AI—and which GitHub projects are heating up.**
 
+#### 👉 **Read Now**: 🔗 **[oneoflzx.github.io/daily-ai-newsletter](https://oneoflzx.github.io/daily-ai-newsletter/)**
+
 ## ✨ What you’re subscribing to
 
 This is a **daily briefing** built for people who want to keep up with artificial intelligence and developer momentum **without living in a hundred feeds**. Each edition brings together fresh stories and notable repositories in one place, written to be **quick to scan** and **easy to share**.
