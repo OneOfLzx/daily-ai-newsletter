@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily AI Newsletter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="title">Daily AI Newsletter</h1>
+            <p class="date" id="date"></p>
+        </header>
+
+        <!-- News Sections (by Source) -->
+        <main class="content">
+            <!-- Example Source Group 1 -->
+            <section class="source-group">
+                <h2 class="source-title">TechCrunch</h2>
+                
+                <!-- News Item 1 -->
+                <article class="news-item">
+                    <a href="#" class="news-link">
+                        <h3 class="news-title">New breakthrough in large language model efficiency announced</h3>
+                    </a>
+                    <p class="news-summary">Researchers have developed a new architecture that reduces inference time by 40% while maintaining model quality.</p>
+                    <p class="news-summary-zh">研究人员开发了一种新架构，在保持模型质量的同时将推理时间减少了40%。</p>
+                </article>
+
+                <!-- News Item 2 -->
+                <article class="news-item">
+                    <a href="#" class="news-link">
+                        <h3 class="news-title">AI-powered healthcare diagnostics platform raises $100M Series B</h3>
+                    </a>
+                    <p class="news-summary">The startup's technology helps doctors detect diseases earlier with high accuracy from medical imaging.</p>
+                    <p class="news-summary-zh">这家初创公司的技术帮助医生通过医学影像更早、更准确地检测疾病。</p>
+                </article>
+            </section>
+
+            <!-- Example Source Group 2 -->
+            <section class="source-group">
+                <h2 class="source-title">Hacker News</h2>
+                
+                <article class="news-item">
+                    <a href="#" class="news-link">
+                        <h3 class="news-title">Open-source tool simplifies fine-tuning of multimodal models</h3>
+                    </a>
+                    <p class="news-summary">A new open-source project makes it accessible for developers to fine-tune state-of-the-art multimodal models on custom datasets.</p>
+                    <p class="news-summary-zh">一个新的开源项目让开发者能够轻松地在自定义数据集上微调最先进的多模态模型。</p>
+                </article>
+
+                <article class="news-item">
+                    <a href="#" class="news-link">
+                        <h3 class="news-title">Show HN: AI assistant for code review with context awareness</h3>
+                    </a>
+                    <p class="news-summary">An AI-powered code reviewer that understands the full context of your codebase and provides meaningful suggestions.</p>
+                    <p class="news-summary-zh">一个由AI驱动的代码审查工具，它理解代码库的完整上下文并提供有意义的建议。</p>
+                </article>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Daily AI Newsletter. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current date
+        const dateElement = document.getElementById('date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>

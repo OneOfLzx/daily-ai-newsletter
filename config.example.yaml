@@ -1,0 +1,114 @@
+# Sample configuration for daily AI newsletter
+llm:
+  api_key: "your-openai-api-key-here"
+  model: "gpt-3.5-turbo"
+  base_url: "https://api.openai.com/v1"
+
+# Skill directory names under .agents/skills/<id>/SKILL.md — body (minus frontmatter) = system prompt
+skills:
+  web: article-summarization
+  rss: article-summarization
+  github: github-summarization
+  translation: translation
+
+# Optional: static page header — GitHub repo link button (separate from sources.github data sources)
+site:
+  github_repo_url: "https://github.com/your-org/daily-ai-newsletter"
+
+processing:
+  concurrency: 6
+  # RSS: only keep items whose pubDate is within this many days (web/GitHub unchanged)
+  max_article_recency_days: 2
+  # GitHub: LLM requests tools; program calls GitMCP (https://gitmcp.io/<owner>/<repo>)
+  github:
+    mcp_max_rounds: 20
+    mcp_timeout_ms: 120000
+    mcp_max_tool_result_chars: 80000
+
+sources:
+  web:
+    - name: "TLDR Dev"
+      url: "https://tldr.tech/dev/"
+      max_date_backtrack_days: 7
+    - name: "TLDR AI"
+      url: "https://tldr.tech/ai/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Infosec"
+      url: "https://tldr.tech/infosec/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Product"
+      url: "https://tldr.tech/product/"
+      max_date_backtrack_days: 7
+    - name: "TLDR DevOps"
+      url: "https://tldr.tech/devops/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Founders"
+      url: "https://tldr.tech/founders/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Design"
+      url: "https://tldr.tech/design/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Marketing"
+      url: "https://tldr.tech/marketing/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Crypto"
+      url: "https://tldr.tech/crypto/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Fintech"
+      url: "https://tldr.tech/fintech/"
+      max_date_backtrack_days: 7
+    - name: "TLDR IT"
+      url: "https://tldr.tech/it/"
+      max_date_backtrack_days: 7
+    - name: "TLDR Data"
+      url: "https://tldr.tech/data/"
+      max_date_backtrack_days: 7
+
+  rss:
+    - name: "QbitAI"
+      url: "https://www.qbitai.com/feed"
+    - name: "LangChain Blog"
+      url: "https://blog.langchain.dev/rss/"
+    - name: "Hugging Face Blog"
+      url: "https://huggingface.co/blog/feed.xml"
+    - name: "AWS Amazon AI Blog"
+      url: "https://aws.amazon.com/blogs/amazon-ai/feed/"
+    - name: "Meta Engineering"
+      url: "https://engineering.fb.com/feed/"
+    - name: "Azure Blog"
+      url: "https://azure.microsoft.com/en-us/blog/feed/"
+    - name: "Elastic Blog"
+      url: "https://www.elastic.co/blog/feed"
+    - name: "Grafana Engineering"
+      url: "https://grafana.com/categories/engineering/index.xml"
+    - name: "DeepMind Blog"
+      url: "https://deepmind.com/blog/feed/basic/"
+    - name: "Martin Fowler"
+      url: "https://martinfowler.com/feed.atom"
+    - name: "AWS Architecture Blog"
+      url: "http://www.awsarchitectureblog.com/atom.xml"
+    - name: "GitHub Blog"
+      url: "https://github.blog/feed/"
+    - name: "OpenAI News"
+      url: "https://openai.com/news/rss.xml"
+    - name: "MongoDB Blog"
+      url: "https://www.mongodb.com/blog/rss"
+    - name: "Google Developers Blog"
+      url: "https://developers.googleblog.com/feeds/posts/default"
+    - name: "Anthropic News (RSSHub)"
+      url: "https://rsshub.app/anthropic/news"
+    - name: "Dify"
+      url: "https://wechat2rss.bestblogs.dev/feed/e46c03a4cb65509e22ab9a8507888a2096319d65.xml"
+    - name: "DeepSeek"
+      url: "https://wechat2rss.bestblogs.dev/feed/1709da4f538d4ce4fb6d7a8ba1a5a1c297919601.xml"
+    - name: "MiniMax"
+      url: "https://wechat2rss.bestblogs.dev/feed/00306b171f754d463b28cf83f3ba086ad009b430.xml"
+    - name: "Alibaba"
+      url: "https://wechat2rss.bestblogs.dev/feed/6535a444e9651fecae3383363be7589acdebe2b6.xml"
+    - name: "DeeplearningAI"
+      url: "https://wechat2rss.bestblogs.dev/feed/9d094d066a5faacff0eb0a6b95efbba20d4f1fc9.xml"
+
+  github:
+    - name: "TrendShift"
+      owner: "trendshift"
+      repo: "trending"
