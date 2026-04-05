@@ -43,6 +43,7 @@ data/
 
 bug
 .publish
+.ghpages-build
 
 .opencode
 .sisyphus

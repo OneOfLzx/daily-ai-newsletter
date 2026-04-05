@@ -4,6 +4,7 @@ import Logger from '../utils/logger.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { ensureDir } from '../utils/path.js';
+import { rootLandingRedirectHtml } from '../utils/root-index.js';
 
 const logger = new Logger('generator');
 
@@ -138,7 +139,7 @@ export class HtmlGenerator {
   /**
    * @param {object} unifiedData
    * @param {object} [options]
-   * @param {string} [options.dateDir] - output directory for this edition (public/YYYY-MM-DD)
+   * @param {string} [options.dateDir] - output directory for this edition (public/YYYY-MM-DD); root `index.html` is written to cwd
    * @param {string} [options.dateKey] - YYYY-MM-DD
    * @param {object} [options.site] - { github_repo_url? }
    * @param {boolean} [options.incremental] - if true, do not write raw-data.json (pipeline writes final)
@@ -241,9 +242,8 @@ export class HtmlGenerator {
       results[lang] = html;
     }
 
-    const rootIndex = path.join(publicDir, 'index.html');
-    const redirect = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0; url=${dateStr}/index.en.html"><title>Daily AI Newsletter</title></head><body><p><a href="${dateStr}/index.en.html">Continue to latest newsletter</a></p></body></html>`;
-    await fs.writeFile(rootIndex, redirect, 'utf-8');
+    const rootIndex = path.join(process.cwd(), 'index.html');
+    await fs.writeFile(rootIndex, rootLandingRedirectHtml(dateStr), 'utf-8');
 
     if (!quiet) {
       logger.info('HTML newsletters saved successfully');

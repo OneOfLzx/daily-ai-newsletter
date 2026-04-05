@@ -41,6 +41,8 @@ describe('deploy script', () => {
     }
     expect(threw).toBe(false);
     expect(ghpages.publish).toHaveBeenCalled();
+    const publishRoot = ghpages.publish.mock.calls[0][0];
+    expect(String(publishRoot)).toContain('.ghpages-build');
   });
 
   it('should allow custom config overrides', async () => {

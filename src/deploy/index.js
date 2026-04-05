@@ -1,6 +1,7 @@
 import ghpages from 'gh-pages';
 import { resolve, join } from 'path';
-import { mkdir, cp, readdir, writeFile, access } from 'fs/promises';
+import { mkdir, cp, rm, readdir, writeFile, access } from 'fs/promises';
+import { rootLandingRedirectHtml } from '../utils/root-index.js';
 import { fileURLToPath } from 'url';
 import { argv } from 'process';
 import Logger from '../utils/logger.js';
@@ -9,7 +10,10 @@ const logger = new Logger('deploy');
 
 const DEFAULT_CONFIG = {
   branch: 'main',
+  projectRoot: resolve(process.cwd()),
   publicDir: resolve(process.cwd(), 'public'),
+  /** Ephemeral folder: root index + `public/` copy for gh-pages (site root must include both). */
+  pagesStagingDir: resolve(process.cwd(), '.ghpages-build'),
   dataDir: resolve(process.cwd(), 'data'),
   preserveHistory: true,
 };
@@ -49,27 +53,25 @@ async function deploy(config = {}) {
   
   const latestDate = dateDirs[0];
   if (latestDate) {
-    const rootIndexContent = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Daily AI Newsletter</title>
-  <meta http-equiv="refresh" content="0; url=./${latestDate}/">
-</head>
-<body>
-  <p>Redirecting to latest newsletter...</p>
-  <a href="./${latestDate}/">Click here if not redirected</a>
-</body>
-</html>`;
-    await writeFile(join(opts.publicDir, 'index.html'), rootIndexContent);
-    logger.info(`Root index.html created, redirecting to ${latestDate}`);
+    const rootIndexContent = rootLandingRedirectHtml(latestDate);
+    await writeFile(join(opts.projectRoot, 'index.html'), rootIndexContent);
+    logger.info(`Root index.html created at project root, redirecting to public/${latestDate}/`);
   }
 
   // If we have a repo, publish to GitHub Pages, otherwise just prepare public dir
   if (opts.repo) {
     logger.info('Publishing to GitHub Pages');
+    if (!latestDate) {
+      logger.warn('No dated editions under public/; skipping publish (nothing to link from root index)');
+      return Promise.resolve();
+    }
+    await rm(opts.pagesStagingDir, { recursive: true, force: true });
+    await mkdir(opts.pagesStagingDir, { recursive: true });
+    await writeFile(join(opts.pagesStagingDir, 'index.html'), rootLandingRedirectHtml(latestDate));
+    await cp(opts.publicDir, join(opts.pagesStagingDir, 'public'), { recursive: true });
+
     return new Promise((resolve, reject) => {
-      ghpages.publish(opts.publicDir, {
+      ghpages.publish(opts.pagesStagingDir, {
         repo: opts.repo,
         branch: opts.branch,
         message: opts.preserveHistory
