@@ -30,6 +30,8 @@ export class HtmlGenerator {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#2563eb">
     <title>{{pageTitle}}</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -212,7 +214,7 @@ export class HtmlGenerator {
           day: 'numeric',
           weekday: 'long'
         });
-        title = '每日AI通讯';
+        title = '每日AI简讯';
         pageTitle = `${title} — ${formattedDate}`;
         langLabel = 'English';
         otherFile = 'index.en.html';

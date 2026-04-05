@@ -10,6 +10,8 @@ export function rootLandingRedirectHtml(dateKey) {
 <head>
   <meta charset="utf-8">
   <title>Daily AI Newsletter</title>
+  <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#2563eb">
   <meta http-equiv="refresh" content="0; url=${target}">
 </head>
 <body>

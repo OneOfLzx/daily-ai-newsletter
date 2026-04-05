@@ -150,6 +150,8 @@ describe('HtmlGenerator', () => {
 
     const result = await generator.generate(unifiedData);
     expect(result.en).toContain('<!DOCTYPE html>');
+    expect(result.en).toContain('rel="icon"');
+    expect(result.en).toContain('../favicon.svg');
     expect(result.en).toContain('Daily AI Newsletter');
     expect(result.en).toContain('Test Web Source');
     expect(result.en).toContain('Test Web Article');
@@ -157,7 +159,7 @@ describe('HtmlGenerator', () => {
     expect(result.en).toContain('test-github-project');
     
     expect(result.zh).toContain('<!DOCTYPE html>');
-    expect(result.zh).toContain('每日AI通讯');
+    expect(result.zh).toContain('每日AI简讯');
     expect(result.zh).toContain('测试网页文章');
     expect(result.zh).toContain('GitHub项目摘要。');
   });

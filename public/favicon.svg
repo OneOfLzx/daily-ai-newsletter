@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Daily AI Newsletter">
+  <rect width="32" height="32" rx="7" fill="#f8fafc"/>
+  <text
+    x="16"
+    y="17"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-size="20"
+    font-family="Segoe UI Emoji, Apple Color Emoji, Noto Color Emoji, Twemoji Mozilla, sans-serif"
+  >📬</text>
+</svg>

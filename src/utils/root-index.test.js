@@ -6,5 +6,6 @@ describe('rootLandingRedirectHtml', () => {
     const html = rootLandingRedirectHtml('2026-04-05');
     expect(html).toContain('./public/2026-04-05/index.en.html');
     expect(html).toContain('http-equiv="refresh"');
+    expect(html).toContain('./public/favicon.svg');
   });
 });
