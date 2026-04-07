@@ -1,19 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="sidebar-closed">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#2563eb">
     <title>Daily AI Newsletter — Sunday, April 5, 2026</title>
+    <script>
+        (() => {
+            try {
+                const d = document.documentElement;
+                const isDesktop = window.matchMedia && window.matchMedia('(min-width: 768px)').matches;
+                d.classList.toggle('sidebar-open', !!isDesktop);
+                d.classList.toggle('sidebar-closed', !isDesktop);
+            } catch {}
+        })();
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .toolbar { display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-        .toolbar a { color: #2563eb; text-decoration: none; font-size: 0.95rem; }
-        .toolbar a:hover { text-decoration: underline; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; background: #ffffff; }
+
+        .page-shell { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: 24px; padding: 20px; }
+        .main { width: min(800px, 100%); }
+
+        .fab-toc { position: fixed; top: 16px; left: 16px; z-index: 60; display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 999px; border: 1px solid rgba(15, 23, 42, 0.14); background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); color: #0f172a; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12); cursor: pointer; font-weight: 600; }
+        .fab-toc:hover { background: rgba(255,255,255,0.98); }
+        .fab-toc:active { transform: translateY(1px); }
+        .fab-toc .icon { font-size: 16px; line-height: 1; }
+
+        .sidebar { width: 260px; flex: 0 0 260px; position: fixed; top: 0; left: 0; height: 100vh; max-height: 100vh; overflow-y: auto; overflow-x: hidden; padding: 14px; border-radius: 0; background: #ffffff; border: none; border-right: 1px solid #e2e8f0; z-index: 55; }
+        .sidebar-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+        .sidebar .sidebar-title { font-weight: 800; color: #0f172a; letter-spacing: 0.2px; }
+        .sidebar-close { display: none; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; border: 1px solid rgba(15, 23, 42, 0.14); background: rgba(255,255,255,0.9); color: #0f172a; cursor: pointer; }
+        .sidebar-close:hover { background: rgba(255,255,255,0.98); }
+        .toc { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+        .toc a { display: block; padding: 8px 10px; border-radius: 8px; color: #1e293b; text-decoration: none; font-size: 0.95rem; border: 1px solid transparent; }
+        .toc a:hover { background: rgba(37, 99, 235, 0.06); border-color: rgba(37, 99, 235, 0.18); }
+
+        /* Hide scrollbar when idle (show on hover for WebKit). */
+        .sidebar { scrollbar-width: none; }
+        .sidebar::-webkit-scrollbar { width: 0; height: 0; }
+        .sidebar:hover { scrollbar-width: thin; }
+        .sidebar:hover::-webkit-scrollbar { width: 10px; }
+        .sidebar:hover::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.18); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+        .sidebar:hover::-webkit-scrollbar-track { background: transparent; }
+
+        .sidebar-mask { display: none; }
+        .sidebar-closed .sidebar { display: none; }
+
+        @media (min-width: 768px) {
+            .sidebar-open .page-shell { padding-left: 280px; }
+            .sidebar-open .fab-toc { left: 276px; }
+            .sidebar-close { display: none; }
+        }
+
         .main-title, .date-line { text-align: center; font-size: 2rem; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
-        .date-line { color: #1e293b; font-weight: 600; margin-bottom: 32px; }
+        .date-line { color: #1e293b; font-weight: 600; margin-bottom: 10px; }
+
+        .action-row { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; text-decoration: none; font-size: 0.95rem; font-weight: 700; }
+        .btn svg { flex: 0 0 auto; }
+        .btn:hover { background: #f8fafc; }
+        .btn:active { transform: translateY(1px); }
+        .btn-github { background: #0b1220; border-color: #0b1220; color: #ffffff; }
+        .btn-github:hover { background: #111a2d; }
+        .btn-secondary { border-color: #e2e8f0; background: #f8fafc; color: #0f172a; }
+        .btn-secondary:hover { background: #eef2f7; }
+
         .source-section { margin-bottom: 40px; padding: 20px; background: #f8fafc; border-radius: 8px; }
         .source-title { font-size: 1.5rem; margin-bottom: 20px; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
         .news-item { margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -36,17 +89,52 @@
         .news-summary pre { background: #f1f5f9; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 0.85em; margin: 0.5em 0; }
         .news-summary pre code { background: none; padding: 0; }
         .news-summary blockquote { margin: 0.5em 0; padding-left: 0.75rem; border-left: 3px solid #cbd5e1; color: #64748b; }
+
+        .collapse-btn-row { margin-top: 6px; display: flex; justify-content: center; }
+        .toggle-items { cursor: pointer; border: 1px solid #e2e8f0; background: #ffffff; color: #0f172a; padding: 8px 10px; border-radius: 10px; font-weight: 700; }
+        .toggle-items:hover { background: #f8fafc; }
+        .items-hidden { display: none; }
+        .source-section.is-expanded .items-hidden { display: block; }
+
+        @media (max-width: 767px) {
+            .page-shell { padding: 16px; }
+            .fab-toc { top: 12px; left: 12px; padding: 10px 12px; }
+            .sidebar-open .fab-toc { display: none; }
+            .sidebar { width: 84vw; max-width: 320px; z-index: 70; transform: translateX(-102%); transition: transform 160ms ease-out; }
+            .sidebar-mask { position: fixed; inset: 0; z-index: 65; background: rgba(2, 6, 23, 0.35); opacity: 0; pointer-events: none; transition: opacity 160ms ease-out; }
+
+            .sidebar-open .sidebar { display: block; transform: translateX(0); }
+            .sidebar-open .sidebar-mask { display: block; opacity: 1; pointer-events: auto; }
+            .sidebar-open .sidebar-close { display: inline-flex; }
+        }
     </style>
 </head>
 <body>
-    <div class="toolbar"><a href="index.zh.html">中文</a> · <a href="https://github.com/oneoflzx/daily-ai-newsletter" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-    <h1 class="main-title">Daily AI Newsletter</h1>
-    <p class="date-line">Sunday, April 5, 2026</p>
-    <div id="content">
-        
-<div class="source-section">
+    <button class="fab-toc" type="button" id="tocToggle" aria-label="Toggle table of contents">
+        <span class="icon">☰</span>
+        <span>Contents</span>
+    </button>
+    <div class="sidebar-mask" id="sidebarMask" aria-hidden="true"></div>
+    <div class="page-shell">
+        <aside class="sidebar" id="sidebar" aria-label="Table of contents">
+            <div class="sidebar-top">
+                <div class="sidebar-title">Contents</div>
+                <button class="sidebar-close" type="button" id="sidebarClose" aria-label="Close sidebar">✕</button>
+            </div>
+            <ul class="toc">
+                <li><a data-toc-link="1" href="#source-tldr-dev-1">TLDR Dev</a></li><li><a data-toc-link="1" href="#source-tldr-ai-2">TLDR AI</a></li><li><a data-toc-link="1" href="#source-tldr-infosec-3">TLDR Infosec</a></li><li><a data-toc-link="1" href="#source-tldr-product-4">TLDR Product</a></li><li><a data-toc-link="1" href="#source-tldr-devops-5">TLDR DevOps</a></li><li><a data-toc-link="1" href="#source-tldr-founders-6">TLDR Founders</a></li><li><a data-toc-link="1" href="#source-tldr-design-7">TLDR Design</a></li><li><a data-toc-link="1" href="#source-tldr-marketing-8">TLDR Marketing</a></li><li><a data-toc-link="1" href="#source-tldr-crypto-9">TLDR Crypto</a></li><li><a data-toc-link="1" href="#source-tldr-fintech-10">TLDR Fintech</a></li><li><a data-toc-link="1" href="#source-tldr-it-11">TLDR IT</a></li><li><a data-toc-link="1" href="#source-tldr-data-12">TLDR Data</a></li><li><a data-toc-link="1" href="#source-qbitai-13">QbitAI</a></li><li><a data-toc-link="1" href="#source-langchain-blog-14">LangChain Blog</a></li><li><a data-toc-link="1" href="#source-github-blog-15">GitHub Blog</a></li><li><a data-toc-link="1" href="#source-github-trendshift-16">GitHub - TrendShift</a></li>
+            </ul>
+        </aside>
+        <main class="main">
+            <h1 class="main-title">Daily AI Newsletter</h1>
+            <p class="date-line">Sunday, April 5, 2026</p>
+            <div class="action-row"><a class="btn btn-secondary" href="index.zh.html">切换到中文</a><a class="btn" href="../archive/index.html">Archive</a><a class="btn btn-github" href="https://github.com/your-org/daily-ai-newsletter" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:block"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg><span>GitHub</span></a></div>
+            <div id="content">
+                
+<div class="source-section" id="source-tldr-dev-1">
     <h2 class="source-title">TLDR Dev</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.modulate.ai/lp/deepfake-detection-api?utm_source=tldr&amp;utm_medium=paid&amp;utm_campaign=deepfakeapi&amp;utm_term=newsletter" target="_blank" rel="noopener noreferrer">NEW: Modulate&#039;s Deepfake Detection Model takes the #1 spot on 🤗 Hugging Face Leaderboard (Sponsor)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -144,6 +232,9 @@
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://blog.cloudflare.com/one-line-kubernetes-fix-saved-600-hours-a-year/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">A one-line Kubernetes fix that saved 600 hours a year (10 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -484,10 +575,15 @@ Syzbot has 1300 open issues; exploiting these in chains may be used to force att
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (11)" data-label-less="Show less">Show all (11)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-ai-2">
     <h2 class="source-title">TLDR AI</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.cdata.com/lp/ai-accuracy-whitepaper/?utm_source=tldr-ai&utm_medium=newsletter_0403&utm_campaign=26Q1_Accuracy_WP" target="_blank" rel="noopener noreferrer">We benchmarked five MCP integration approaches</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -587,6 +683,9 @@ Provides model (Composer 2), product, and runtime building blocks for more auton
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://qwen.ai/blog?id=qwen3.6&amp;utm_source=tldrai" target="_blank" rel="noopener noreferrer">Qwen3.6-Plus: Towards Real World Agents (31 minute read)</a></div>
     <div class="news-summary"><p>The article body content is not included in your input—only the title &quot;Qwen3.6-Plus: Towards Real World Agents&quot; is provided. Without the core text, I cannot extract the BLUF, strategic pillars, or data/evidence required for the 2-minute Intelligence Brief. Please share the full article content to proceed.</p>
@@ -1053,10 +1152,15 @@ Local LLMs (Qwen3.5:35B) fail at complex tasks (e.g., BLS-12-381 in Vyper) vs. c
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (14)" data-label-less="Show less">Show all (14)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-infosec-3">
     <h2 class="source-title">TLDR Infosec</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://techcrunch.com/2026/04/02/canadian-money-transfer-app-duc-expose-drivers-licenses-passports-amazon-server/?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Money transfer app Duc exposed thousands of driver&#039;s licenses and passports to the open web (3 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -1130,6 +1234,9 @@ Local LLMs (Qwen3.5:35B) fail at complex tasks (e.g., BLS-12-381 in Vyper) vs. c
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.com/afshinm/zerobox?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Zerobox (GitHub Repo)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -1344,10 +1451,15 @@ c) <strong>Non-Human Identity Governance Differentiator</strong>: Linx discovers
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-product-4">
     <h2 class="source-title">TLDR Product</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://miro.com/events/webinar/prototyping-earlier-to-build/?utm_campaign=glb-27q1-glb-wb-hi-c3_o2-prototyping_earlier_webinar&amp;utm_source=tldr&amp;utm_medium=newsletter&amp;utm_content=sponsorship&amp;src=-tldr_glb&amp;utm_term=tldr-ai-secondary" target="_blank" rel="noopener noreferrer">How Lufthansa went from 2-week ideation to validating concepts in &amp;lt;1 day (Sponsor)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -1413,6 +1525,9 @@ c) <strong>Non-Human Identity Governance Differentiator</strong>: Linx discovers
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://spin.atomicobject.com/user-story-as-prompt/?utm_source=tldrproduct" target="_blank" rel="noopener noreferrer">Your Best Prompt Is a Well-Defined User Story (5 minute read)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -1582,10 +1697,15 @@ b. <strong>Actionable Guidance</strong>: The platform offers 3 specific, ready-t
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (8)" data-label-less="Show less">Show all (8)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-devops-5">
     <h2 class="source-title">TLDR DevOps</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://aws.amazon.com/about-aws/whats-new/2026/03/aws-devops-agent-generally-available/?utm_source=tldrdevops" target="_blank" rel="noopener noreferrer">AWS DevOps Agent is now generally available (2 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -1675,6 +1795,9 @@ New daemon-specific constructs (task definitions, <code>daemon_bridge</code> net
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://martinfowler.com/articles/harness-engineering.html?utm_source=tldrdevops" target="_blank" rel="noopener noreferrer">Harness engineering for coding agent users (11 minute read)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -1837,10 +1960,15 @@ Explanation: Case studies show reduced MTTR, faster QA, and protected peak reven
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (4)" data-label-less="Show less">Show all (4)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-founders-6">
     <h2 class="source-title">TLDR Founders</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://wordpress.com/partners/tldr-founders/?utm_source=tldrfounders&amp;utm_medium=email&amp;utm_campaign=tldrfounders_newsletter" target="_blank" rel="noopener noreferrer">A website platform you&#039;ll never outgrow (Sponsor)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -2000,6 +2128,9 @@ Used by 160M+ users and major brands (TIME, Salesforce, Facebook); includes a 14
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://newsletter.mkt1.co/p/website-examples-2026?utm_source=tldrfounders" target="_blank" rel="noopener noreferrer">Your Website Still Matters. Here&#039;s What to Put on It Now (10 minute read)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -2209,10 +2340,15 @@ Outcome: Publishers/apps manage, monetize, and optimize short-form content witho
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-design-7">
     <h2 class="source-title">TLDR Design</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.creativebloq.com/design/branding/the-new-la-olympics-branding-is-blooming-beautiful?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">The new LA Olympics branding is blooming beautiful (4 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -2281,6 +2417,9 @@ Outcome: Publishers/apps manage, monetize, and optimize short-form content witho
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.nngroup.com/articles/genui-vs-vibe/?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">GenUI vs. Vibe Coding: Who&#039;s Designing? (9 minute read)</a></div>
     <div class="news-summary"><h3>1. The &quot;Bottom Line Up Front&quot; (BLUF)</h3>
@@ -2526,10 +2665,15 @@ c. <strong>Modern digital outreach for traditional art</strong>: His Instagram a
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (9)" data-label-less="Show less">Show all (9)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-marketing-8">
     <h2 class="source-title">TLDR Marketing</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="http://go.rokt.com/the-new-economics-of-checkout?utm_medium=sponsoredcontent&amp;utm_source=tldrmarketing&amp;utm_campaign=2026_brand&amp;utm_content=whitepaper" target="_blank" rel="noopener noreferrer">What billions of transactions reveal about the new economics of checkout (Sponsor)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -2657,6 +2801,9 @@ Rokt’s products target checkout/post-checkout to drive revenue: e.g., in-cart 
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.buzzstream.com/blog/journalist-relationship-study/?utm_source=tldrmarketing" target="_blank" rel="noopener noreferrer">How Do Journalist Relationships Impact Email Performance? (7 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -2797,10 +2944,15 @@ Easy website building tools enable quick competitor copying, so sites need frequ
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (4)" data-label-less="Show less">Show all (4)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-crypto-9">
     <h2 class="source-title">TLDR Crypto</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://decrypt.co/363087/solana-drift-protocol-exploited-285-million?utm_source=tldrcrypto" target="_blank" rel="noopener noreferrer">Drift Protocol Exploited for $285 Million in Solana&#039;s Largest DeFi Hack (3 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -2822,10 +2974,13 @@ c. <strong>Protocol &amp; Ecosystem Impact</strong>: Drift’s pre-exploit total
 </ul>
 </div>
 </div>
-</div>
-<div class="source-section">
-    <h2 class="source-title">TLDR Fintech</h2>
+    </div>
     
+</div>
+<div class="source-section" id="source-tldr-fintech-10">
+    <h2 class="source-title">TLDR Fintech</h2>
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.cnn.com/2026/03/30/politics/prediction-markets-justice-department?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Federal prosecutors probe whether prediction market bets violate insider trading laws (4 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -2907,6 +3062,9 @@ c. <strong>Trust in AI Is Growing but Situational</strong>: 62% trust AI for hon
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.fintechweekly.com/news/enterprise-treasury-management-system-digital-assets-2026?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Ripple treasury launches the first treasury management system with native digital asset capabilities (4 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -3013,10 +3171,15 @@ c. <strong>Trust in AI Is Growing but Situational</strong>: 62% trust AI for hon
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (3)" data-label-less="Show less">Show all (3)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-it-11">
     <h2 class="source-title">TLDR IT</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.bankinfosecurity.com/racing-to-adopt-ai-puts-enterprise-security-at-risk-a-31198?utm_source=tldrit" target="_blank" rel="noopener noreferrer">Enterprises Flying Blind on AI Activity (4 minute read)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -3081,6 +3244,9 @@ d. <strong>Ecosystem-Specific Defenses Mandatory</strong>: Generic Windows-first
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.cybersecurity-insiders.com/a-cios-playbook-for-enterprise-ai-deployment-in-2026-and-beyond/?utm_source=tldrit" target="_blank" rel="noopener noreferrer">CIOs Pushed Toward Edge + Hybrid AI Architectures (5 minute read)</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -3316,10 +3482,15 @@ The four pillars are interdependent; Cisco’s end-to-end solution integrates al
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-data-12">
     <h2 class="source-title">TLDR Data</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://luminousmen.com/post/the-power-of-data-sketches-a-comprehensive-guide/?utm_source=tldrdata" target="_blank" rel="noopener noreferrer">The Power of Data Sketches: A Comprehensive Guide (18 minute read)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -3416,6 +3587,9 @@ Outcome: Major systems (Spark, BigQuery, Druid) include native sketch functions,
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://podostack.com/p/change-data-capture-cdc-intro?utm_source=tldrdata" target="_blank" rel="noopener noreferrer">Change Data Capture: Stop Copying 50M Rows to Move 5K Changes (7 minute read)</a></div>
     <div class="news-summary"><h2>1. Bottom Line Up Front (BLUF)</h2>
@@ -3604,10 +3778,15 @@ e. <strong>Simplified Migration</strong>: DuckDB’s SQL dialect closely follows
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (6)" data-label-less="Show less">Show all (6)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-qbitai-13">
     <h2 class="source-title">QbitAI</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.qbitai.com/2026/04/396535.html" target="_blank" rel="noopener noreferrer">OpenAI新模型不是GPTX！全新预训练“土豆”曝光，Sora成弃子的原因找到了</a></div>
     <div class="news-summary"><p>OpenAI’s co-founder Greg Brockman recently revealed key updates about the company’s strategy, new models, and vision for AGI in an interview. Here’s a breakdown of the critical news:</p>
@@ -3690,6 +3869,9 @@ Greg calls it a &quot;personal assistant&quot; that aligns with user goals.</li>
 <p>StreamingClaw’s low-latency, active, and tool-integrated design addresses gaps in traditional video agents, making it suitable for embodied AI scenarios like smart cockpits.</p>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.qbitai.com/2026/04/396366.html" target="_blank" rel="noopener noreferrer">GPT-6，曝光了</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -3955,10 +4137,15 @@ Deeply embedded in Lenovo’s full-device ecosystem (PC, phone, tablet, IoT) wit
 <p>Note: AI’s verifiability (code runs or not) makes engineers the first impacted; other fields (e.g., law) face more AI hallucination risks (1228+ US cases messed up by AI).</p>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-langchain-blog-14">
     <h2 class="source-title">LangChain Blog</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://blog.langchain.com/production-agents-self-heal/" target="_blank" rel="noopener noreferrer">How My Agents Self-Heal in Production</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -4005,10 +4192,13 @@ Deeply embedded in Lenovo’s full-device ecosystem (PC, phone, tablet, IoT) wit
 </ul>
 </div>
 </div>
-</div>
-<div class="source-section">
-    <h2 class="source-title">GitHub Blog</h2>
+    </div>
     
+</div>
+<div class="source-section" id="source-github-blog-15">
+    <h2 class="source-title">GitHub Blog</h2>
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.blog/engineering/architecture-optimization/the-uphill-climb-of-making-diff-lines-performant/" target="_blank" rel="noopener noreferrer">The uphill climb of making diff lines performant</a></div>
     <div class="news-summary"><h3>1. Bottom Line Up Front (BLUF)</h3>
@@ -4030,10 +4220,13 @@ Explanation: These links allow readers to access his code contributions or writt
 </ul>
 </div>
 </div>
-</div>
-<div class="source-section">
-    <h2 class="source-title">GitHub - TrendShift</h2>
+    </div>
     
+</div>
+<div class="source-section" id="source-github-trendshift-16">
+    <h2 class="source-title">GitHub - TrendShift</h2>
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener noreferrer">VoltAgent/awesome-design-md</a></div>
     <div class="news-summary"><h2>1. Project Identity</h2>
@@ -4114,6 +4307,9 @@ Adapt agent personalities/workflows to your team’s needs.</li>
 <p>Made with ❤️ by the AI community.</p>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.com/HKUDS/OpenHarness" target="_blank" rel="noopener noreferrer">HKUDS/OpenHarness</a></div>
     <div class="news-summary"><h2>1. Project Identity</h2>
@@ -4487,7 +4683,52 @@ Adapt agent personalities/workflows to your team’s needs.</li>
 </ul>
 </div>
 </div>
-</div>
     </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (17)" data-label-less="Show less">Show all (17)</button>
+    </div>
+</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+            const d = document.documentElement;
+            const btn = document.getElementById('tocToggle');
+            const mask = document.getElementById('sidebarMask');
+            const closeBtn = document.getElementById('sidebarClose');
+
+            const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+            const setSidebarOpen = (open) => {
+                d.classList.toggle('sidebar-open', !!open);
+                d.classList.toggle('sidebar-closed', !open);
+            };
+
+            btn?.addEventListener('click', () => {
+                const open = d.classList.contains('sidebar-open');
+                setSidebarOpen(!open);
+            });
+            mask?.addEventListener('click', () => setSidebarOpen(false));
+            closeBtn?.addEventListener('click', () => setSidebarOpen(false));
+
+            document.addEventListener('click', (e) => {
+                const a = e.target && e.target.closest ? e.target.closest('a[data-toc-link]') : null;
+                if (!a) return;
+                if (isMobile()) setSidebarOpen(false);
+            });
+
+            document.addEventListener('click', (e) => {
+                const btn = e.target && e.target.closest ? e.target.closest('button[data-toggle-items]') : null;
+                if (!btn) return;
+                const section = btn.closest('.source-section');
+                if (!section) return;
+                const expanded = section.classList.toggle('is-expanded');
+                const labelMore = btn.getAttribute('data-label-more') || '';
+                const labelLess = btn.getAttribute('data-label-less') || '';
+                btn.textContent = expanded ? labelLess : labelMore;
+            });
+        })();
+    </script>
 </body>
 </html>

@@ -15,6 +15,10 @@ skills:
 site:
   github_repo_url: "https://github.com/your-org/daily-ai-newsletter"
 
+ui:
+  # If a source has more items than this, the rest are collapsed behind an expand button.
+  max_visible_items_per_source: 3
+
 processing:
   concurrency: 6
   # RSS: only keep items whose pubDate is within this many days (web/GitHub unchanged)
@@ -27,40 +31,40 @@ processing:
 
 sources:
   web:
-    - name: "TLDR Dev"
+    - name: "TLDR.dev Dev"
       url: "https://tldr.tech/dev/"
       max_date_backtrack_days: 7
-    - name: "TLDR AI"
+    - name: "TLDR.dev AI"
       url: "https://tldr.tech/ai/"
       max_date_backtrack_days: 7
-    - name: "TLDR Infosec"
+    - name: "TLDR.dev Infosec"
       url: "https://tldr.tech/infosec/"
       max_date_backtrack_days: 7
-    - name: "TLDR Product"
+    - name: "TLDR.dev Product"
       url: "https://tldr.tech/product/"
       max_date_backtrack_days: 7
-    - name: "TLDR DevOps"
+    - name: "TLDR.dev DevOps"
       url: "https://tldr.tech/devops/"
       max_date_backtrack_days: 7
-    - name: "TLDR Founders"
+    - name: "TLDR.dev Founders"
       url: "https://tldr.tech/founders/"
       max_date_backtrack_days: 7
-    - name: "TLDR Design"
+    - name: "TLDR.dev Design"
       url: "https://tldr.tech/design/"
       max_date_backtrack_days: 7
-    - name: "TLDR Marketing"
+    - name: "TLDR.dev Marketing"
       url: "https://tldr.tech/marketing/"
       max_date_backtrack_days: 7
-    - name: "TLDR Crypto"
+    - name: "TLDR.dev Crypto"
       url: "https://tldr.tech/crypto/"
       max_date_backtrack_days: 7
-    - name: "TLDR Fintech"
+    - name: "TLDR.dev Fintech"
       url: "https://tldr.tech/fintech/"
       max_date_backtrack_days: 7
-    - name: "TLDR IT"
+    - name: "TLDR.dev IT"
       url: "https://tldr.tech/it/"
       max_date_backtrack_days: 7
-    - name: "TLDR Data"
+    - name: "TLDR.dev Data"
       url: "https://tldr.tech/data/"
       max_date_backtrack_days: 7
 

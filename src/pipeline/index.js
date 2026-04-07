@@ -332,6 +332,7 @@ export class NewsPipeline {
       await generator.generate(unified, {
         dateDir,
         site: this.config.site,
+        ui: this.config.ui,
         dateKey,
         incremental: true,
         quiet: htmlGenQuiet

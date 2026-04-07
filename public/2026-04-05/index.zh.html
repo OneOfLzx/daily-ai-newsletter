@@ -1,19 +1,72 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" class="sidebar-closed">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#2563eb">
     <title>每日AI简讯 — 2026年4月5日星期日</title>
+    <script>
+        (() => {
+            try {
+                const d = document.documentElement;
+                const isDesktop = window.matchMedia && window.matchMedia('(min-width: 768px)').matches;
+                d.classList.toggle('sidebar-open', !!isDesktop);
+                d.classList.toggle('sidebar-closed', !isDesktop);
+            } catch {}
+        })();
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .toolbar { display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-        .toolbar a { color: #2563eb; text-decoration: none; font-size: 0.95rem; }
-        .toolbar a:hover { text-decoration: underline; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; background: #ffffff; }
+
+        .page-shell { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: 24px; padding: 20px; }
+        .main { width: min(800px, 100%); }
+
+        .fab-toc { position: fixed; top: 16px; left: 16px; z-index: 60; display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 999px; border: 1px solid rgba(15, 23, 42, 0.14); background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); color: #0f172a; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12); cursor: pointer; font-weight: 600; }
+        .fab-toc:hover { background: rgba(255,255,255,0.98); }
+        .fab-toc:active { transform: translateY(1px); }
+        .fab-toc .icon { font-size: 16px; line-height: 1; }
+
+        .sidebar { width: 260px; flex: 0 0 260px; position: fixed; top: 0; left: 0; height: 100vh; max-height: 100vh; overflow-y: auto; overflow-x: hidden; padding: 14px; border-radius: 0; background: #ffffff; border: none; border-right: 1px solid #e2e8f0; z-index: 55; }
+        .sidebar-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+        .sidebar .sidebar-title { font-weight: 800; color: #0f172a; letter-spacing: 0.2px; }
+        .sidebar-close { display: none; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; border: 1px solid rgba(15, 23, 42, 0.14); background: rgba(255,255,255,0.9); color: #0f172a; cursor: pointer; }
+        .sidebar-close:hover { background: rgba(255,255,255,0.98); }
+        .toc { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+        .toc a { display: block; padding: 8px 10px; border-radius: 8px; color: #1e293b; text-decoration: none; font-size: 0.95rem; border: 1px solid transparent; }
+        .toc a:hover { background: rgba(37, 99, 235, 0.06); border-color: rgba(37, 99, 235, 0.18); }
+
+        /* Hide scrollbar when idle (show on hover for WebKit). */
+        .sidebar { scrollbar-width: none; }
+        .sidebar::-webkit-scrollbar { width: 0; height: 0; }
+        .sidebar:hover { scrollbar-width: thin; }
+        .sidebar:hover::-webkit-scrollbar { width: 10px; }
+        .sidebar:hover::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.18); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+        .sidebar:hover::-webkit-scrollbar-track { background: transparent; }
+
+        .sidebar-mask { display: none; }
+        .sidebar-closed .sidebar { display: none; }
+
+        @media (min-width: 768px) {
+            .sidebar-open .page-shell { padding-left: 280px; }
+            .sidebar-open .fab-toc { left: 276px; }
+            .sidebar-close { display: none; }
+        }
+
         .main-title, .date-line { text-align: center; font-size: 2rem; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
-        .date-line { color: #1e293b; font-weight: 600; margin-bottom: 32px; }
+        .date-line { color: #1e293b; font-weight: 600; margin-bottom: 10px; }
+
+        .action-row { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; text-decoration: none; font-size: 0.95rem; font-weight: 700; }
+        .btn svg { flex: 0 0 auto; }
+        .btn:hover { background: #f8fafc; }
+        .btn:active { transform: translateY(1px); }
+        .btn-github { background: #0b1220; border-color: #0b1220; color: #ffffff; }
+        .btn-github:hover { background: #111a2d; }
+        .btn-secondary { border-color: #e2e8f0; background: #f8fafc; color: #0f172a; }
+        .btn-secondary:hover { background: #eef2f7; }
+
         .source-section { margin-bottom: 40px; padding: 20px; background: #f8fafc; border-radius: 8px; }
         .source-title { font-size: 1.5rem; margin-bottom: 20px; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
         .news-item { margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -36,17 +89,52 @@
         .news-summary pre { background: #f1f5f9; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 0.85em; margin: 0.5em 0; }
         .news-summary pre code { background: none; padding: 0; }
         .news-summary blockquote { margin: 0.5em 0; padding-left: 0.75rem; border-left: 3px solid #cbd5e1; color: #64748b; }
+
+        .collapse-btn-row { margin-top: 6px; display: flex; justify-content: center; }
+        .toggle-items { cursor: pointer; border: 1px solid #e2e8f0; background: #ffffff; color: #0f172a; padding: 8px 10px; border-radius: 10px; font-weight: 700; }
+        .toggle-items:hover { background: #f8fafc; }
+        .items-hidden { display: none; }
+        .source-section.is-expanded .items-hidden { display: block; }
+
+        @media (max-width: 767px) {
+            .page-shell { padding: 16px; }
+            .fab-toc { top: 12px; left: 12px; padding: 10px 12px; }
+            .sidebar-open .fab-toc { display: none; }
+            .sidebar { width: 84vw; max-width: 320px; z-index: 70; transform: translateX(-102%); transition: transform 160ms ease-out; }
+            .sidebar-mask { position: fixed; inset: 0; z-index: 65; background: rgba(2, 6, 23, 0.35); opacity: 0; pointer-events: none; transition: opacity 160ms ease-out; }
+
+            .sidebar-open .sidebar { display: block; transform: translateX(0); }
+            .sidebar-open .sidebar-mask { display: block; opacity: 1; pointer-events: auto; }
+            .sidebar-open .sidebar-close { display: inline-flex; }
+        }
     </style>
 </head>
 <body>
-    <div class="toolbar"><a href="index.en.html">English</a> · <a href="https://github.com/oneoflzx/daily-ai-newsletter" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-    <h1 class="main-title">每日AI简讯</h1>
-    <p class="date-line">2026年4月5日星期日</p>
-    <div id="content">
-        
-<div class="source-section">
+    <button class="fab-toc" type="button" id="tocToggle" aria-label="Toggle table of contents">
+        <span class="icon">☰</span>
+        <span>目录</span>
+    </button>
+    <div class="sidebar-mask" id="sidebarMask" aria-hidden="true"></div>
+    <div class="page-shell">
+        <aside class="sidebar" id="sidebar" aria-label="Table of contents">
+            <div class="sidebar-top">
+                <div class="sidebar-title">目录</div>
+                <button class="sidebar-close" type="button" id="sidebarClose" aria-label="Close sidebar">✕</button>
+            </div>
+            <ul class="toc">
+                <li><a data-toc-link="1" href="#source-tldr-dev-1">TLDR Dev</a></li><li><a data-toc-link="1" href="#source-tldr-ai-2">TLDR AI</a></li><li><a data-toc-link="1" href="#source-tldr-infosec-3">TLDR Infosec</a></li><li><a data-toc-link="1" href="#source-tldr-product-4">TLDR Product</a></li><li><a data-toc-link="1" href="#source-tldr-devops-5">TLDR DevOps</a></li><li><a data-toc-link="1" href="#source-tldr-founders-6">TLDR Founders</a></li><li><a data-toc-link="1" href="#source-tldr-design-7">TLDR Design</a></li><li><a data-toc-link="1" href="#source-tldr-marketing-8">TLDR Marketing</a></li><li><a data-toc-link="1" href="#source-tldr-crypto-9">TLDR Crypto</a></li><li><a data-toc-link="1" href="#source-tldr-fintech-10">TLDR Fintech</a></li><li><a data-toc-link="1" href="#source-tldr-it-11">TLDR IT</a></li><li><a data-toc-link="1" href="#source-tldr-data-12">TLDR Data</a></li><li><a data-toc-link="1" href="#source-qbitai-13">QbitAI</a></li><li><a data-toc-link="1" href="#source-langchain-blog-14">LangChain Blog</a></li><li><a data-toc-link="1" href="#source-github-blog-15">GitHub Blog</a></li><li><a data-toc-link="1" href="#source-github-trendshift-16">GitHub - TrendShift</a></li>
+            </ul>
+        </aside>
+        <main class="main">
+            <h1 class="main-title">每日AI简讯</h1>
+            <p class="date-line">2026年4月5日星期日</p>
+            <div class="action-row"><a class="btn btn-secondary" href="index.en.html">Switch to English</a><a class="btn" href="../archive/index.html">历史归档</a><a class="btn btn-github" href="https://github.com/your-org/daily-ai-newsletter" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:block"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg><span>GitHub</span></a></div>
+            <div id="content">
+                
+<div class="source-section" id="source-tldr-dev-1">
     <h2 class="source-title">TLDR Dev</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.modulate.ai/lp/deepfake-detection-api?utm_source=tldr&amp;utm_medium=paid&amp;utm_campaign=deepfakeapi&amp;utm_term=newsletter" target="_blank" rel="noopener noreferrer">全新：Modulate深度伪造检测模型登顶🤗 Hugging Face排行榜（赞助方）
 
@@ -173,6 +261,9 @@ The capitalized &quot;Modulate&quot; suggests it is likely a proper noun (e.g., 
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://blog.cloudflare.com/one-line-kubernetes-fix-saved-600-hours-a-year/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">一行Kubernetes修复命令每年节省600小时（10分钟阅读）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -643,10 +734,15 @@ Syzbot当前有1300个未解决漏洞；利用这些漏洞形成攻击链，可�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（11）" data-label-less="收起">展开全部（11）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-ai-2">
     <h2 class="source-title">TLDR AI</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.cdata.com/lp/ai-accuracy-whitepaper/?utm_source=tldr-ai&utm_medium=newsletter_0403&utm_campaign=26Q1_Accuracy_WP" target="_blank" rel="noopener noreferrer">我们对五种MCP集成方法进行了基准测试。</a></div>
     <div class="news-summary"><h3>1. 核心结论先行（BLUF）</h3>
@@ -755,6 +851,9 @@ Cursor 3将所有本地/云端智能体（来自移动端、Slack、GitHub、Lin
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://qwen.ai/blog?id=qwen3.6&amp;utm_source=tldrai" target="_blank" rel="noopener noreferrer">Qwen3.6-Plus：迈向真实世界智能体（阅读时长31分钟）</a></div>
     <div class="news-summary"><p>你的输入未包含文章正文内容，仅提供了标题“Qwen3.6-Plus: 迈向真实世界智能体”。由于缺少核心文本，我无法提取出2分钟情报简报所需的BLUF（核心要点）、战略支柱或数据/证据。请提供完整的文章内容以便继续。</p>
@@ -1419,10 +1518,15 @@ Claude Code Max20x（约678小时，38倍）、Codex Pro（约220小时，12倍�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（14）" data-label-less="收起">展开全部（14）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-infosec-3">
     <h2 class="source-title">TLDR Infosec</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://techcrunch.com/2026/04/02/canadian-money-transfer-app-duc-expose-drivers-licenses-passports-amazon-server/?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">汇款应用Duc泄露数千份驾照与护照信息至公开网络（3分钟阅读）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -1533,6 +1637,9 @@ Claude Code Max20x（约678小时，38倍）、Codex Pro（约220小时，12倍�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.com/afshinm/zerobox?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Zerobox (GitHub 仓库)</a></div>
     <div class="news-summary"><h3>1. 核心要点前置（BLUF）</h3>
@@ -1775,10 +1882,15 @@ iOS26采用率偏低（源于兼容性顾虑、存储限制、设计变更及英
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（7）" data-label-less="收起">展开全部（7）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-product-4">
     <h2 class="source-title">TLDR Product</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://miro.com/events/webinar/prototyping-earlier-to-build/?utm_campaign=glb-27q1-glb-wb-hi-c3_o2-prototyping_earlier_webinar&amp;utm_source=tldr&amp;utm_medium=newsletter&amp;utm_content=sponsorship&amp;src=-tldr_glb&amp;utm_term=tldr-ai-secondary" target="_blank" rel="noopener noreferrer">汉莎航空：如何从两周创意构思到1天内完成概念验证（赞助方）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -1884,6 +1996,9 @@ AI驱动的检查（如可用性评估）加快反馈循环，支持更快速、
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://spin.atomicobject.com/user-story-as-prompt/?utm_source=tldrproduct" target="_blank" rel="noopener noreferrer">你最好的提示词是定义清晰的用户故事（阅读需5分钟）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -2113,10 +2228,15 @@ b. <strong>可落地指导</strong>：平台提供3个具体即用型提示词�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（8）" data-label-less="收起">展开全部（8）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-devops-5">
     <h2 class="source-title">TLDR DevOps</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://aws.amazon.com/about-aws/whats-new/2026/03/aws-devops-agent-generally-available/?utm_source=tldrdevops" target="_blank" rel="noopener noreferrer">AWS DevOps Agent 现已正式发布（2分钟阅读）</a></div>
     <div class="news-summary"><h3>1. 核心要点前置（BLUF）</h3>
@@ -2241,6 +2361,9 @@ Offload与现有IAM/网络政策集成，使用SOC 2认证基础设施；为受�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://martinfowler.com/articles/harness-engineering.html?utm_source=tldrdevops" target="_blank" rel="noopener noreferrer">Harness工程：面向编码Agent用户（11分钟阅读）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -2426,10 +2549,15 @@ This translation balances accuracy, technical precision, and natural Chinese rea
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（4）" data-label-less="收起">展开全部（4）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-founders-6">
     <h2 class="source-title">TLDR Founders</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://wordpress.com/partners/tldr-founders/?utm_source=tldrfounders&amp;utm_medium=email&amp;utm_campaign=tldrfounders_newsletter" target="_blank" rel="noopener noreferrer">一个你永远不会嫌不够用的网站平台（赞助商）</a></div>
     <div class="news-summary"><h3>1. 核心要点（BLUF）</h3>
@@ -2627,6 +2755,9 @@ Note: As a well-known global brand and domain name, &quot;WordPress.com&quot; is
 </ol>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://newsletter.mkt1.co/p/website-examples-2026?utm_source=tldrfounders" target="_blank" rel="noopener noreferrer">你的网站依然重要。现在该在上面添加些什么？（阅读需10分钟）</a></div>
     <div class="news-summary"><h3>1. 核心要点前置（BLUF）</h3>
@@ -2900,10 +3031,15 @@ Replicas处理团队30%以上的拉取请求，涵盖常规修复、功能新增
 <p><strong>注</strong>：术语适配（如“站会”“工单”“RACI”均采用国内行业通用译法/缩写），句式拆分符合中文短句习惯，无机械直译。</p>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（7）" data-label-less="收起">展开全部（7）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-design-7">
     <h2 class="source-title">TLDR Design</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.creativebloq.com/design/branding/the-new-la-olympics-branding-is-blooming-beautiful?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">新洛杉矶奥运会品牌标识绽放得格外惊艳（阅读约4分钟）</a></div>
     <div class="news-summary"><h3>1. 核心要点前置（BLUF）</h3>
@@ -2991,6 +3127,9 @@ Adobe优先考虑人物吸引力，而非生硬的产品植入；传统明星（
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.nngroup.com/articles/genui-vs-vibe/?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">GenUI 与 Vibe Coding：谁在主导设计？（阅读时长9分钟）
 
@@ -3279,10 +3418,15 @@ Onlook 为开源项目（GitHub免费自托管），托管版云服务需排队�
 <p>注：品牌名采用国内通用中文译法，符合本地化表达习惯；长句拆分后更贴合中文阅读节奏，无冗余修饰。</p>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（9）" data-label-less="收起">展开全部（9）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-marketing-8">
     <h2 class="source-title">TLDR Marketing</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="http://go.rokt.com/the-new-economics-of-checkout?utm_medium=sponsoredcontent&amp;utm_source=tldrmarketing&amp;utm_campaign=2026_brand&amp;utm_content=whitepaper" target="_blank" rel="noopener noreferrer">数十亿笔交易揭示结账环节的新经济逻辑（赞助）</a></div>
     <div class="news-summary"><h3>一、核心要点前置（BLUF）</h3>
@@ -3405,6 +3549,9 @@ Rokt产品聚焦结账及结账后环节创收：例如购物车加购推荐、�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.buzzstream.com/blog/journalist-relationship-study/?utm_source=tldrmarketing" target="_blank" rel="noopener noreferrer">与记者的关系如何影响邮件效果？（阅读需7分钟）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -3565,10 +3712,15 @@ c. <strong>可扩展的分层定价</strong>：分为创作者版、团队版、
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（4）" data-label-less="收起">展开全部（4）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-crypto-9">
     <h2 class="source-title">TLDR Crypto</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://decrypt.co/363087/solana-drift-protocol-exploited-285-million?utm_source=tldrcrypto" target="_blank" rel="noopener noreferrer">Drift协议遭攻击损失2.85亿美元，系Solana链上最大去中心化金融（DeFi）黑客事件（阅读需3分钟）
 
@@ -3607,10 +3759,13 @@ Drift攻击前总锁仓价值（TVL）约5.5亿美元；其原生代币DRIFT当�
 </ul>
 </div>
 </div>
-</div>
-<div class="source-section">
-    <h2 class="source-title">TLDR Fintech</h2>
+    </div>
     
+</div>
+<div class="source-section" id="source-tldr-fintech-10">
+    <h2 class="source-title">TLDR Fintech</h2>
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.cnn.com/2026/03/30/politics/prediction-markets-justice-department?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">联邦检察官正调查预测市场投注是否违反内幕交易法（阅读需4分钟）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -3713,6 +3868,9 @@ Polymarket和Kalshi等平台正更新规则（禁止内幕交易、针对政客/
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.fintechweekly.com/news/enterprise-treasury-management-system-digital-assets-2026?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Ripple 财库推出首个具备原生数字资产功能的财资管理系统（阅读时长4分钟）</a></div>
     <div class="news-summary"><h3>1. 核心要点前置（BLUF）</h3>
@@ -3854,10 +4012,15 @@ Nium拥有覆盖190+国家的40+张监管牌照，且为Visa/Mastercard主会员
 </ul>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（3）" data-label-less="收起">展开全部（3）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-it-11">
     <h2 class="source-title">TLDR IT</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.bankinfosecurity.com/racing-to-adopt-ai-puts-enterprise-security-at-risk-a-31198?utm_source=tldrit" target="_blank" rel="noopener noreferrer">企业在AI活动中盲目行事（预计阅读4分钟）</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -3942,6 +4105,9 @@ Delinea建议仅在需要时向AI智能体授予访问权限（零永久权限�
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.cybersecurity-insiders.com/a-cios-playbook-for-enterprise-ai-deployment-in-2026-and-beyond/?utm_source=tldrit" target="_blank" rel="noopener noreferrer">首席信息官被促使转向边缘计算+混合人工智能架构（阅读时间5分钟）
 
@@ -4216,10 +4382,15 @@ AI攻击与物联网漏洞（85%企业遭遇安全事件，50%损失超百万美
 <p><strong>注</strong>：技术术语采用行业标准翻译（如ISE→身份服务引擎、MLO→多链路聚合），产品名（AgenticOps、URWB）保留英文以符合企业文档习惯。</p>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（7）" data-label-less="收起">展开全部（7）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-tldr-data-12">
     <h2 class="source-title">TLDR Data</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://luminousmen.com/post/the-power-of-data-sketches-a-comprehensive-guide/?utm_source=tldrdata" target="_blank" rel="noopener noreferrer">数据草图的力量：全面指南（阅读时长18分钟）</a></div>
     <div class="news-summary"><h3>1. 核心结论（BLUF）</h3>
@@ -4374,6 +4545,9 @@ AI攻击与物联网漏洞（85%企业遭遇安全事件，50%损失超百万美
 </ul>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://podostack.com/p/change-data-capture-cdc-intro?utm_source=tldrdata" target="_blank" rel="noopener noreferrer">变更数据捕获：别再复制5000万行来迁移5000条变更（阅读需7分钟）
 
@@ -4662,10 +4836,15 @@ No robotic phrasing, concise yet informative, fits Chinese academic/tech title c
 <p>注：文中 niche 因无精准中文对应，保留英文；术语如“推理工程”“量化”等均采用行业标准译法，符合中文技术语境。</p>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（6）" data-label-less="收起">展开全部（6）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-qbitai-13">
     <h2 class="source-title">QbitAI</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.qbitai.com/2026/04/396535.html" target="_blank" rel="noopener noreferrer">OpenAI新模型并非GPT-X！全新预训练模型“土豆”曝光，Sora被弃用的原因浮出水面。
 
@@ -4757,6 +4936,9 @@ No robotic phrasing, concise yet informative, fits Chinese academic/tech title c
 <p>流爪的低延迟、主动交互及工具集成设计填补了传统视频智能体的空白，适用于智能座舱等具身AI场景。</p>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://www.qbitai.com/2026/04/396366.html" target="_blank" rel="noopener noreferrer">GPT-6，曝光了
 
@@ -5061,10 +5243,15 @@ AI手机折叠屏垂直领域占比29%（线上排名第一）。</li>
 <p>注意：AI代码的可验证性（能运行与否）让工程师成为首当其冲的群体；其他领域（如法律）则面临更多AI幻觉风险——美国已有1228起以上案件因AI出错受影响。</p>
 </div>
 </div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（7）" data-label-less="收起">展开全部（7）</button>
+    </div>
 </div>
-<div class="source-section">
+<div class="source-section" id="source-langchain-blog-14">
     <h2 class="source-title">LangChain Blog</h2>
-    
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://blog.langchain.com/production-agents-self-heal/" target="_blank" rel="noopener noreferrer">《我的代理程序如何在生产环境中自愈》</a></div>
     <div class="news-summary"><h3>1. 核心结论前置（BLUF）</h3>
@@ -5111,10 +5298,13 @@ AI手机折叠屏垂直领域占比29%（线上排名第一）。</li>
 </ul>
 </div>
 </div>
-</div>
-<div class="source-section">
-    <h2 class="source-title">GitHub Blog</h2>
+    </div>
     
+</div>
+<div class="source-section" id="source-github-blog-15">
+    <h2 class="source-title">GitHub Blog</h2>
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.blog/engineering/architecture-optimization/the-uphill-climb-of-making-diff-lines-performant/" target="_blank" rel="noopener noreferrer">差分线性能提升的过程充满挑战
 
@@ -5146,10 +5336,13 @@ AI手机折叠屏垂直领域占比29%（线上排名第一）。</li>
 </ul>
 </div>
 </div>
-</div>
-<div class="source-section">
-    <h2 class="source-title">GitHub - TrendShift</h2>
+    </div>
     
+</div>
+<div class="source-section" id="source-github-trendshift-16">
+    <h2 class="source-title">GitHub - TrendShift</h2>
+    <div class="items-visible">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.com/VoltAgent/awesome-design-md" target="_blank" rel="noopener noreferrer">VoltAgent/awesome-design-md</a></div>
     <div class="news-summary"><h3>1. 项目定位</h3>
@@ -5266,6 +5459,9 @@ AI手机折叠屏垂直领域占比29%（线上排名第一）。</li>
 <p>AI社区倾情打造 ❤️</p>
 </div>
 </div>
+    </div>
+    <div class="items-hidden">
+        
 <div class="news-item">
     <div class="news-title"><a href="https://github.com/HKUDS/OpenHarness" target="_blank" rel="noopener noreferrer">HKUDS/OpenHarness</a></div>
     <div class="news-summary"><h2>1. 项目定位</h2>
@@ -5727,7 +5923,52 @@ AI手机折叠屏垂直领域占比29%（线上排名第一）。</li>
 </ul>
 </div>
 </div>
-</div>
     </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="展开全部（17）" data-label-less="收起">展开全部（17）</button>
+    </div>
+</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+            const d = document.documentElement;
+            const btn = document.getElementById('tocToggle');
+            const mask = document.getElementById('sidebarMask');
+            const closeBtn = document.getElementById('sidebarClose');
+
+            const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+            const setSidebarOpen = (open) => {
+                d.classList.toggle('sidebar-open', !!open);
+                d.classList.toggle('sidebar-closed', !open);
+            };
+
+            btn?.addEventListener('click', () => {
+                const open = d.classList.contains('sidebar-open');
+                setSidebarOpen(!open);
+            });
+            mask?.addEventListener('click', () => setSidebarOpen(false));
+            closeBtn?.addEventListener('click', () => setSidebarOpen(false));
+
+            document.addEventListener('click', (e) => {
+                const a = e.target && e.target.closest ? e.target.closest('a[data-toc-link]') : null;
+                if (!a) return;
+                if (isMobile()) setSidebarOpen(false);
+            });
+
+            document.addEventListener('click', (e) => {
+                const btn = e.target && e.target.closest ? e.target.closest('button[data-toggle-items]') : null;
+                if (!btn) return;
+                const section = btn.closest('.source-section');
+                if (!section) return;
+                const expanded = section.classList.toggle('is-expanded');
+                const labelMore = btn.getAttribute('data-label-more') || '';
+                const labelLess = btn.getAttribute('data-label-less') || '';
+                btn.textContent = expanded ? labelLess : labelMore;
+            });
+        })();
+    </script>
 </body>
 </html>

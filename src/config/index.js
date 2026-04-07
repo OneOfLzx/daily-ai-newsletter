@@ -93,6 +93,20 @@ function validateConfig(config) {
     }
   }
 
+  if (config.ui !== undefined) {
+    if (typeof config.ui !== 'object' || config.ui === null) {
+      logger.error('ui must be an object when provided');
+      throw new Error('ui must be an object when provided');
+    }
+    if (config.ui.max_visible_items_per_source !== undefined) {
+      const n = config.ui.max_visible_items_per_source;
+      if (!Number.isInteger(n) || n < 1) {
+        logger.error('ui.max_visible_items_per_source must be a positive integer');
+        throw new Error('ui.max_visible_items_per_source invalid');
+      }
+    }
+  }
+
   if (config.processing !== undefined) {
     if (typeof config.processing !== 'object' || config.processing === null) {
       logger.error('processing must be an object when provided');
@@ -205,6 +219,13 @@ function validateConfig(config) {
  * @param {object} config
  */
 export function applyConfigDefaults(config) {
+  if (!config.ui) {
+    config.ui = {};
+  }
+  if (config.ui.max_visible_items_per_source === undefined) {
+    config.ui.max_visible_items_per_source = 20;
+  }
+
   if (!config.processing) {
     config.processing = {};
   }

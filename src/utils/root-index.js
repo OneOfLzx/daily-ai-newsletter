@@ -13,9 +13,23 @@ export function rootLandingRedirectHtml(dateKey) {
   <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#2563eb">
   <meta http-equiv="refresh" content="0; url=${target}">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; margin: 0; padding: 28px; color: #0f172a; background: #ffffff; }
+    .wrap { max-width: 820px; margin: 0 auto; text-align: center; }
+    h1 { font-size: 2.2rem; margin: 14px 0 8px; color: #2563eb; font-weight: 800; }
+    p { margin: 10px 0; color: #334155; }
+    a { color: #2563eb; text-decoration: none; font-weight: 700; }
+    a:hover { text-decoration: underline; }
+    .muted { color: #64748b; }
+  </style>
 </head>
 <body>
-  <p><a href="${target}">Continue to latest newsletter</a></p>
+  <div class="wrap">
+    <h1>Daily AI Newsletter</h1>
+    <p>Welcome. Redirecting to the latest edition...</p>
+    <p class="muted">If you are not redirected automatically, open <a href="${target}">the latest newsletter</a>.</p>
+  </div>
 </body>
 </html>`;
 }

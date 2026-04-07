@@ -148,7 +148,10 @@ describe('HtmlGenerator', () => {
       }
     };
 
-    const result = await generator.generate(unifiedData);
+    const result = await generator.generate(unifiedData, {
+      ui: { max_visible_items_per_source: 1 },
+      site: { github_repo_url: 'https://github.com/test/repo' }
+    });
     expect(result.en).toContain('<!DOCTYPE html>');
     expect(result.en).toContain('rel="icon"');
     expect(result.en).toContain('../favicon.svg');
@@ -157,10 +160,22 @@ describe('HtmlGenerator', () => {
     expect(result.en).toContain('Test Web Article');
     expect(result.en).toContain('GitHub - Test GitHub Source');
     expect(result.en).toContain('test-github-project');
+    expect(result.en).toContain('class="action-row"');
+    expect(result.en).toContain('href="../archive/index.html"');
+    expect(result.en).toContain('id="tocToggle"');
+    expect(result.en).toContain('data-toc-link="1"');
+    expect(result.en).toContain('data-toggle-items="1"');
+    expect(result.en).toContain('Show all (1)');
+    expect(result.en).toContain('class="btn btn-github"');
+    expect(result.en).toContain('切换到中文');
     
     expect(result.zh).toContain('<!DOCTYPE html>');
     expect(result.zh).toContain('每日AI简讯');
     expect(result.zh).toContain('测试网页文章');
     expect(result.zh).toContain('GitHub项目摘要。');
+    expect(result.zh).toContain('href="../archive/index.html"');
+    expect(result.zh).toContain('展开全部（1）');
+    expect(result.zh).toContain('历史归档');
+    expect(result.zh).toContain('Switch to English');
   });
 });
