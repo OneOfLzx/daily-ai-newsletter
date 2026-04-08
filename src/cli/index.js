@@ -51,6 +51,10 @@ async function main() {
 
     const pipeline = new NewsPipeline(config);
     await pipeline.run(config.sources, { openai });
+    const { promptTokens, completionTokens, totalTokens } = openai.getTokenUsage();
+    logger.info(
+      `Token 用量 — 输入: ${promptTokens}, 输出: ${completionTokens}, 合计: ${totalTokens}`
+    );
     logger.info('Done.');
   } catch (err) {
     logger.error(`Error: ${err.message}`);
