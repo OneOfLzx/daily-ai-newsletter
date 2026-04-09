@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Standalone utility: re-render HTML pages from existing raw-data.json,
- * without running the full pipeline.
+ * Re-render HTML from an existing edition's raw-data.json (no LLM / fetch).
+ * Uses the same helpers and HtmlGenerator options as NewsPipeline so project
+ * changes stay in one place (see src/pipeline/index.js).
  *
  * Usage:
  *   node scripts/render-html-only.js --date 2026-04-07
@@ -13,6 +14,10 @@ import path from 'node:path';
 
 import HtmlGenerator from '../src/generator/index.js';
 import { loadConfig } from '../src/config/index.js';
+import {
+  prepareUnifiedDataForHtml,
+  htmlGenerateOptionsFromConfig,
+} from '../src/pipeline/index.js';
 
 function parseArgs(argv) {
   const out = {};
@@ -37,6 +42,8 @@ function usageAndExit(code, msg) {
     [
       'Usage:',
       '  node scripts/render-html-only.js --date YYYY-MM-DD [--config ./config.yaml] [--publicDir ./public]',
+      '',
+      'Loads config like the main CLI (default: ./config.yaml) for site, ui, and source order fallbacks.',
       '',
       'Reads:',
       '  <publicDir>/YYYY-MM-DD/raw-data.json',
@@ -63,28 +70,27 @@ async function main() {
     usageAndExit(2, 'Missing or invalid --date (expected YYYY-MM-DD).');
   }
 
-  const publicDir = typeof args.publicDir === 'string'
-    ? path.resolve(process.cwd(), args.publicDir)
-    : path.resolve(process.cwd(), 'public');
+  const publicDir =
+    typeof args.publicDir === 'string'
+      ? path.resolve(process.cwd(), args.publicDir)
+      : path.resolve(process.cwd(), 'public');
 
   const dateDir = path.join(publicDir, dateKey);
   const rawDataPath = path.join(dateDir, 'raw-data.json');
 
-  let config = null;
-  if (typeof args.config === 'string') {
-    config = loadConfig(path.resolve(process.cwd(), args.config));
-  }
+  const config =
+    typeof args.config === 'string'
+      ? loadConfig(path.resolve(process.cwd(), args.config))
+      : loadConfig();
 
-  const unifiedData = await readJson(rawDataPath);
+  let unifiedData = await readJson(rawDataPath);
+  unifiedData = prepareUnifiedDataForHtml(unifiedData, config);
 
   const generator = new HtmlGenerator();
-  await generator.generate(unifiedData, {
-    dateDir,
-    dateKey,
-    incremental: true,
-    site: config?.site,
-    ui: config?.ui,
-  });
+  await generator.generate(
+    unifiedData,
+    htmlGenerateOptionsFromConfig(config, { dateDir, dateKey }, { incremental: true })
+  );
 
   console.log(`Re-rendered HTML for ${dateKey} from ${rawDataPath}`);
 }
@@ -93,4 +99,3 @@ main().catch(err => {
   console.error(err?.stack || String(err));
   process.exit(1);
 });
-

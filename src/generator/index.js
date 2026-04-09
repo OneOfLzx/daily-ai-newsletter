@@ -309,11 +309,20 @@ export class HtmlGenerator {
       logger.info('Generating HTML newsletter for both languages');
     }
 
-    const allSources = [
-      ...unifiedData.sources.web,
-      ...unifiedData.sources.rss,
-      ...unifiedData.sources.github
-    ];
+    const defaultChannelOrder = ['web', 'rss', 'github'];
+    const storedOrder = unifiedData.sourceChannelOrder;
+    const channelOrder =
+      Array.isArray(storedOrder) && storedOrder.length
+        ? storedOrder
+        : defaultChannelOrder;
+
+    const allSources = [];
+    for (const ch of channelOrder) {
+      const list = unifiedData.sources[ch];
+      if (Array.isArray(list)) {
+        allSources.push(...list);
+      }
+    }
 
     const date = new Date(unifiedData.timestamp);
     const year = date.getFullYear();

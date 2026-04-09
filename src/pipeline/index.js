@@ -21,6 +21,78 @@ const RUN_META = 'run-meta.json';
 const PARTIAL = 'partial.json';
 const RAW_DATA = 'raw-data.json';
 
+const SOURCE_CHANNELS = ['web', 'rss', 'github'];
+
+/**
+ * Top-level key order under `sources:` in config (YAML preserves mapping key order).
+ * @param {Record<string, unknown>} sources
+ * @returns {string[]}
+ */
+export function sourceChannelOrderFromConfig(sources = {}) {
+  const allowed = new Set(SOURCE_CHANNELS);
+  return Object.keys(sources).filter(k => allowed.has(k) && Array.isArray(sources[k]));
+}
+
+/**
+ * Dedupe channel keys and append any missing `web` / `rss` / `github` (same rules as `formatUnifiedData`).
+ * @param {string[]} [sourceChannelOrder]
+ * @returns {string[]}
+ */
+export function normalizeSourceChannelOrder(sourceChannelOrder = SOURCE_CHANNELS) {
+  const seen = new Set();
+  const order = [];
+  for (const k of sourceChannelOrder || []) {
+    if (SOURCE_CHANNELS.includes(k) && !seen.has(k)) {
+      seen.add(k);
+      order.push(k);
+    }
+  }
+  for (const k of SOURCE_CHANNELS) {
+    if (!seen.has(k)) {
+      seen.add(k);
+      order.push(k);
+    }
+  }
+  return order;
+}
+
+/**
+ * Fill/normalize fields on unified data loaded from disk so `HtmlGenerator` matches pipeline output.
+ * @param {object} unifiedData
+ * @param {object} config - full config from `loadConfig` (needs `sources` for channel order fallback)
+ * @returns {object}
+ */
+export function prepareUnifiedDataForHtml(unifiedData, config) {
+  let preferred = unifiedData.sourceChannelOrder;
+  if (!Array.isArray(preferred) || !preferred.length) {
+    preferred = sourceChannelOrderFromConfig(config.sources || {});
+  }
+  if (!Array.isArray(preferred) || !preferred.length) {
+    preferred = [...SOURCE_CHANNELS];
+  }
+  return {
+    ...unifiedData,
+    sourceChannelOrder: normalizeSourceChannelOrder(preferred),
+  };
+}
+
+/**
+ * Options object passed to `HtmlGenerator.generate` from the pipeline — reuse for offline re-renders.
+ * @param {object} config - full newsletter config (`site`, `ui`, …)
+ * @param {{ dateDir: string, dateKey: string }} paths
+ * @param {{ incremental?: boolean, quiet?: boolean }} [extra]
+ */
+export function htmlGenerateOptionsFromConfig(config, paths, extra = {}) {
+  return {
+    dateDir: paths.dateDir,
+    dateKey: paths.dateKey,
+    site: config.site,
+    ui: config.ui,
+    incremental: extra.incremental !== false,
+    quiet: extra.quiet === true,
+  };
+}
+
 async function rmrf(dir) {
   await fs.rm(dir, { recursive: true, force: true });
 }
@@ -180,9 +252,12 @@ export class NewsPipeline {
     return rawData;
   }
 
-  formatUnifiedData(processedData, dateIso) {
+  formatUnifiedData(processedData, dateIso, sourceChannelOrder = SOURCE_CHANNELS) {
+    const order = normalizeSourceChannelOrder(sourceChannelOrder);
+
     const unifiedData = {
       timestamp: dateIso,
+      sourceChannelOrder: order,
       sources: { web: [], rss: [], github: [] }
     };
 
@@ -252,6 +327,11 @@ export class NewsPipeline {
       throw new Error('openai client is required');
     }
 
+    let sourceChannelOrder = sourceChannelOrderFromConfig(sources);
+    if (!sourceChannelOrder.length) {
+      sourceChannelOrder = [...SOURCE_CHANNELS];
+    }
+
     const skillPrompts = loadSkillSystemPrompts(this.config);
     const cache = new ParsedUrlCache();
     const concurrency = this.config.processing?.concurrency ?? 6;
@@ -297,6 +377,14 @@ export class NewsPipeline {
         const partial = JSON.parse(partialRaw);
         if (partial.processedData) {
           processedData = partial.processedData;
+          if (Array.isArray(partial.sourceChannelOrder) && partial.sourceChannelOrder.length) {
+            sourceChannelOrder = partial.sourceChannelOrder.filter(k =>
+              SOURCE_CHANNELS.includes(k)
+            );
+          }
+          if (!sourceChannelOrder.length) {
+            sourceChannelOrder = [...SOURCE_CHANNELS];
+          }
           logger.info('Resuming from partial.json (skip completed LLM steps)');
         }
       } catch {
@@ -320,7 +408,7 @@ export class NewsPipeline {
       processedData = buildProcessedSkeleton(filteredRaw);
       await fs.writeFile(
         path.join(dateDir, PARTIAL),
-        JSON.stringify({ processedData }, null, 2),
+        JSON.stringify({ processedData, sourceChannelOrder }, null, 2),
         'utf8'
       );
     }
@@ -328,15 +416,14 @@ export class NewsPipeline {
     const generator = new HtmlGenerator();
     let htmlGenQuiet = false;
     const regenerateHtml = async () => {
-      const unified = this.formatUnifiedData(processedData, dateIso);
-      await generator.generate(unified, {
-        dateDir,
-        site: this.config.site,
-        ui: this.config.ui,
-        dateKey,
-        incremental: true,
-        quiet: htmlGenQuiet
-      });
+      const unified = this.formatUnifiedData(processedData, dateIso, sourceChannelOrder);
+      await generator.generate(
+        unified,
+        htmlGenerateOptionsFromConfig(this.config, { dateDir, dateKey }, {
+          incremental: true,
+          quiet: htmlGenQuiet,
+        })
+      );
     };
 
     await regenerateHtml();
@@ -389,7 +476,7 @@ export class NewsPipeline {
     const savePartial = async () => {
       await fs.writeFile(
         path.join(dateDir, PARTIAL),
-        JSON.stringify({ processedData }, null, 2),
+        JSON.stringify({ processedData, sourceChannelOrder }, null, 2),
         'utf8'
       );
     };
@@ -517,7 +604,7 @@ export class NewsPipeline {
       'utf8'
     );
 
-    const unifiedData = this.formatUnifiedData(processedData, dateIso);
+    const unifiedData = this.formatUnifiedData(processedData, dateIso, sourceChannelOrder);
     await fs.writeFile(
       path.join(dateDir, RAW_DATA),
       JSON.stringify(unifiedData, null, 2),

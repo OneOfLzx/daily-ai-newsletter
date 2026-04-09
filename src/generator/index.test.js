@@ -178,4 +178,54 @@ describe('HtmlGenerator', () => {
     expect(result.zh).toContain('历史归档');
     expect(result.zh).toContain('Switch to English');
   });
+
+  it('orders page sections by sourceChannelOrder (e.g. GitHub before web)', async () => {
+    const unifiedData = {
+      timestamp: new Date('2026-04-05T12:00:00Z').toISOString(),
+      sourceChannelOrder: ['github', 'web', 'rss'],
+      sources: {
+        web: [
+          {
+            name: 'Later Web',
+            type: 'web',
+            items: [
+              {
+                title: 'Web Only',
+                titleZh: '',
+                link: 'https://example.com/w',
+                summary: 's',
+                summaryZh: ''
+              }
+            ]
+          }
+        ],
+        rss: [],
+        github: [
+          {
+            name: 'First GH',
+            type: 'github',
+            items: [
+              {
+                name: 'gh-proj',
+                link: 'https://github.com/o/r',
+                description: '',
+                summary: 'gh sum',
+                summaryZh: ''
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    const result = await generator.generate(unifiedData, {
+      incremental: true,
+      ui: { max_visible_items_per_source: 20 }
+    });
+    const firstSection = result.en.indexOf('id="source-github-first-gh-1"');
+    const secondSection = result.en.indexOf('id="source-later-web-2"');
+    expect(firstSection).toBeGreaterThan(-1);
+    expect(secondSection).toBeGreaterThan(-1);
+    expect(firstSection).toBeLessThan(secondSection);
+  });
 });
