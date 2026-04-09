@@ -11,6 +11,8 @@ This skill generates professional, well-researched newsletters that combine cura
 
 The output is a complete, ready-to-publish newsletter in Markdown format, suitable for email distribution platforms, web publishing, or conversion to HTML.
 
+**Mandatory length cap:** All *visible* newsletter text (headings, preview, section copy, closing — punctuation included) must total **at most 300 words**. Do not count Markdown markup tokens (`#`, list markers, `**`, etc.). For mixed CJK/Latin text, count visible characters the same way (each Latin letter, space, and punctuation counts as one). Prioritize signal density; shorten or merge sections as needed — the long-form templates below are guidance only when a longer draft is explicitly requested elsewhere.
+
 ## Core Capabilities
 
 - Generate topic-focused or multi-topic newsletters with consistent voice
@@ -45,7 +47,7 @@ Identify the key parameters:
 | **Format** | Daily digest, weekly roundup, deep-dive, or industry briefing | Weekly roundup |
 | **Target Audience** | Technical, executive, general, or niche community | General |
 | **Tone** | Professional, conversational, witty, or analytical | Conversational-professional |
-| **Length** | Short (5-min read), medium (10-min), long (15-min+) | Medium |
+| **Length** | Hard cap: ≤300 words visible text unless the user specifies otherwise | ≤300 words |
 | **Sections** | Number and type of content sections | 4-6 sections |
 | **Frequency Context** | One-time or part of a recurring series | One-time |
 
@@ -125,7 +127,7 @@ Before finalizing, verify:
 - [ ] **Content is current** — All major items are from within the expected timeframe
 - [ ] **No duplicate stories** — Each item appears only once
 - [ ] **Consistent formatting** — bullets use the same style throughout
-- [ ] **Appropriate length** — Matches the specified length target
+- [ ] **Appropriate length** — Total visible text ≤300 words unless the user asked for a different limit; punctuation included, Markdown markup excluded
 - [ ] **Engaging opening** — The first 2 sentences make the reader want to continue
 - [ ] **Clear closing** — The newsletter ends with a memorable or actionable note
 - [ ] **Proofread** — No typos, broken formatting, or incomplete sentences
