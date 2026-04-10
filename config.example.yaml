@@ -30,41 +30,46 @@ processing:
     mcp_max_tool_result_chars: 80000
 
 sources:
+  github:
+    - name: "📈TrendShift"
+      owner: "trendshift"
+      repo: "trending"
+
   web:
-    - name: "TLDR.dev Dev"
+    - name: "TLDR.tech Dev"
       url: "https://tldr.tech/dev/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev AI"
+    - name: "TLDR.tech AI"
       url: "https://tldr.tech/ai/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Infosec"
+    - name: "TLDR.tech Infosec"
       url: "https://tldr.tech/infosec/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Product"
+    - name: "TLDR.tech Product"
       url: "https://tldr.tech/product/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev DevOps"
+    - name: "TLDR.tech DevOps"
       url: "https://tldr.tech/devops/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Founders"
+    - name: "TLDR.tech Founders"
       url: "https://tldr.tech/founders/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Design"
+    - name: "TLDR.tech Design"
       url: "https://tldr.tech/design/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Marketing"
+    - name: "TLDR.tech Marketing"
       url: "https://tldr.tech/marketing/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Crypto"
+    - name: "TLDR.tech Crypto"
       url: "https://tldr.tech/crypto/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Fintech"
+    - name: "TLDR.tech Fintech"
       url: "https://tldr.tech/fintech/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev IT"
+    - name: "TLDR.tech IT"
       url: "https://tldr.tech/it/"
       max_date_backtrack_days: 7
-    - name: "TLDR.dev Data"
+    - name: "TLDR.tech Data"
       url: "https://tldr.tech/data/"
       max_date_backtrack_days: 7
 
@@ -111,8 +116,3 @@ sources:
       url: "https://wechat2rss.bestblogs.dev/feed/6535a444e9651fecae3383363be7589acdebe2b6.xml"
     - name: "DeeplearningAI"
       url: "https://wechat2rss.bestblogs.dev/feed/9d094d066a5faacff0eb0a6b95efbba20d4f1fc9.xml"
-
-  github:
-    - name: "TrendShift"
-      owner: "trendshift"
-      repo: "trending"

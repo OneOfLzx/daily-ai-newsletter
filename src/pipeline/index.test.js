@@ -104,6 +104,13 @@ describe('NewsPipeline', () => {
       incremental: true,
       quiet: false,
     });
+
+    const withOrder = htmlGenerateOptionsFromConfig(
+      config,
+      { dateDir: '/d', dateKey: '2026-01-02' },
+      { sourceChannelOrder: ['github', 'web'] }
+    );
+    expect(withOrder.sourceChannelOrder).toEqual(['github', 'web', 'rss']);
   });
 
   it('should have required methods', () => {

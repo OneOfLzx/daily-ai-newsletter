@@ -1,20 +1,4 @@
 /**
- * @returns {number}
- */
-function ttyColumns() {
-  const c = typeof process !== 'undefined' && process.stderr?.columns;
-  return typeof c === 'number' && c > 0 ? c : 80;
-}
-
-/**
- * @returns {number}
- */
-function ttyRows() {
-  const r = typeof process !== 'undefined' && process.stderr?.rows;
-  return typeof r === 'number' && r > 0 ? r : 24;
-}
-
-/**
  * @param {string} s
  * @param {number} max
  */
@@ -53,7 +37,8 @@ function palette(useColor) {
  * Alternate-screen dashboard (htop-style): one full-frame write per refresh, optional
  * synchronized output (CSI ?2026) to reduce tear on supported terminals.
  *
- * Stdout logs are expected to be quieted while active (e.g. generator `quiet: true`).
+ * Logs should go to stderr (`Logger` uses console.error) so the dashboard can use stdout
+ * when stderr is not a TTY — common for Bun `--compile` on Windows PowerShell.
  */
 export class LiveTty {
   /**
@@ -62,10 +47,17 @@ export class LiveTty {
   constructor(workerCount) {
     this.workerCount = Math.max(0, workerCount);
     const term = process.env.TERM || '';
+    /** Prefer stderr; fall back to stdout when stderr is not a TTY (Windows exe). */
+    const stream =
+      process.stderr?.isTTY === true
+        ? process.stderr
+        : process.stdout?.isTTY === true
+          ? process.stdout
+          : null;
+    /** @type {NodeJS.WriteStream | null} */
+    this._ttyStream = stream;
     this._ttyCapable =
-      typeof process !== 'undefined' &&
-      process.stderr?.isTTY === true &&
-      term !== 'dumb';
+      typeof process !== 'undefined' && stream !== null && term !== 'dumb';
     this._active = false;
     /** @type {string | null} */
     this._lastFrame = null;
@@ -86,6 +78,16 @@ export class LiveTty {
     this._lastFrame = null;
   }
 
+  _ttyColumns() {
+    const c = this._ttyStream?.columns;
+    return typeof c === 'number' && c > 0 ? c : 80;
+  }
+
+  _ttyRows() {
+    const r = this._ttyStream?.rows;
+    return typeof r === 'number' && r > 0 ? r : 24;
+  }
+
   /**
    * While the dashboard is shown, queue a warning for stderr after exit, and show a short line on the panel.
    * @param {string} message
@@ -94,7 +96,7 @@ export class LiveTty {
     if (!this._active) return;
     const msg = String(message).replace(/\s+/g, ' ').trim();
     this._deferredWarns.push(msg);
-    const short = truncatePlain(msg, ttyColumns() - 8);
+    const short = truncatePlain(msg, this._ttyColumns() - 8);
     this._activityTail.push(short);
     if (this._activityTail.length > 6) this._activityTail.shift();
     this._lastFrame = null;
@@ -119,16 +121,14 @@ export class LiveTty {
   init() {
     if (this._active) return true;
     if (!this._ttyCapable) return false;
-    if (ttyRows() < this._minRows()) return false;
+    if (this._ttyRows() < this._minRows()) return false;
 
     const useColor = !process.env.NO_COLOR;
     const p = palette(useColor);
-    process.stderr.write(
-      `\x1b[?1049h\x1b[?25l\x1b[2J\x1b[H${p.reset}`
-    );
+    const out = this._ttyStream;
+    out.write(`\x1b[?1049h\x1b[?25l\x1b[2J\x1b[H${p.reset}`);
     this._active = true;
-    if (process.stderr.isTTY) process.stderr.on('resize', this._onResize);
-    if (process.stdout.isTTY) process.stdout.on('resize', this._onResize);
+    out.on('resize', this._onResize);
     return true;
   }
 
@@ -139,8 +139,8 @@ export class LiveTty {
   render(workerLines, tokens) {
     if (!this._active) return;
 
-    const rows = ttyRows();
-    const cols = ttyColumns();
+    const rows = this._ttyRows();
+    const cols = this._ttyColumns();
     if (rows < this._minRows()) {
       this.done();
       return;
@@ -227,16 +227,16 @@ export class LiveTty {
 
     if (frame === this._lastFrame) return;
     this._lastFrame = frame;
-    process.stderr.write(frame);
+    this._ttyStream.write(frame);
   }
 
   done() {
     if (!this._active) return;
-    if (process.stderr.isTTY) process.stderr.off('resize', this._onResize);
-    if (process.stdout.isTTY) process.stdout.off('resize', this._onResize);
+    const out = this._ttyStream;
+    out.off('resize', this._onResize);
     const useColor = !process.env.NO_COLOR;
     const rst = useColor ? '\x1b[0m' : '';
-    process.stderr.write(`${rst}\x1b[?25h\x1b[?1049l`);
+    out.write(`${rst}\x1b[?25h\x1b[?1049l`);
     this._active = false;
     this._lastFrame = null;
     this._activityTail = [];

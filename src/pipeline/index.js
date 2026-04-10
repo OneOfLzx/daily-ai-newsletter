@@ -14,6 +14,11 @@ import { ensureDir } from '../utils/path.js';
 import { formatLocalYyyyMmDd } from '../utils/date.js';
 import Logger from '../utils/logger.js';
 import HtmlGenerator from '../generator/index.js';
+import {
+  SOURCE_CHANNELS,
+  sourceChannelOrderFromConfig,
+  normalizeSourceChannelOrder,
+} from '../utils/source-channel-order.js';
 
 const logger = new Logger('pipeline');
 
@@ -21,40 +26,11 @@ const RUN_META = 'run-meta.json';
 const PARTIAL = 'partial.json';
 const RAW_DATA = 'raw-data.json';
 
-const SOURCE_CHANNELS = ['web', 'rss', 'github'];
-
-/**
- * Top-level key order under `sources:` in config (YAML preserves mapping key order).
- * @param {Record<string, unknown>} sources
- * @returns {string[]}
- */
-export function sourceChannelOrderFromConfig(sources = {}) {
-  const allowed = new Set(SOURCE_CHANNELS);
-  return Object.keys(sources).filter(k => allowed.has(k) && Array.isArray(sources[k]));
-}
-
-/**
- * Dedupe channel keys and append any missing `web` / `rss` / `github` (same rules as `formatUnifiedData`).
- * @param {string[]} [sourceChannelOrder]
- * @returns {string[]}
- */
-export function normalizeSourceChannelOrder(sourceChannelOrder = SOURCE_CHANNELS) {
-  const seen = new Set();
-  const order = [];
-  for (const k of sourceChannelOrder || []) {
-    if (SOURCE_CHANNELS.includes(k) && !seen.has(k)) {
-      seen.add(k);
-      order.push(k);
-    }
-  }
-  for (const k of SOURCE_CHANNELS) {
-    if (!seen.has(k)) {
-      seen.add(k);
-      order.push(k);
-    }
-  }
-  return order;
-}
+export {
+  SOURCE_CHANNELS,
+  sourceChannelOrderFromConfig,
+  normalizeSourceChannelOrder,
+} from '../utils/source-channel-order.js';
 
 /**
  * Fill/normalize fields on unified data loaded from disk so `HtmlGenerator` matches pipeline output.
@@ -78,12 +54,14 @@ export function prepareUnifiedDataForHtml(unifiedData, config) {
 
 /**
  * Options object passed to `HtmlGenerator.generate` from the pipeline — reuse for offline re-renders.
+ * Pass `sourceChannelOrder` so HTML order matches config even if `unifiedData` omits it (e.g. legacy raw-data.json).
+ *
  * @param {object} config - full newsletter config (`site`, `ui`, …)
  * @param {{ dateDir: string, dateKey: string }} paths
- * @param {{ incremental?: boolean, quiet?: boolean }} [extra]
+ * @param {{ incremental?: boolean, quiet?: boolean, sourceChannelOrder?: string[] }} [extra]
  */
 export function htmlGenerateOptionsFromConfig(config, paths, extra = {}) {
-  return {
+  const out = {
     dateDir: paths.dateDir,
     dateKey: paths.dateKey,
     site: config.site,
@@ -91,6 +69,10 @@ export function htmlGenerateOptionsFromConfig(config, paths, extra = {}) {
     incremental: extra.incremental !== false,
     quiet: extra.quiet === true,
   };
+  if (Array.isArray(extra.sourceChannelOrder) && extra.sourceChannelOrder.length) {
+    out.sourceChannelOrder = normalizeSourceChannelOrder(extra.sourceChannelOrder);
+  }
+  return out;
 }
 
 async function rmrf(dir) {
@@ -422,6 +404,7 @@ export class NewsPipeline {
         htmlGenerateOptionsFromConfig(this.config, { dateDir, dateKey }, {
           incremental: true,
           quiet: htmlGenQuiet,
+          sourceChannelOrder: normalizeSourceChannelOrder(sourceChannelOrder),
         })
       );
     };

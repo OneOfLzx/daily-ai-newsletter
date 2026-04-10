@@ -5,6 +5,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { ensureDir } from '../utils/path.js';
 import { rootLandingRedirectHtml } from '../utils/root-index.js';
+import {
+  normalizeSourceChannelOrder,
+  SOURCE_CHANNELS,
+} from '../utils/source-channel-order.js';
 
 const logger = new Logger('generator');
 
@@ -302,6 +306,7 @@ export class HtmlGenerator {
    * @param {object} [options.site] - { github_repo_url? }
    * @param {boolean} [options.incremental] - if true, do not write raw-data.json (pipeline writes final)
    * @param {boolean} [options.quiet] - if true, skip routine info logs (used while TUI dashboard is active)
+   * @param {string[]} [options.sourceChannelOrder] - preferred over `unifiedData.sourceChannelOrder` (pipeline passes config order)
    */
   async generate(unifiedData, options = {}) {
     const quiet = options.quiet === true;
@@ -309,12 +314,15 @@ export class HtmlGenerator {
       logger.info('Generating HTML newsletter for both languages');
     }
 
-    const defaultChannelOrder = ['web', 'rss', 'github'];
-    const storedOrder = unifiedData.sourceChannelOrder;
-    const channelOrder =
-      Array.isArray(storedOrder) && storedOrder.length
-        ? storedOrder
-        : defaultChannelOrder;
+    const fromOpts = options.sourceChannelOrder;
+    const fromUnified = unifiedData.sourceChannelOrder;
+    const channelOrder = normalizeSourceChannelOrder(
+      Array.isArray(fromOpts) && fromOpts.length
+        ? fromOpts
+        : Array.isArray(fromUnified) && fromUnified.length
+          ? fromUnified
+          : SOURCE_CHANNELS
+    );
 
     const allSources = [];
     for (const ch of channelOrder) {

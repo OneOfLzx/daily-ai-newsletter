@@ -124,6 +124,13 @@ describe('HtmlGenerator', () => {
                 link: 'https://example.com/web',
                 summary: 'Web article summary.',
                 summaryZh: '网页文章摘要。'
+              },
+              {
+                title: 'Second Web Article',
+                titleZh: '第二篇',
+                link: 'https://example.com/web2',
+                summary: 'More.',
+                summaryZh: '更多。'
               }
             ]
           }
