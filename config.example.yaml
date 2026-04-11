@@ -17,7 +17,7 @@ site:
 
 ui:
   # If a source has more items than this, the rest are collapsed behind an expand button.
-  max_visible_items_per_source: 3
+  max_visible_items_per_source: 1
 
 processing:
   concurrency: 6
