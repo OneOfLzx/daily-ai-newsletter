@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en" class="sidebar-closed">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#2563eb">
+    <title>Daily AI Newsletter — Tuesday, April 21, 2026</title>
+    <script>
+        (() => {
+            try {
+                const d = document.documentElement;
+                const isDesktop = window.matchMedia && window.matchMedia('(min-width: 768px)').matches;
+                d.classList.toggle('sidebar-open', !!isDesktop);
+                d.classList.toggle('sidebar-closed', !isDesktop);
+            } catch {}
+        })();
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; background: #ffffff; }
+
+        .page-shell { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: 24px; padding: 20px; }
+        .main { width: min(800px, 100%); }
+
+        .fab-toc { position: fixed; top: 16px; left: 16px; z-index: 60; display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 999px; border: 1px solid rgba(15, 23, 42, 0.14); background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); color: #0f172a; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12); cursor: pointer; font-weight: 600; }
+        .fab-toc:hover { background: rgba(255,255,255,0.98); }
+        .fab-toc:active { transform: translateY(1px); }
+        .fab-toc .icon { font-size: 16px; line-height: 1; }
+
+        .sidebar { width: 260px; flex: 0 0 260px; position: fixed; top: 0; left: 0; height: 100vh; max-height: 100vh; overflow-y: auto; overflow-x: hidden; padding: 14px; border-radius: 0; background: #ffffff; border: none; border-right: 1px solid #e2e8f0; z-index: 55; }
+        .sidebar-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+        .sidebar .sidebar-title { font-weight: 800; color: #0f172a; letter-spacing: 0.2px; }
+        .sidebar-close { display: none; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; border: 1px solid rgba(15, 23, 42, 0.14); background: rgba(255,255,255,0.9); color: #0f172a; cursor: pointer; }
+        .sidebar-close:hover { background: rgba(255,255,255,0.98); }
+        .toc { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+        .toc a { display: block; padding: 8px 10px; border-radius: 8px; color: #1e293b; text-decoration: none; font-size: 0.95rem; border: 1px solid transparent; }
+        .toc a:hover { background: rgba(37, 99, 235, 0.06); border-color: rgba(37, 99, 235, 0.18); }
+
+        /* Hide scrollbar when idle (show on hover for WebKit). */
+        .sidebar { scrollbar-width: none; }
+        .sidebar::-webkit-scrollbar { width: 0; height: 0; }
+        .sidebar:hover { scrollbar-width: thin; }
+        .sidebar:hover::-webkit-scrollbar { width: 10px; }
+        .sidebar:hover::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.18); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+        .sidebar:hover::-webkit-scrollbar-track { background: transparent; }
+
+        .sidebar-mask { display: none; }
+        .sidebar-closed .sidebar { display: none; }
+
+        @media (min-width: 768px) {
+            .sidebar-open .page-shell { padding-left: 280px; }
+            .sidebar-open .fab-toc { left: 276px; }
+            .sidebar-close { display: none; }
+        }
+
+        .main-title, .date-line { text-align: center; font-size: 2rem; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
+        .date-line { color: #1e293b; font-weight: 600; margin-bottom: 10px; }
+
+        .action-row { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; text-decoration: none; font-size: 0.95rem; font-weight: 700; }
+        .btn svg { flex: 0 0 auto; }
+        .btn:hover { background: #f8fafc; }
+        .btn:active { transform: translateY(1px); }
+        .btn-github { background: #0b1220; border-color: #0b1220; color: #ffffff; }
+        .btn-github:hover { background: #111a2d; }
+        .btn-secondary { border-color: #e2e8f0; background: #f8fafc; color: #0f172a; }
+        .btn-secondary:hover { background: #eef2f7; }
+
+        .source-section { margin-bottom: 40px; padding: 20px; background: #f8fafc; border-radius: 8px; }
+        .source-title { font-size: 1.5rem; margin-bottom: 20px; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        .news-item { margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .news-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .news-title a { color: #2563eb; text-decoration: none; }
+        .news-title a:hover { text-decoration: underline; }
+        .news-summary { color: #64748b; font-size: 0.95rem; }
+        .news-summary :first-child { margin-top: 0; }
+        .news-summary :last-child { margin-bottom: 0; }
+        .news-summary p { margin: 0.5em 0; }
+        .news-summary h1, .news-summary h2, .news-summary h3, .news-summary h4 { font-size: 1.05rem; font-weight: 600; color: #334155; margin: 0.75em 0 0.35em; line-height: 1.35; }
+        .news-summary h1:first-child, .news-summary h2:first-child, .news-summary h3:first-child { margin-top: 0; }
+        .news-summary ul, .news-summary ol { margin: 0.5em 0; padding-left: 1.25rem; }
+        .news-summary li { margin: 0.2em 0; }
+        .news-summary strong { color: #475569; font-weight: 600; }
+        .news-summary hr { border: none; border-top: 1px solid #e2e8f0; margin: 0.75rem 0; }
+        .news-summary a { color: #2563eb; }
+        .news-summary a:hover { text-decoration: underline; }
+        .news-summary code { font-size: 0.9em; background: #f1f5f9; padding: 0.15em 0.35em; border-radius: 4px; }
+        .news-summary pre { background: #f1f5f9; padding: 10px; border-radius: 6px; overflow-x: auto; font-size: 0.85em; margin: 0.5em 0; }
+        .news-summary pre code { background: none; padding: 0; }
+        .news-summary blockquote { margin: 0.5em 0; padding-left: 0.75rem; border-left: 3px solid #cbd5e1; color: #64748b; }
+
+        .collapse-btn-row { margin-top: 6px; display: flex; justify-content: center; }
+        .toggle-items { cursor: pointer; border: 1px solid #e2e8f0; background: #ffffff; color: #0f172a; padding: 8px 10px; border-radius: 10px; font-weight: 700; }
+        .toggle-items:hover { background: #f8fafc; }
+        .items-hidden { display: none; }
+        .source-section.is-expanded .items-hidden { display: block; }
+
+        @media (max-width: 767px) {
+            .page-shell { padding: 16px; }
+            .fab-toc { top: 12px; left: 12px; padding: 10px 12px; }
+            .sidebar-open .fab-toc { display: none; }
+            .sidebar { width: 84vw; max-width: 320px; z-index: 70; transform: translateX(-102%); transition: transform 160ms ease-out; }
+            .sidebar-mask { position: fixed; inset: 0; z-index: 65; background: rgba(2, 6, 23, 0.35); opacity: 0; pointer-events: none; transition: opacity 160ms ease-out; }
+
+            .sidebar-open .sidebar { display: block; transform: translateX(0); }
+            .sidebar-open .sidebar-mask { display: block; opacity: 1; pointer-events: auto; }
+            .sidebar-open .sidebar-close { display: inline-flex; }
+        }
+    </style>
+</head>
+<body>
+    <button class="fab-toc" type="button" id="tocToggle" aria-label="Toggle table of contents">
+        <span class="icon">☰</span>
+        <span>Contents</span>
+    </button>
+    <div class="sidebar-mask" id="sidebarMask" aria-hidden="true"></div>
+    <div class="page-shell">
+        <aside class="sidebar" id="sidebar" aria-label="Table of contents">
+            <div class="sidebar-top">
+                <div class="sidebar-title">Contents</div>
+                <button class="sidebar-close" type="button" id="sidebarClose" aria-label="Close sidebar">✕</button>
+            </div>
+            <ul class="toc">
+                <li><a data-toc-link="1" href="#source-github-trendshift-1">GitHub - 📈TrendShift</a></li><li><a data-toc-link="1" href="#source-tldr-tech-dev-2">TLDR.tech Dev</a></li><li><a data-toc-link="1" href="#source-tldr-tech-ai-3">TLDR.tech AI</a></li><li><a data-toc-link="1" href="#source-tldr-tech-infosec-4">TLDR.tech Infosec</a></li><li><a data-toc-link="1" href="#source-tldr-tech-founders-5">TLDR.tech Founders</a></li><li><a data-toc-link="1" href="#source-tldr-tech-design-6">TLDR.tech Design</a></li><li><a data-toc-link="1" href="#source-tldr-tech-marketing-7">TLDR.tech Marketing</a></li><li><a data-toc-link="1" href="#source-tldr-tech-crypto-8">TLDR.tech Crypto</a></li><li><a data-toc-link="1" href="#source-tldr-tech-fintech-9">TLDR.tech Fintech</a></li><li><a data-toc-link="1" href="#source-tldr-tech-it-10">TLDR.tech IT</a></li><li><a data-toc-link="1" href="#source-qbitai-11">QbitAI</a></li><li><a data-toc-link="1" href="#source-github-blog-12">GitHub Blog</a></li><li><a data-toc-link="1" href="#source-openai-news-13">OpenAI News</a></li>
+            </ul>
+        </aside>
+        <main class="main">
+            <h1 class="main-title">Daily AI Newsletter</h1>
+            <p class="date-line">Tuesday, April 21, 2026</p>
+            <div class="action-row"><a class="btn btn-secondary" href="index.zh.html">切换到中文</a><a class="btn" href="../archive/index.html">Archive</a><a class="btn btn-github" href="https://github.com/oneoflzx/daily-ai-newsletter" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:block"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg><span>GitHub</span></a></div>
+            <div id="content">
+                
+<div class="source-section" id="source-github-trendshift-1">
+    <h2 class="source-title">GitHub - 📈TrendShift</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://github.com/liweiyi88/onedump" target="_blank" rel="noopener noreferrer">liweiyi88/onedump</a></div>
+    <div class="news-summary"><h2>1. Project Identity</h2>
+<p><strong>Mission Statement:</strong> A unified CLI tool for database dumping, binlog sync, and point-in-time recovery across local, cloud, and SFTP storage backends.<br>
+<strong>Target Problem:</strong> Eliminates siloed tools (e.g., pg_dump + S3 sync, mysqldump + SFTP) by combining database backup/restore workflows into one consistent interface.</p>
+<h2>2. Innovation &amp; Differentiators</h2>
+<p><strong>Core Innovation:</strong> Single CLI with integrated support for PostgreSQL/MySQL dumping, MySQL binlog sync (S3) + point-in-time restore, and resumable SFTP transfers—all configurable via a unified YAML config.<br>
+<strong>Comparison:</strong> Unlike siloed tools, Onedump provides end-to-end backup/restore with consistent error handling and resumable transfers (no separate scripts for each step).</p>
+<h2>3. Practical Utility</h2>
+<p><strong>Key Features:</strong></p>
+<ol>
+<li>Multi-db dumping (PostgreSQL/MySQL) with gzip compression and custom options.</li>
+<li>MySQL binlog sync to S3 (checksum-enabled, resumable) + point-in-time restore.</li>
+<li>Resumable/concurrent SFTP transfers for files/folders.</li>
+<li>Unified config for storage backends (local, S3, Dropbox, Google Drive, SFTP).</li>
+</ol>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://github.com/liweiyi88/gosnakego" target="_blank" rel="noopener noreferrer">liweiyi88/gosnakego</a></div>
+    <div class="news-summary"><h2>1. Project Identity</h2>
+<ul>
+<li><strong>Mission Statement:</strong> A lightweight, cross-platform implementation of the classic Snake game written in Go.</li>
+<li><strong>Target Problem:</strong> Provides a dependency-free, performant Snake game for casual play and learning Go game development.</li>
+</ul>
+<h2>2. Innovation &amp; Differentiators</h2>
+<ul>
+<li><strong>Core Innovation:</strong> Static Go binary distribution (no runtimes required) for cross-OS compatibility and efficient execution.</li>
+<li><strong>Comparison:</strong> Unlike Python/JS Snake variants (which need interpreters), this uses compiled Go to eliminate dependencies and boost speed.</li>
+</ul>
+<h2>3. Practical Utility</h2>
+<ul>
+<li><strong>Key Features:</strong>
+<ol>
+<li>Cross-platform binaries (OS-specific releases).</li>
+<li>Arrow-key gameplay control.</li>
+<li>Zero runtime dependencies.</li>
+<li>Simple installation (binary to executable path).</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (1)" data-label-less="Show less">Show all (1)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-dev-2">
+    <h2 class="source-title">TLDR.tech Dev</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://ad.doubleclick.net/ddm/trackclk/N572608.5847589TLDRMEDIALLC/B34062638.443039228;dc_trk_aid=629029145;dc_trk_cid=246613507;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};gpp=${GPP_STRING_755};gpp_sid=${GPP_SID};ltd=;dc_tdv=1" target="_blank" rel="noopener noreferrer">📈 Users spike. Your stress level doesn&#039;t have to. (Sponsor)</a></div>
+    <div class="news-summary"><h1>Cloud Brief: Azure Deep Dive</h1>
+<h2><em>Your go-to for cloud &amp; AI insights — &lt;current_date&gt;</em></h2>
+<p>Microsoft Azure is a unified cloud platform built to simplify infrastructure, data, and AI management. Here’s the key breakdown:</p>
+<h2>What Is Azure?</h2>
+<p>A trusted, comprehensive cloud hub that unifies solutions across datacenters, multicloud, and edge environments. It offers more global regions than any other provider, with built-in AI assistance to streamline operations.</p>
+<h2>Key Benefits</h2>
+<ul>
+<li><strong>AI Readiness</strong>: Forrester’s 2024 study found 75% of respondents saw reduced AI adoption barriers after migrating to Azure.</li>
+<li><strong>Compliance</strong>: 100+ certifications (50+ regional, 35+ industry-specific) for sectors like healthcare and finance.</li>
+<li><strong>Efficiency</strong>: 51% more efficient IT teams (per Forrester) and lower AI service costs.</li>
+</ul>
+<h2>Customer Wins</h2>
+<ul>
+<li><strong>Fortune Brands</strong>: Streamlined customer experiences with Power Pages + Dynamics 365.</li>
+<li><strong>Solv</strong>: Eliminated 98% of clerical errors, saving 40 monthly man-hours with Dynamics 365.</li>
+<li><strong><a href="http://Syensqo.AI">Syensqo.AI</a></strong>: Built SyGPT chatbot in record time using Azure OpenAI Service.</li>
+</ul>
+<h2>Quick Takeaways</h2>
+<ul>
+<li>Supports preferred tools (Linux, .NET, etc.) for flexible development.</li>
+<li>Named a Gartner 2024 Leader in Strategic Cloud Platform Services.</li>
+<li>Start with free Azure Fundamentals training to learn basics.</li>
+</ul>
+<h2>Ready to unlock AI potential? Check Azure’s migration center to get started.</h2>
+<p><em>Want more cloud insights? Reply with your questions!</em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://links.tldrnewsletter.com/aiaYK9" target="_blank" rel="noopener noreferrer">Microsoft Azure.</a></div>
+    <div class="news-summary"><h1>Tech Brief: Azure Deep Dive</h1>
+<h2><em>Your weekly cloud &amp; AI insights — [Current Date]</em></h2>
+<p>Get key takeaways on Azure’s value, research-backed ROI, and real-world impact.</p>
+<h2>Core Azure Value</h2>
+<p>Unified cloud platform for infrastructure, data, analytics, AI—with more regions than any competitor. Built for adaptability (hybrid/multicloud/edge) and trust (security, compliance).</p>
+<h2>Research Highlights</h2>
+<ul>
+<li><strong>Forrester 2024</strong>: Azure migration cuts AI barriers (75% agree) + boosts IT efficiency by 51%. Lower AI costs + better innovation flexibility.</li>
+<li><strong>IDC</strong>: Migration/modernization drives savings, agility (fireside chat with IDC’s Dave McCarthy).</li>
+</ul>
+<h2>Compliance Edge</h2>
+<p>100+ certifications (50+ regional, 35+ industry-specific: health, finance, government) to meet global/vertical needs.</p>
+<h2>Customer Wins</h2>
+<ul>
+<li><strong>Fortune Brands</strong>: Unified brands via Power Pages + Dynamics 365.</li>
+<li><strong>Solv</strong>: Cut clerical errors by 98% (saved 40hrs/month) with Dynamics 365 Business Central.</li>
+<li><strong><a href="http://Syensqo.AI">Syensqo.AI</a></strong>: Built SyGPT chatbot fast using Azure OpenAI Service.</li>
+</ul>
+<h2>Quick Notes</h2>
+<ul>
+<li><strong>Secure</strong>: Multilayered security + responsible AI.</li>
+<li><strong>Learn</strong>: Free Azure Fundamentals training to start.</li>
+</ul>
+<h2>Next Steps</h2>
+<p>Optimize workloads with the Well-Architected Framework or start a free Azure trial.</p>
+<hr>
+<p><em>Want more cloud insights? Reply to this newsletter to suggest topics.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://blog.frankel.ch/illegal-state-unrepresentable/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Making illegal state unrepresentable (14 minute read)</a></div>
+    <div class="news-summary"><p><strong>Summary: Making Illegal States Unrepresentable Across Languages</strong></p>
+<p>The article explores designing APIs to block invalid state transitions (e.g., pineapple on a cream pizza base) using 5 languages, with a core thesis: static typing enables compile-time validation of valid states, while dynamic typing relies on runtime checks (with a caveat for complex models).</p>
+<p>Using a pizza builder model (dough → cream/tomato base → toppings: cream allows potatoes, tomato allows pineapple; ham/olives universal), key comparisons include:</p>
+<ul>
+<li><strong>Python</strong>: Gradual typing (via mypy) catches errors, but no native compile-time check—runtime failures if untyped.</li>
+<li><strong>Java</strong>: Sealed interfaces block illegal transitions at compile time, but complex models cause combinatorial boilerplate (many states → many classes).</li>
+<li><strong>Kotlin</strong>: Generics + extension functions eliminate boilerplate—linear growth (new constraints add types/extensions, not classes).</li>
+<li><strong>Rust</strong>: Phantom types track states (no OOP), but still faces combinatorial issues for complex constraints.</li>
+<li><strong>Gleam</strong>: BEAM language with Rust-like syntax; author used AI help as a newbie (partial exploration).</li>
+</ul>
+<p><strong>Takeaway</strong>: Static typing works for compile-time validation, but requires generics/extensions to handle complex models without excessive code.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://isayeter.com/posts/digitalocean-to-hetzner-migration/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Migrating from DigitalOcean to Hetzner: From $1,432 to $233/month With Zero Downtime (12 minute read)</a></div>
+    <div class="news-summary"><h1>DevOps Digest</h1>
+<p><em>Practical cloud migration insights for production workloads — 2026-03-17</em></p>
+<hr>
+<p>A Turkish software company cut infrastructure costs by 84% ($1,199/month saved) migrating from DigitalOcean to Hetzner—with zero downtime for 248GB MySQL data, 34 Nginx sites, and live mobile traffic.</p>
+<h2>Featured Story</h2>
+<p><strong>Why migrate?</strong> Dollar-denominated DigitalOcean costs (192GB RAM,32vCPU: $1,432/month) became unsustainable due to Turkish Lira inflation. Hetzner’s AX162-R (256GB DDR5,96 logical CPUs,2TB NVMe) cost $233/month—10x better value.</p>
+<p><strong>Zero-downtime strategy</strong>: 6 phases including full stack sync, rsync web files, MySQL master-slave replication (using mydumper/myloader for parallel dump/restore—cutting days to hours), TTL reduction, old server as reverse proxy, and DNS cutover. Python scripts automated DNS updates, nginx config rewrites, and GitLab webhook fixes.</p>
+<h2>Key Takeaways</h2>
+<ul>
+<li><strong>MySQL replication = zero downtime</strong>: Use mydumper/myloader for large datasets (parallel threads = speed).</li>
+<li><strong>Script everything</strong>: Avoid human error with automated DNS, config, and webhook updates.</li>
+<li><strong>Check privileges</strong>: SUPER privilege bypasses MySQL read_only—revoke from app users pre-migration.</li>
+<li><strong>Cloud vs dedicated</strong>: Steady-state workloads? Dedicated servers often beat cloud pricing/performance.</li>
+</ul>
+<p>All migration scripts are open-sourced on GitHub. Next week: Optimizing Hetzner servers for high traffic.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://samhenri.gold/blog/20260418-claude-design/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Thoughts and Feelings around Claude Design (7 minute read)</a></div>
+    <div class="news-summary"><h1>Design Tooling Reckoning: Figma vs Claude Design (Apr 18, 2026)</h1>
+<p><em>Sam Henri Gold’s take on the next era of design workflows</em></p>
+<hr>
+<h2>Figma’s Hidden Cost</h2>
+<p>As design scaled, Figma’s system (components, variables, nested props) became overcomplicated. Its locked, undocumented format excluded it from LLM training data—LLMs learned code, not Figma primitives—leaving it irrelevant in the agentic age.</p>
+<h2>The Maze of Figma’s Source of Truth</h2>
+<p>Back-porting code changes to Figma is a nightmare. Even Figma’s own design system has 946 color variables (8 modes each), 12+ component variants, and nested aliases—debugging feels like a labyrinth.</p>
+<h2>Two Future Tool Paths</h2>
+<ol>
+<li><strong>Agentic Tools</strong>: Claude Design leads—honest to materials (HTML/JS all the way), integrates with Claude Code, and eliminates design-code friction.</li>
+<li><strong>Exploration Tools</strong>: Unconstrained by systems—iPad sketching, Photoshop-like compositing with advanced effects (no code ties).</li>
+</ol>
+<h2>Critiques</h2>
+<ul>
+<li>Figma Make: For users stuck in Figma’s system (not forward-looking).</li>
+<li>Sketch: Stop coasting—add particle effects, mesh transforms, etc., to compete.</li>
+</ul>
+<p><em>Post script: Gold calls out Figma for passing on his hire and urges Sketch to “get thirsty for blood.”</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://madhadron.com/programming/seven_ur_languages.html?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">The seven programming ur-languages (14 minute read)</a></div>
+    <div class="news-summary"><h1>Programming Ur-Languages Breakdown</h1>
+<p><em>The 7 core families that define how we code</em> — [Current Date]</p>
+<hr>
+<p><strong>Quick Hit</strong>: Stop debating Java vs. Python. Almost every language traces to 7 foundational &quot;ur-languages&quot;—distinct pattern sets that shape your coding intuition.</p>
+<h2>What Are Ur-Languages?</h2>
+<p>Ur-languages = unique fundamental patterns (looping, recursion, message passing). Learning a language from the same family is trivial; switching to a new one builds new neural pathways.</p>
+<h2>The 7 Key Ur-Languages</h2>
+<ol>
+<li><strong>ALGOL</strong>: Sequential code (Fortran, C, Python, Java, JS). Oldest, most common—mainstream languages trace here.</li>
+<li><strong>Lisp</strong>: Prefix expressions + macros (Common Lisp, Scheme, Clojure). Code as lists; macros redefine language rules.</li>
+<li><strong>ML</strong>: Functional (first-class functions, Hindley-Milner types) (OCaml, Haskell). Iteration via recursion; lazy evaluation options.</li>
+<li><strong>Self</strong>: Message-passing objects (Smalltalk, JS). No classes—objects send/receive messages; live editing.</li>
+<li><strong>Forth</strong>: Stack-based (Forth, PostScript). Reverse Polish notation; build custom sub-languages via parser tricks.</li>
+<li><strong>APL</strong>: Array-first (APL, J). Terse symbols for n-dimensional arrays (influenced NumPy/R).</li>
+<li><strong>Prolog</strong>: Logic-based (Prolog). Facts + queries; runtime searches for solutions (Turing-complete via logic).</li>
+</ol>
+<h2>Takeaway</h2>
+<p>Start with an ALGOL language (mainstream basics). Then branch to an unfamiliar ur-language (e.g., Lisp, Prolog) to expand your problem-solving toolkit—each teaches a new way to think.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://ad.doubleclick.net/ddm/trackclk/N572608.5847589TLDRMEDIALLC/B34062638.443292219;dc_trk_aid=629029145;dc_trk_cid=246613507;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};gpp=${GPP_STRING_755};gpp_sid=${GPP_SID};ltd=;dc_tdv=1" target="_blank" rel="noopener noreferrer">Peak traffic shouldn&#039;t mean peak anxiety (Sponsor)</a></div>
+    <div class="news-summary"><h1>Azure Cloud Platform Overview</h1>
+<p><em>Trusted cloud for AI, infrastructure, and unified innovation — &lt;current_date&gt;</em></p>
+<hr>
+<p><strong>What is Azure?</strong><br>
+Microsoft’s comprehensive cloud platform unifies infrastructure, data, analytics, and AI across cloud, hybrid, and edge environments—built for scalability, security, and AI readiness.</p>
+<p><strong>Key Strengths</strong><br>
+✅ <strong>Global Leadership</strong>: Most regions of any cloud provider; named 2024 Gartner Magic Quadrant Leader for strategic cloud services<br>
+✅ <strong>Adaptive &amp; AI-Powered</strong>: Extends to datacenters/multicloud/edge with built-in AI assistance for unified management<br>
+✅ <strong>Compliance</strong>: 100+ certifications (50+ regional, 35+ industry-specific: health, finance, government)</p>
+<p><strong>Business Impact (Forrester 2024 Study)</strong></p>
+<ul>
+<li>75% of respondents saw reduced AI adoption barriers post-migration</li>
+<li>51% more efficient IT teams</li>
+<li>Lower AI service costs + better innovation flexibility</li>
+</ul>
+<p><strong>Customer Wins</strong></p>
+<ul>
+<li>Fortune Brands: Unified 10+ brands into one portal with Power Pages</li>
+<li>Solv: Eliminated 98% clerical errors (saved 40 monthly man-hours)</li>
+<li><a href="http://Syensqo.AI">Syensqo.AI</a>: Built SyGPT chatbot in record time using Azure OpenAI</li>
+</ul>
+<p><strong>Core Pillars</strong><br>
+Innovate (AI/cloud tools) → Unify (integrated platform) → Trust (security/compliance)</p>
+<hr>
+<p><em>Source: Microsoft Azure documentation &amp; 2024 Forrester/IDC studies</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://azure.microsoft.com/en-us/explore/" target="_blank" rel="noopener noreferrer">Microsoft Azure</a></div>
+    <div class="news-summary"><h1>Azure Insider Briefing</h1>
+<p><em>Your go-to for Azure updates &amp; AI readiness insights — June 2024</em></p>
+<hr>
+<p>This month: Azure’s AI edge, compliance leadership, and real customer wins.</p>
+<h2>Top Story: Forrester TEI Study Confirms Azure AI Readiness Payoff</h2>
+<p>A 2024 Forrester study commissioned by Microsoft found <strong>75% of respondents agreed Azure migration reduced AI adoption barriers</strong>. Key takeaways:</p>
+<ul>
+<li>Lower costs to stand up/consume AI services</li>
+<li>Improved flexibility for AI innovation</li>
+<li>Faster path to AI-ready infrastructure</li>
+</ul>
+<p>Why it matters: Azure’s trusted cloud scale lets organizations unlock AI without on-prem constraints.</p>
+<h2>Quick Bites</h2>
+<ul>
+<li><strong>Compliance Leader</strong>: 100+ certifications (50+ regional, 35+ industry-specific) for health, finance, government.</li>
+<li><strong>Customer Wins</strong>:
+<ul>
+<li>Fortune Brands unifies brands with Power Pages + Dynamics 365.</li>
+<li>Solv cuts clerical errors by 98% (saves 40hrs/month) with Dynamics 365 BC.</li>
+<li><a href="http://Syensqo.AI">Syensqo.AI</a> builds SyGPT chatbot in record time using Azure OpenAI.</li>
+</ul>
+</li>
+</ul>
+<h2>Next Step</h2>
+<p>Explore Azure’s <strong>Cloud Migration &amp; Modernization Center</strong> to build your AI-ready foundation: <a href="azure.microsoft.com/migration">azure.microsoft.com/migration</a></p>
+<hr>
+<p>Questions? Reach out to your Azure account rep or visit <a href="http://azure.microsoft.com">azure.microsoft.com</a>.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://links.tldrnewsletter.com/dBildW" target="_blank" rel="noopener noreferrer">Build without limits with Azure</a></div>
+    <div class="news-summary"><h1>Cloud Brief: Azure Platform Insights</h1>
+<h2><em>Your weekly roundup of cloud, AI, and business impact — &lt;current_date&gt;</em></h2>
+<p>This week: Microsoft Azure’s unified cloud value, AI readiness wins, and real customer results.</p>
+<h2>Azure’s Core Value</h2>
+<p>Azure is a trusted, comprehensive cloud platform that unifies infrastructure, data, analytics, and AI across cloud, hybrid, and edge environments. It offers more regions than any other cloud provider, with built-in AI tools to simplify management and scale innovations efficiently.</p>
+<h2>Quick Hits</h2>
+<ul>
+<li><strong>AI Readiness</strong>: 75% of Forrester (2024) respondents reduced AI adoption barriers post-Azure migration.</li>
+<li><strong>Efficiency</strong>: 51% more efficient IT teams after moving to Azure.</li>
+<li><strong>Compliance</strong>: 100+ certifications (50+ regional, 35+ industry-specific: health, finance, government).</li>
+</ul>
+<h2>Customer Wins</h2>
+<ul>
+<li><strong>Fortune Brands</strong>: Streamlined customer experiences with Power Pages + Dynamics 365.</li>
+<li><strong>Solv</strong>: Cut clerical errors by 98% (saved 40 monthly man-hours) with Dynamics 365 Business Central.</li>
+<li><strong><a href="http://Syensqo.AI">Syensqo.AI</a></strong>: Built SyGPT chatbot in record time using Azure OpenAI Service.</li>
+</ul>
+<h2>Next Steps</h2>
+<ul>
+<li>Start with <strong>Azure Fundamentals</strong> training (free, online).</li>
+<li>Optimize workloads via the <strong>Well-Architected Framework</strong>.</li>
+<li>Explore the <strong>Cloud Migration Center</strong> for AI-ready foundations.</li>
+</ul>
+<p><em>Stay ahead: Azure’s adaptive, trusted platform powers innovation for businesses of all sizes.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://simonwillison.net/2026/Apr/18/opus-system-prompt/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Changes in the system prompt between Claude Opus 4.6 and 4.7 (6 minute read)</a></div>
+    <div class="news-summary"><h1>AI Prompt Watch</h1>
+<p><em>Tracking LLM system prompt evolution</em> — 18th April 2026</p>
+<p>Anthropic updated Claude Opus 4.7 (April 16, 2026) with key system prompt changes from 4.6 (Feb 5, 2026)—here’s the breakdown:</p>
+<p><strong>Top Changes</strong></p>
+<ol>
+<li><strong>Tooling</strong>: Renamed &quot;Developer Platform&quot; to &quot;Claude Platform&quot;; added Claude in PowerPoint (new tool); rules: prefer tool calls over asking users for info; finish tasks fully.</li>
+<li><strong>Safety</strong>: Expanded child safety (critical tag, stricter follow-up); added disordered eating guidance (no precise nutrition/diet details); blocked yes/no answers to complex/contested issues.</li>
+<li><strong>Usability</strong>: Less verbose responses; no pushback when users end chats; removed outdated Trump presidency note (new Jan 2026 knowledge cutoff).</li>
+<li><strong>Removed</strong>: Emote/action restrictions; banned &quot;genuinely/honestly&quot; language.</li>
+</ol>
+<p><strong>Quick Notes</strong></p>
+<ul>
+<li>Tool list unchanged (includes web_fetch, tool_search).</li>
+<li>Anthropic still hides full tool descriptions (ask Claude directly).</li>
+</ul>
+<p>These updates prioritize safer, more capable, user-friendly AI. For the full diff, see Simon Willison’s blog.</p>
+<hr>
+<p><em>Subscribe for monthly LLM prompt insights</em> | Follow Simon Willison on Mastodon/Bluesky/Twitter</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://browser-use.com/posts/prove-you-are-a-robot?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Prove You Are a Robot: CAPTCHAs for Agents (5 minute read)</a></div>
+    <div class="news-summary"><h1>Browser Use Agent-Native Signup Update</h1>
+<p><em>Product news for AI automation — April 13, 2026</em></p>
+<p>Browser Use launched <strong>agent-only signup</strong> skipping human steps (no email/OAuth). Agents solve a reverse-CAPTCHA designed to exclude humans:</p>
+<ul>
+<li>Randomly generated math/logic puzzles, obfuscated (alternate caps, symbols, garbled spaces)</li>
+<li>Agents parse in one forward pass; humans typically abandon the task</li>
+</ul>
+<p><strong>Example Challenge</strong>:<br>
+A classic train-bird problem (von Neumann’s famous puzzle): Two trains 118 miles apart approach at 60 &amp;58 mph. A bird flies between them at 100 mph until they meet—how far?</p>
+<ul>
+<li><em>Trick</em>: Time to meet = 118/(60+58)=1hr → bird flies 100 miles (simpler than summing infinite series; von Neumann solved it the long way).</li>
+</ul>
+<p><strong>Incentives</strong>:</p>
+<ul>
+<li>Solve → API key + Free Tier (unlimited usage, 3 concurrent sessions)</li>
+<li>Bonus (NP-hard): First agent to prove P=NP via a shortest tour algorithm gets Enterprise plan (1k sessions) + $1M Millennium Prize.</li>
+</ul>
+<p>The update supports their tools: stealth browsers, proxies, skill APIs for agent-scale web automation.</p>
+<hr>
+<p><em>Source: Browser Use Product Blog (April 13, 2026)</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://awnist.com/slop-cop?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Slop Cop (Website)</a></div>
+    <div class="news-summary"><p>It seems the specific article content from Slop Cop that you'd like summarized is missing. Please share the text of the article (or key details about its focus—e.g., a restaurant review, food waste analysis, culinary trend piece, etc.) so I can generate a fresh, concise summary aligned with your request.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.theverge.com/ai-artificial-intelligence/914672/the-ram-shortage-could-last-years?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">The RAM shortage could last years (4 minute read)</a></div>
+    <div class="news-summary"><h1>Tech Brief: RAM Shortage Update</h1>
+<p><em>Your quick hit on memory market trends — Apr 18, 2026</em></p>
+<hr>
+<h3>RAM Shortage Drags On For Years</h3>
+<p>Major makers (Samsung, SK Hynix, Micron) will meet only <strong>60% of global RAM demand</strong> by end 2027 (Nikkei Asia). SK Group’s chairman predicts shortages lasting until 2030.</p>
+<h3>Consumer Devices Take Price Hits</h3>
+<p>New fab capacity (2027–2028) prioritizes <strong>HBM for AI data centers</strong>—not general DRAM for phones, laptops, or gaming gear. Ongoing price hikes for consumer electronics are expected.</p>
+<h3>Production Can’t Keep Up</h3>
+<p>Demand needs 12% annual growth (2026–2027), but suppliers only plan 7.5% increases. SK Hynix’s Cheongju fab (Feb 2026) is the only new capacity from top three makers in 2026.</p>
+<hr>
+<p><em>Stay tuned for updates on component shortages and tech pricing.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://cssence.com/2024/six-levels-of-dark-mode/?utm_source=tldrdev" target="_blank" rel="noopener noreferrer">Six levels of dark mode (10 minute read)</a></div>
+    <div class="news-summary"><h1>Frontend Brief</h1>
+<p><em>Your weekly frontend insights — April 16, 2024</em></p>
+<hr>
+<p>CSS Naked Day (April 9) revealed a gap: many sites lack proper dark mode. Matthias Zöchling breaks down <strong>8 levels of color scheme switching</strong> (works for light/dark both ways) to fix this:</p>
+<h3>Key Levels</h3>
+<ol>
+<li><strong>Barebone</strong>: Add <code>&lt;meta name=&quot;color-scheme&quot; content=&quot;light dark&quot;&gt;</code> to your head—browser uses OS preference.</li>
+<li><strong>Basic</strong>: CSS <code>html { color-scheme: light dark; }</code> (works anywhere, not just root; meta tag is better for early browser awareness).</li>
+<li><strong>Benign</strong>: <code>light-dark()</code> function (simple swaps: <code>background: light-dark(black, white)</code>—limited support now).</li>
+<li><strong>Bold</strong>: Media query <code>@media (prefers-color-scheme: dark)</code>—full customization (colors, filters, shadows).</li>
+<li><strong>Bisectional</strong>: Separate CSS files with media attributes (e.g., <code>&lt;link media=&quot;(prefers-color-scheme:dark)&quot; ...&gt;</code>—browser skips non-matching files).</li>
+<li><strong>Ballistic</strong>: JS <code>matchMedia('(prefers-color-scheme:dark)')</code> for dynamic control.</li>
+<li><strong>Beyond</strong>: Build a 3-option switcher (Auto + Light/Dark) instead of just boolean.</li>
+<li><strong>Beguiling</strong>: Use <code>:has()</code> to query the meta tag directly (no <code>.dark</code> classes needed!).</li>
+</ol>
+<h3>Quick Takeaways</h3>
+<ul>
+<li><strong>Start with the meta tag</strong>—it tells browsers your scheme early.</li>
+<li><strong>Hybrid works best</strong>: Mix levels (e.g., meta tag + media queries).</li>
+<li><strong>Accessibility</strong>: Old Safari had dark mode link color issues (update if needed).</li>
+<li><strong>Print</strong>: Browsers skip dark mode for print (no ink waste!).</li>
+</ul>
+<p>Read the full article: <a href="https://cssence.com/2024/six-levels-of-dark-mode">cssence.com/2024/six-levels-of-dark-mode</a></p>
+<hr>
+<p><em>Got a frontend tip? Reply to share!</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (13)" data-label-less="Show less">Show all (13)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-ai-3">
+    <h2 class="source-title">TLDR.tech AI</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://events.sonarsource.com/sonarqube-world-tour-2026/?utm_medium=paid&amp;utm_source=tldr&amp;utm_campaign=ss-worldtour26&amp;utm_content=newsletter-tldr-primary-worldtour-260420-inline&amp;utm_term=ww-psp-utm_term%3Dww-psp-x&amp;s_category=Paid&amp;s_source=Paid+Other&amp;s_origin=tldr" target="_blank" rel="noopener noreferrer">Build with AI, verify with SonarQube: Join the world tour (Sponsor)</a></div>
+    <div class="news-summary"><h1>DevOps Brief</h1>
+<p><em>Your go-to for software development trends — &lt;current_date&gt;</em></p>
+<hr>
+<p><em>This week: SonarQube’s global tour prepares teams for AI-driven code verification.</em></p>
+<h2>Featured: SonarQube World Tour 2026</h2>
+<p>AI agents are rewriting how code is built—ditching small human commits for large, async batches. This creates a &quot;verification gap&quot; SonarQube aims to solve as the trust layer for <strong>Agentic Centric Development (AC/DC)</strong>.</p>
+<p>The tour (half-day events in 8 global cities) targets two key groups:</p>
+<ul>
+<li><strong>Leaders</strong>: Navigate AI accountability, bridge legacy CI gaps for agentic code, and tie code health to business agility/ROI.</li>
+<li><strong>Developers</strong>: Innovate freely with AI while using SonarQube IDE integration for real-time feedback, automated fixes, and reduced manual review toil.</li>
+</ul>
+<h2>Quick Hits</h2>
+<ul>
+<li>Theme: <em>&quot;Power the AC/DC era&quot;</em> → Build with AI, verify with SonarQube.</li>
+<li>Key cities: London, NYC, Amsterdam, Singapore, Paris, Sydney, Munich, Mumbai.</li>
+</ul>
+<h2>Next Steps</h2>
+<p>Register now to future-proof your team’s AI-enabled SDLC: [<a href="http://sonarsource.com/tour-2026">sonarsource.com/tour-2026</a>]</p>
+<h2>© 2026 DevOps Brief</h2>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://events.sonarsource.com/sonarqube-world-tour-2026/?utm_medium=paid&utm_source=tldr&utm_campaign=ss-worldtour26&utm_content=newsletter-tldr-primary-worldtour-260420-inline&utm_term=ww-psp-utm_term%3Dww-psp-x&s_category=Paid&s_source=Paid+Other&s_origin=tldr" target="_blank" rel="noopener noreferrer">SonarQube World Tour 2026</a></div>
+    <div class="news-summary"><h1>DevOps Insider</h1>
+<p><em>Your go-to for software development trends — October 15, 2025</em></p>
+<hr>
+<p><strong>This Week: SonarQube’s 2026 World Tour Prepares Teams for AI-Powered Code</strong></p>
+<h3>1. The AC/DC Shift</h3>
+<p>AI agents are rewriting code workflows: instead of small human commits, they deliver large, async batches. This creates a &quot;verification gap&quot; legacy CI can’t fill. <strong>Agentic Centric Development (AC/DC)</strong> fixes this—every line (human or AI) gets auto-checked for quality/security.</p>
+<h3>2. Global Tour Details</h3>
+<p>Sonar hits 9 cities (Amsterdam, Singapore, Paris, Sydney, London, Munich, Mumbai, NYC, Tokyo) with half-day sessions for dev/platform teams. The tour builds a &quot;trust layer&quot; for AI-enabled code pipelines.</p>
+<h3>3. Who Benefits?</h3>
+<ul>
+<li><strong>Leaders</strong>: Scale AI safely, bridge verification gaps, and link code health to ROI/agility.</li>
+<li><strong>Devs</strong>: Innovate with AI in IDEs (SonarQube integration), get real-time coaching, and cut manual review toil.</li>
+</ul>
+<h3>4. Next Steps</h3>
+<p>Events are tailored to the AI SDLC transition. Register now to secure your spot for expert insights.</p>
+<p>© 2025 DevOps Insider</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://events.sonarsource.com/sonarqube-world-tour-2026/?utm_medium=paid&utm_source=tldr&utm_campaign=ss-worldtour26&utm_content=newsletter-tldr-primary-worldtour-260420-cta&utm_term=ww-psp-utm_term%3Dww-psp-x&s_category=Paid&s_source=Paid+Other&s_origin=tldr" target="_blank" rel="noopener noreferrer">Register for your city</a></div>
+    <div class="news-summary"><h1>DevOps Insider</h1>
+<p><em>Your guide to AI-powered software development trust — &lt;current_date&gt;</em></p>
+<hr>
+<h2>Featured Event: SonarQube World Tour 2026</h2>
+<p>AI is reshaping code creation: Agentic Centric Development (AC/DC) replaces traditional CI’s small, frequent commits with AI agents producing large, complex code batches. This speed creates a &quot;verification gap&quot;—enter SonarQube as the indispensable trust layer for trusted AI-augmented coding.</p>
+<p>This global half-day tour (Amsterdam, Singapore, Paris, Sydney, London, Munich, Mumbai, NYC) equips teams to navigate the shift:</p>
+<ul>
+<li><strong>Leaders</strong>: Scale AI safely, bridge verification gaps, and link code health to ROI.</li>
+<li><strong>Developers</strong>: Innovate with AI while maintaining standards (via SonarQube IDE integration), get real-time feedback, and cut manual toil.</li>
+</ul>
+<p>Why it matters: Every line of code (human or AI) needs automatic quality/security checks to keep pace with AI speed without sacrificing trust.</p>
+<p>Register now to future-proof your dev workflow—link in the footer!</p>
+<hr>
+<p>© 2026 DevOps Insider | Unsubscribe | <a href="link">Register for SonarQube Tour</a></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.sonarsource.com/blog/the-future-of-software-development-is-acdc/?utm_medium=paid&utm_source=tldr&utm_campaign=ss-agent-centric-dev-cycle-acdc26&utm_content=newsletter-tldr-primary-worldtour-260420-cta&utm_term=ww-psp-utm_term%3Dww-psp-x&s_category=Paid&s_source=Paid+Other&s_origin=tldr" target="_blank" rel="noopener noreferrer">The AC/DC vision</a></div>
+    <div class="news-summary"><p><strong>SonarQube Summary</strong><br>
+SonarQube delivers code quality/security tools, now expanding to solve AI/agentic development challenges.</p>
+<p>Key updates: Open beta of three AI-focused tools aligned with their Guide-Verify-Solve framework:</p>
+<ol>
+<li><strong>Context Augmentation</strong>: Injects project-specific rules/architecture into AI agents pre-coding (boosts build/test passes, reduces duplication/complexity, cuts costs).</li>
+<li><strong>Agentic Analysis</strong>: Integrates Sonar’s engine into agent workflows to catch issues early (not just post-PR).</li>
+<li><strong>Remediation Agent</strong>: Fixes code issues at scale post-verification.</li>
+</ol>
+<p>These address AI agent problems: CMU research found agent usage causes temporary velocity spikes but persistent +30% warnings and +41% complexity, slowing long-term development.</p>
+<p>Existing products include Cloud/Server (static analysis), IDE extension (on-the-fly guidance), SonarSweep (LLM code improvement), and Advanced Security (SAST/SCA). Use cases cover AI code validation, developer-led security, compliance, and supply chain protection.</p>
+<p>Upcoming events: Webinars on agentic workflow security, CRA prep, and Agentic Analysis; 2026 SonarQube World Tour.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.sonarsource.com/sem/solutions/ai-code-quality/?utm_medium=paid&utm_source=tldr&utm_campaign=ss-agent-centric-dev-cycle-acdc26&utm_content=newsletter-tldr-primary-worldtour-260420-cta2&utm_term=ww-psp-utm_term%3Dww-psp-x&s_category=Paid&s_source=Paid+Other&s_origin=tldr" target="_blank" rel="noopener noreferrer">Scale with SonarQube</a></div>
+    <div class="news-summary"><h1>AI Code Quality Brief</h1>
+<p><em>Navigating AI-generated code risks &amp; solutions — May 20, 2024</em></p>
+<hr>
+<p>AI coding tools are booming, but 96% of developers don’t fully trust AI-generated code—yet only half consistently verify it. SonarQube closes this gap with &quot;vibe then verify&quot; (generate + validate) solutions.</p>
+<h3>Key AI Code Challenges</h3>
+<ul>
+<li><strong>Productivity paradox</strong>: AI speeds coding, but limited engineer verification time slows progress</li>
+<li><strong>Hidden risks</strong>: Subtle security flaws/unreliable code often slip through</li>
+<li><strong>Trust gap</strong>: Devs worry about data exposure and inconsistent standards</li>
+</ul>
+<h3>SonarQube’s Solution</h3>
+<p>Trusted by 7M+ devs, SonarQube integrates AI assurance into every workflow:</p>
+<ul>
+<li><strong>IDE checks</strong>: Real-time analysis alongside AI assistants</li>
+<li><strong>DevOps guardrails</strong>: PR scans block substandard code</li>
+<li><strong>Lead visibility</strong>: Dashboards track code health across teams</li>
+</ul>
+<h3>Quick Bites</h3>
+<ul>
+<li><strong>Webinar</strong>: &quot;Verify code at agent speed&quot; (Agentic Analysis) May 27 (4pm CEST/9am CDT)</li>
+<li><strong>Survey win</strong>: SonarQube users get stronger AI ROI via generation + validation</li>
+</ul>
+<h3>Closing</h3>
+<p>Turn AI speed into secure, reliable code. <a href="link">Start free trial</a> | <a href="link">Download survey report</a></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.anthropic.com/news/claude-design-anthropic-labs?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Introducing Claude Design by Anthropic Labs (4 minute read)</a></div>
+    <div class="news-summary"><h1>AI Design Brief</h1>
+<p><em>Your go-to for AI-powered design tools &amp; insights — Apr 17, 2026</em></p>
+<hr>
+<p><strong>Anthropic Launches Claude Design: AI-Powered Visual Collaboration Tool</strong></p>
+<h3>What It Is</h3>
+<p>Claude Design (research preview, rolling out gradually) is available for Claude Pro/Max/Team/Enterprise subscribers. It uses Claude Opus 4.7’s vision model to help users create polished visuals—prototypes, slides, wireframes, marketing assets, and more—via collaboration with Claude.</p>
+<h3>Key Features</h3>
+<ul>
+<li><strong>Brand Consistency</strong>: Automatically applies your team’s design system (from codebase/design files) to every project.</li>
+<li><strong>Flexible Inputs</strong>: Start from text prompts, upload docs/images, or capture web elements.</li>
+<li><strong>Refinement Tools</strong>: Inline comments, direct edits, or adjustment knobs for live tweaks.</li>
+<li><strong>Collaboration</strong>: Share designs org-wide, edit together, or hand off to Claude Code for implementation.</li>
+<li><strong>Export Options</strong>: Save to Canva, PDF, PPTX, or HTML.</li>
+</ul>
+<h3>Industry Reactions</h3>
+<ul>
+<li>Canva CEO Melanie Perkins: Excited to integrate Claude Design drafts into Canva’s editable workflows.</li>
+<li>Brilliant’s Olivia Xu: Cut prototype prompts from 20+ to 2 (vs. other tools).</li>
+<li>Datadog’s Aneesh Kethini: Reduced design-to-prototype time from a week to a single conversation.</li>
+</ul>
+<h3>What’s Next</h3>
+<p>Anthropic plans to add more integrations with existing team tools. Subscribers use Claude Design within plan limits (with extra usage option). Enterprise admins enable it in org settings now at <a href="http://claude.ai/design">claude.ai/design</a>.</p>
+<hr>
+<p><em>Want more AI design news? Check Anthropic’s related posts on Claude Opus 4.7 and their Google/Broadcom compute partnership.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://techcrunch.com/2026/04/17/kevin-weil-and-bill-peebles-exit-openai-as-company-continues-to-shed-side-quests/?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Kevin Weil and Bill Peebles exit OpenAI as company continues to shed ‘side quests&#039; (2 minute read)</a></div>
+    <div class="news-summary"><h1>AI Briefing</h1>
+<p><em>Your go-to for AI industry updates — April 17, 2026</em></p>
+<hr>
+<p><strong>OpenAI sheds key leaders as it doubles down on enterprise AI</strong></p>
+<h2>Top Story</h2>
+<p>OpenAI is losing three critical figures amid a shift away from experimental &quot;side quests&quot; to prioritize its superapp and enterprise tools:</p>
+<ol>
+<li><strong>Kevin Weil</strong>: Led OpenAI for Science (behind Prism, an AI science platform). Left days after launching GPT-Rosalind (life sciences/drug discovery tool). His 2025 tweet claiming GPT-5 solved 10 unsolved Erdős math problems was debunked.</li>
+<li><strong>Bill Peebles</strong>: Creator of Sora (AI video tool, shut down last month after losing $1M/day in compute). He noted such research needs space from the company’s main roadmap.</li>
+<li><strong>Srinivas Narayanan</strong>: Enterprise applications CTO, leaving to spend more time with family.</li>
+</ol>
+<h2>Why It Matters</h2>
+<p>The exits signal OpenAI’s focus on revenue-driving enterprise products over high-risk experiments. This could slow progress in AI for scientific discovery and video generation—areas where OpenAI was a leader.</p>
+<h2>Quick Note</h2>
+<p>OpenAI for Science is being absorbed into other research teams, per Weil’s social media post.</p>
+<hr>
+<p>Got AI news tips? Reach TechCrunch’s Rebecca Bellan (Signal: rebeccabellan.491).</p>
+<p>Total visible text: ~180 words | Format: Industry Briefing | Tone: Professional-analytical</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://techcrunch.com/2026/04/17/sources-cursor-in-talks-to-raise-2b-at-50b-valuation-as-enterprise-growth-surges/?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Cursor in talks to raise $2B+ at $50B valuation as enterprise growth surges (2 minute read)</a></div>
+    <div class="news-summary"><h1>AI Startup Brief</h1>
+<p><em>Your weekly roundup of AI startup news — April 17, 2026</em></p>
+<hr>
+<p><strong>Cursor’s $50B Valuation Jump</strong><br>
+Four-year-old AI coding startup Cursor is nearing a $2B+ funding round that values it at $50B—nearly doubling its $29.3B valuation from 6 months ago. Returning investors Thrive and Andreessen Horowitz lead, with new backers Battery Ventures and strategic investor Nvidia joining (round terms not final).</p>
+<p><strong>Revenue Surge &amp; Profitability</strong><br>
+Cursor forecasts $6B+ annual revenue run rate by end 2026 (tripling its Feb 2026 $2B run rate). It’s now slightly gross margin profitable, thanks to its proprietary Composer model (Nov 2025 launch) and cheaper alternatives like Kimi. Enterprise sales are profitable, though individual dev accounts still lose money.</p>
+<p><strong>Context</strong><br>
+Founded as Anysphere by MIT students in 2022, Cursor competes with Anthropic’s Claude Code and OpenAI’s Codex. The funding signals strong enterprise demand for specialized AI coding tools.</p>
+<p><strong>Closing Thought</strong><br>
+Cursor’s growth shows AI coding is maturing beyond hobbyist tools—will its proprietary model keep it ahead of rivals like Anthropic?</p>
+<hr>
+<p><em>Want more AI startup updates? Follow TechCrunch’s Venture coverage.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.tobyord.com/writing/hourly-costs-for-ai-agents?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Are the Costs of AI Agents Also Rising Exponentially? (11 minute read)</a></div>
+    <div class="news-summary"><h1>AI Cost Watch</h1>
+<p><em>Tracking AI agent economic feasibility — December 22, 2025</em></p>
+<hr>
+<p>A critical gap in AI forecasting: while agent task capacity grows exponentially, few ask if costs are rising too.</p>
+<h2>The Underdiscussed Question</h2>
+<p>Toby Ord highlights that most AI discussions fixate on METR’s exponential task time horizon growth (from seconds to hours for software engineering tasks) — but ignore <strong>costs</strong>.</p>
+<h2>Key METR Data Insights</h2>
+<p>METR’s performance-cost charts reveal:</p>
+<ul>
+<li><strong>Human baseline</strong>: ~$120/hour for software engineering work.</li>
+<li><strong>AI sweet spots</strong> (optimal cost-efficiency): Range from $0.40/hour (Grok4/Sonnet3.5) to $40/hour (o3).</li>
+<li><strong>Saturation costs</strong> (peak performance): Some models exceed human rates (e.g., o3 at $350/hour for 1.5-hour tasks).</li>
+</ul>
+<h2>Trend Warning</h2>
+<p>There’s a weak but clear correlation: longer task horizons = higher hourly costs. METR’s performance trend may be misleading — driven by unsustainable compute spending, not practical efficiency.</p>
+<h2>Bottom Line</h2>
+<p>Real-world AI adoption will lag theoretical capabilities as costs diverge from economic feasibility. More data from METR is needed to confirm, but cost growth is a make-or-break factor missing from most forecasts.</p>
+<hr>
+<p><em>Source: Toby Ord’s &quot;Are the Costs of AI Agents Also Rising Exponentially?&quot; (Dec 22, 2025)</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://simonwillison.net/2026/Apr/18/opus-system-prompt/?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Changes in the system prompt between Claude Opus 4.6 and 4.7 (5 minute read)</a></div>
+    <div class="news-summary"><h1>AI Prompt Watch</h1>
+<p><em>Tracking how AI models evolve their core instructions — 18th April 2026</em></p>
+<hr>
+<h2>Key Prompt Updates</h2>
+<p>Anthropic’s Claude Opus 4.7 (April 2026) revised its system prompt from 4.6 (Feb 2026) with:</p>
+<ul>
+<li><strong>Name shift</strong>: &quot;Developer Platform&quot; → &quot;Claude Platform&quot;</li>
+<li><strong>New tools</strong>: Added Claude in PowerPoint (slides agent) to Chrome (browsing) and Excel (spreadsheet) tools; Claude Cowork uses all three.</li>
+<li><strong>Tool search rule</strong>: Must check <code>tool_search</code> before claiming no access to user data (location, memory, etc.).</li>
+</ul>
+<h2>Safety &amp; Tone Tweaks</h2>
+<ul>
+<li><strong>Child safety</strong>: Expanded section with <code>&lt;critical_child_safety_instructions&gt;</code> tag; post-refusal convos need extreme caution.</li>
+<li><strong>Disordered eating</strong>: New rule—no precise nutrition/diet/exercise guidance if signs are present.</li>
+<li><strong>Yes/no guardrails</strong>: Decline short answers to complex/contested issues (e.g., controversial questions).</li>
+<li><strong>Removed bans</strong>: No more restrictions on emotes/asterisks (unless asked) or words like &quot;genuinely&quot;.</li>
+</ul>
+<h2>Quick Takeaway</h2>
+<p>The 4.7 prompt prioritizes user respect (no pushback on ending convos), tool efficiency (resolve ambiguity first), and targeted safety. The 4.6 Trump reference is gone—4.7’s Jan2026 knowledge cutoff makes it redundant.</p>
+<hr>
+<p><em>Curated by AI Prompt Watch — Subscribe for monthly LLM prompt updates</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.latent.space/p/ainews-the-two-sides-of-openclaw?utm_source=tldrai" target="_blank" rel="noopener noreferrer">The Two Sides of OpenClaw (7 minute read)</a></div>
+    <div class="news-summary"><h1>AINews Weekday Roundup</h1>
+<p><em>Your daily AI trends digest — Apr 18, 2026</em></p>
+<hr>
+<p>A quiet day for breaking AI news lets us spotlight two defining stories: Anthropic’s dual Claude launches and OpenClaw’s contrasting narratives.</p>
+<h2>Top Stories</h2>
+<h3>1. Anthropic’s Big Moves</h3>
+<ul>
+<li><strong>Claude Design</strong>: Research-preview tool for prototypes/slides (direct shot at Figma/Lovable) with Canva/PPT exports and Claude Code handoff. Figma’s stock dipped post-announcement.</li>
+<li><strong>Opus 4.7</strong>: Tied for #1 in overall benchmarks (57.3 vs Gemini 3.1 Pro 57.2, GPT-5.4 56.8) and top in coding/science. Key wins: 35% fewer tokens, adaptive reasoning (replacing extended thinking), 10x efficiency gains for some ML tasks. Mixed UX early on (bugs fixed within 24h).</li>
+</ul>
+<h3>2. OpenClaw’s Two Faces</h3>
+<ul>
+<li><strong>Public</strong>: TED talk highlighted the project’s highs as the fastest-growing open-source tool ever.</li>
+<li><strong>Engineering</strong>: AIE talks revealed unprecedented challenges: 60x more security incidents than curl, ~20% of skill contributions malicious, and scaling hurdles.</li>
+</ul>
+<h2>Quick Bites</h2>
+<ul>
+<li><strong>Coding Agents</strong>: OpenAI’s Codex computer-use updates praised as “genuinely usable for enterprise legacy software.” Harness design (not model size) now drives reliability gains.</li>
+<li><strong>Local Inference</strong>: Qwen3.6-35B works with llama.cpp/Pi for local agents; Apple demoed Gemma 4 offline on iPhone.</li>
+<li><strong>Open-Source Agents</strong>: Ollama added native Hermes support; Nous/Kimi launched a $25k creative hackathon.</li>
+<li><strong>AI Science</strong>: GIANTS-4B beats frontier models at predicting paper contributions; coding agents enable $100 genome analysis for melanoma risk.</li>
+</ul>
+<hr>
+<p>Check past issues on AINews’ site (now part of Latent Space) — opt in/out of email frequencies <a href="link">here</a>.</p>
+<p>Total visible words: ~240 | Tone: Conversational-professional | Format: Daily roundup | Audience: General AI practitioners/enthusiasts</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://go.clerk.com/7q4Zsjo?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Clerk now issues M2M tokens as JWTs for local verification (Sponsor)</a></div>
+    <div class="news-summary"><h1>Clerk Changelog: JWT M2M Tokens Now Available</h1>
+<p><em>Machine-to-machine authentication update — Mar 5</em></p>
+<hr>
+<h3>Key Announcement</h3>
+<p>Clerk has added JWT format support for M2M tokens, enabling networkless verification and eliminating per-verification costs.</p>
+<h3>JWT M2M Advantages (vs Opaque Tokens)</h3>
+<ul>
+<li>✅ <strong>No network checks</strong>: Verify locally using your instance’s public key</li>
+<li>✅ <strong>Free verification</strong>: Opaque tokens cost $0.00001/request (JWTs are free)</li>
+<li>✅ <strong>Self-contained</strong>: Embeds machine ID, claims, and expiration</li>
+<li>✅ <strong>Faster</strong>: Local verification beats network round-trip latency</li>
+</ul>
+<h3>When to Use Opaque Tokens</h3>
+<p>Stick with opaque tokens for security-critical scenarios:</p>
+<ul>
+<li>Instant revocation (JWTs remain valid until expiration)</li>
+<li>Maximum security (no embedded data; server-side verification required for payload)</li>
+</ul>
+<h3>Getting Started</h3>
+<ul>
+<li><strong>Dashboard</strong>: Machines → select machine → Generate token → toggle &quot;JWT&quot; → Create</li>
+<li><strong>SDK</strong>: Use <code>clerkClient.m2m.createToken({tokenFormat: 'jwt'})</code> to generate; verify without network calls</li>
+</ul>
+<h3>Pricing Update</h3>
+<p>Starting March 16, 2026:</p>
+<ul>
+<li>$0.001 per token creation</li>
+<li>$0.00001 per verification (opaque tokens only)</li>
+</ul>
+<p>Check Clerk’s docs for full details.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://go.clerk.com/7q4Zsjo" target="_blank" rel="noopener noreferrer">See how it works</a></div>
+    <div class="news-summary"><h1>Clerk Developer Briefing</h1>
+<p><em>M2M Token Updates &amp; Pricing | Mar 5, 2026</em></p>
+<hr>
+<h3>Top Story: JWT M2M Tokens Launch</h3>
+<p>Clerk now supports <strong>JWT format for M2M (machine-to-machine) tokens</strong>, enabling local verification without network calls or per-verification costs—replacing (or complementing) opaque tokens.</p>
+<h3>JWT Benefits vs Opaque Tokens</h3>
+<p>✅ <strong>Networkless validation</strong>: Use your instance’s public key to verify locally (no Clerk server requests)<br>
+✅ <strong>Free checks</strong>: Skip the $0.00001 per-verification fee (opaque tokens still charge this)<br>
+✅ <strong>Self-contained</strong>: Embeds machine ID, claims, and expiration<br>
+✅ <strong>Faster</strong>: Local checks beat network round-trip latency</p>
+<h3>When to Keep Using Opaque Tokens</h3>
+<p>Opaque tokens are better for security-critical scenarios:</p>
+<ul>
+<li>Instant revocation (JWTs stay valid until expiry)</li>
+<li>No embedded data (server-side verification required for payload access)</li>
+</ul>
+<h3>Quick Setup</h3>
+<ul>
+<li><strong>Dashboard</strong>: Machines → Select machine → Generate token → Toggle &quot;JWT&quot;</li>
+<li><strong>SDK</strong>:<br>
+Create: <code>await clerkClient.m2m.createToken({ tokenFormat: 'jwt' })</code><br>
+Verify: <code>await clerkClient.m2m.verify({ token })</code> (no network needed)</li>
+</ul>
+<h3>Pricing Update (Mar 16, 2026)</h3>
+<ul>
+<li>$0.001 per token creation</li>
+<li>$0.00001 per verification (opaque only; JWT is free)</li>
+</ul>
+<p>For full details, see Clerk’s <a href="https://clerk.com/docs">M2M docs</a> and <a href="https://clerk.com/docs/tokens">token formats guide</a>.</p>
+<hr>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://arxiv.org/html/2604.15039v1?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Prefill-as-a-Service: KVCache of Next-Generation Models Could Go Cross-Datacenter (55 minute read)</a></div>
+    <div class="news-summary"><h1>AI Infra Brief</h1>
+<p><em>Cutting-edge LLM serving architectures—simplified</em> — April 16, 2026</p>
+<hr>
+<h3>Featured: PrfaaS Unlocks Cross-Datacenter LLM Serving</h3>
+<p><strong>Problem</strong>: Conventional LLM prefill-decode (PD) disaggregation is trapped in single datacenters. KVCache transfer bottlenecks force compute-heavy prefill and bandwidth-heavy decode onto the same RDMA network—blocking heterogeneous hardware use (e.g., Rubin CPX for prefill, Groq LPU for decode).</p>
+<p><strong>Breakthrough</strong>: Hybrid attention models (e.g., Kimi Delta Attention) cut KVCache size by an order of magnitude, making cross-datacenter transfer plausible. But naive offloading fails (bursty traffic, skewed requests, fluctuating bandwidth).</p>
+<p><strong>Solution: PrfaaS (Prefill-as-a-Service)</strong></p>
+<ul>
+<li><strong>Selective offloading</strong>: Only long uncached prefills go to standalone compute-dense clusters.</li>
+<li><strong>Commodity Ethernet</strong>: Transfers KVCache to local decode clusters (no RDMA required).</li>
+<li><strong>Smart systems</strong>: Length-based routing, bandwidth-aware scheduling, global KVCache management.</li>
+</ul>
+<p><strong>Results</strong>: A 1T-parameter hybrid model deployment achieved <strong>54% higher throughput</strong> than homogeneous PD, <strong>32% vs naive heterogeneous</strong>—with minimal cross-datacenter bandwidth.</p>
+<p><strong>Takeaway</strong>: Hybrid models alone aren’t enough. Combine them with system-side optimizations to enable flexible, cost-effective cross-datacenter LLM serving.</p>
+<hr>
+<p><em>Source: arXiv:2604.15039v1 [cs.DC] (Moonshot AI + Tsinghua University)</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://arxiv.org/abs/2604.14228?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Dive into Claude Code: The Design Space of Today&#039;s and Future AI Agent Systems (1 minute read)</a></div>
+    <div class="news-summary"><h1>AI Agent Digest</h1>
+<p><em>Your weekly deep dive into AI agent systems</em> — April 15, 2026</p>
+<hr>
+<p><strong>Featured: Claude Code Architecture Unpacked</strong></p>
+<p>Claude Code (an agentic coding tool that runs shell commands, edits files, and calls external services) gets a detailed architectural analysis in a new arXiv paper (2604.14228).</p>
+<p>The study (Liu et al.) uses Claude Code’s public TypeScript source to map 5 core human values (decision authority, safety/security, reliable execution, capability amplification, contextual adaptability) to 13 design principles and specific implementations:</p>
+<ul>
+<li>A simple while loop powers the core (model → tools → repeat)</li>
+<li>7-mode permission system with ML classifier for safety</li>
+<li>5-layer context compaction pipeline to manage model windows</li>
+<li>4 extensibility tools (MCP, plugins, skills, hooks)</li>
+<li>Subagent delegation with worktree isolation</li>
+<li>Append-only session storage</li>
+</ul>
+<p>Comparisons to OpenClaw (open-source multi-channel assistant) show context shapes architecture:</p>
+<ul>
+<li>Claude uses per-action safety checks; OpenClaw uses perimeter access control</li>
+<li>Claude’s CLI loop vs OpenClaw’s embedded gateway runtime</li>
+<li>Context window extensions vs gateway-wide capability registration</li>
+</ul>
+<p>The paper also identifies 6 open design directions for future AI agents, grounded in recent empirical and policy work.</p>
+<p><strong>Access</strong>: <a href="https://arxiv.org/abs/2604.14228">arXiv:2604.14228</a></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="http://exa.ai/blog/composing-a-search-engine?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Composing a Search Engine (2 minute read)</a></div>
+    <div class="news-summary"><h3>Summary: Exa’s Canon Search Pipeline Orchestrator</h3>
+<p>Exa built <strong>Canon</strong> to solve the complexity of scaling search pipelines for billions of requests, diverse AI agent needs, and evolving user requirements (localization, freshness, multi-index support).</p>
+<p>Canon models search as a <strong>Directed Acyclic Graph (DAG)</strong>—each node represents a pipeline step (retrieval, ranking, etc.) with explicit dependencies, enabling:</p>
+<ul>
+<li><strong>Automatic parallelism</strong>: Runs independent nodes concurrently to minimize latency.</li>
+<li><strong>Durable execution</strong>: Retries failed nodes without redoing upstream work.</li>
+<li><strong>Introspectability</strong>: Visualizes/analyzes flow as data (no code reading needed).</li>
+<li><strong>Decoupled design</strong>: Same graph runs in tests, production, or dry runs (execution logic lives separately from definition).</li>
+</ul>
+<p>Its <strong>pull-based runtime</strong> (nodes run only when downstream needs them) delivers:</p>
+<ul>
+<li><strong>Efficiency</strong>: Cancels unused nodes (e.g., when one index wins a race) and memoizes shared ancestor outputs (avoids redundant computation in &quot;diamond&quot; dependencies).</li>
+<li><strong>Observability</strong>: Traces every decision/path to debug issues (e.g., missing URLs) quickly—even for billions of requests.</li>
+</ul>
+<p>Canon is <strong>agent-friendly</strong>: It turns implicit pipeline rules (e.g., &quot;fetch content before reranking&quot;) into explicit typed constructs (typestate, totality checks), guiding AI coding agents to write correct, context-aware code without relying on hidden intuition.</p>
+<p>By replacing messy imperative pipelines with structured DAGs, Canon ensures reliability, scalability, and transparency as Exa’s search grows more complex.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://cursor.com/blog/better-ai-models-ambitious-work?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Better AI models enable more ambitious work (3 minute read)</a></div>
+    <div class="news-summary"><h1>AI Dev Brief</h1>
+<p><em>Your weekly guide to AI-powered development — April 15, 2026</em></p>
+<hr>
+<h2>Cursor’s New Research: Better AI = More Ambitious Dev Work</h2>
+<p>A study of 500 companies using Cursor (July 2025–March 2026) found AI model advances (Opus 4.5, GPT-5.2) boosted developer AI usage by <strong>44%</strong> — a Jevons-like effect where efficiency gains drive more consumption, not less.</p>
+<h3>Key Observations:</h3>
+<ul>
+<li><strong>Industry Leaders</strong>: Media/advertising (+54%), software (+47%), and finance (+45%) saw the biggest jumps (finance: competitive arms race; media: greenfield opportunities).</li>
+<li><strong>Complexity Shift</strong>: After a 4–6 week lag, devs shifted to high-complexity tasks (up <strong>68%</strong> vs. low-complexity’s 22%).</li>
+<li><strong>Job Evolution</strong>: Work moved from code writing to managing AI output: docs (+62%), architecture (+52%), and code review (+51%) grew fastest.</li>
+</ul>
+<h3>Big Picture:</h3>
+<p>AI doesn’t just replace work — it enables new, more ambitious projects. Expansion (not just efficiency) will be the long-term story.</p>
+<p>Read the full paper [here] | Next week: How AI agents are redefining deployment workflows.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://github.com/Tencent-Hunyuan/HY-World-2.0?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Multimodal 3D World Model (GitHub Repo)</a></div>
+    <div class="news-summary"><h1>AI 3D Breakthrough: HY-World 2.0</h1>
+<p><em>Tencent’s model replaces video with persistent, editable 3D worlds</em></p>
+<p>HY-World 2.0 is a multi-modal framework that turns text/single images or multi-view videos into <strong>navigable 3D assets</strong> (meshes/Gaussian Splattings)—a game-changer from video-only world models (e.g., Genie 3).</p>
+<h3>Core Features</h3>
+<ul>
+<li><strong>World Generation</strong>: Text/single image → 3D via 4 stages (HY-Pano2 → WorldNav → WorldStereo2 → WorldMirror2 + 3DGS).</li>
+<li><strong>World Reconstruction</strong>: Multi-view/video → 3D via WorldMirror2 (unified model predicting depth, normals, camera params, point clouds in one pass).</li>
+</ul>
+<h3>Key Advantages</h3>
+<p>Unlike video models (non-editable, temporary), HY-World 2.0 assets:<br>
+✅ Import to Blender/Unity/Isaac Sim<br>
+✅ Support interactive exploration (physics-enabled first/third-person)<br>
+✅ Stay editable permanently</p>
+<h3>Open-Source &amp; Performance</h3>
+<ul>
+<li><strong>Released</strong>: Tech report + WorldMirror2 code/weights (Hugging Face).</li>
+<li><strong>Coming Soon</strong>: HY-Pano2, WorldNav, WorldStereo2.</li>
+<li><strong>Benchmarks</strong>: Outperforms competitors (e.g., WorldStereo2 beats Gen3C on 3D consistency; WorldMirror2 improves on v1 with priors).</li>
+</ul>
+<h3>Get Started</h3>
+<p>Conda setup (CUDA12.4), Gradio demo for WorldMirror2 (upload images/videos to visualize 3D outputs).</p>
+<hr>
+<p><em>Source: Tencent Hunyuan’s HY-World 2.0 GitHub repo</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.testingcatalog.com/google-tests-google-ai-subscription-support-for-ai-studio/?utm_source=tldrai" target="_blank" rel="noopener noreferrer">Google tests Google AI subscription support for AI Studio (2 minute read)</a></div>
+    <div class="news-summary"><h1>AI Briefing Daily</h1>
+<p><em>Your daily dose of AI news &amp; insights</em> — 17 Apr 2026</p>
+<hr>
+<p><strong>Today’s top story</strong>: Google tests linking Gemini subscriptions to AI Studio, ending double billing for some users.</p>
+<h2>Google Bridges Gemini &amp; AI Studio</h2>
+<p>Google is rolling out a test integration between its consumer Gemini subscriptions (Pro/Ultra) and AI Studio, letting users swap API billing for subscription access.</p>
+<p>Early signs in the developer sandbox show a sidebar prompting upgrades to Gemini Ultra, with a popup offering two paths: keep API-key billing or switch to subscription-based token access. This fixes a longstanding gap—previously, users paid separately for Gemini app access and AI Studio API credits.</p>
+<p><strong>Trade-off alert</strong>: API keys retain full access to all models/agents, but subscription mode has unclarified limitations (Google hasn’t specified excluded features).</p>
+<p><strong>Future hint</strong>: The upgrade text explicitly mentions &quot;Agents,&quot; suggesting AI Studio may evolve into an agent hub—timely with Google Cloud Next (Apr22) and I/O (May19-20) events.</p>
+<h2>Quick Bites</h2>
+<ul>
+<li>Anthropic launched Claude Design (AI-powered design tool for paid plans)</li>
+<li>Perplexity rolled out Personal Computer to all Max subscribers</li>
+<li>OpenAI preps 8 interactive avatars for Codex app</li>
+</ul>
+<p><strong>Closing</strong>: While fine print remains pending, this integration is a win for developers juggling Gemini and AI Studio.</p>
+<hr>
+<p><em>Want more AI updates? Subscribe to our weekly deep dive →</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (18)" data-label-less="Show less">Show all (18)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-infosec-4">
+    <h2 class="source-title">TLDR.tech Infosec</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://blog.calif.io/p/mad-bugs-even-cat-readmetxt-is-not?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">MAD Bugs: &quot;cat readme.txt&quot; is not safe in iTerm2 (5 minute read)</a></div>
+    <div class="news-summary"><h1>Tech Vulnerability Brief</h1>
+<p><em>Critical flaws in developer tools — Apr 17, 2026</em></p>
+<hr>
+<p><strong>&quot;cat readme.txt&quot; isn’t safe in iTerm2</strong> — a bug lets malicious files trigger arbitrary code execution (ACE) via the terminal app’s SSH integration.</p>
+<h3>What’s the bug?</h3>
+<p>iTerm2’s SSH integration uses a &quot;conductor&quot; script to coordinate remote sessions. The flaw: it trusts terminal output from any source (not just legitimate conductors). Malicious files inject fake protocol sequences (DCS 2000p hooks, OSC 135 messages) that trick iTerm2 into executing code.</p>
+<h3>How the exploit works</h3>
+<ol>
+<li>A fake <code>readme.txt</code> contains forged conductor commands.</li>
+<li>Running <code>cat readme.txt</code> parses these sequences in iTerm2.</li>
+<li>iTerm2 sends normal conductor requests (e.g., <code>getshell</code>), which the fake file replies to.</li>
+<li>The app executes a malicious payload hidden in base64-encoded protocol chunks.</li>
+</ol>
+<h3>Impact &amp; Disclosure</h3>
+<ul>
+<li>A fix landed in iTerm2’s repo (commit a9e745993) but <strong>not in stable releases</strong> as of publication.</li>
+<li>Critics argue early disclosure (before stable patches) leaves users vulnerable—two weeks is too short for widespread updates.</li>
+</ul>
+<h3>Actionable Takeaway</h3>
+<p>Avoid <code>cat</code> on untrusted files in iTerm2 until the stable patch rolls out.</p>
+<p><em>Stay safe, and update your tools.</em><br>
+— The Tech Vulnerability Brief Team</p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://www.wiz.io/blog/six-accounts-one-actor-inside-the-prt-scan-supply-chain-campaign?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Six Accounts, One Actor: Inside the prt-scan Supply Chain Campaign (9 minute read)</a></div>
+    <div class="news-summary"><h1>Supply Chain Alert: AI-Powered prt-scan Campaign Targets GitHub Repos</h1>
+<p><em>Wiz Research Deep Dive — April 4, 2026</em></p>
+<hr>
+<p>An AI-assisted supply chain campaign (prt-scan) exploited GitHub’s <code>pull_request_target</code> workflow to target 500+ repos over 3 weeks (Mar 11–Apr 3, 2026), Wiz Research confirms.</p>
+<h3>Key Campaign Details</h3>
+<ul>
+<li><strong>Actor</strong>: 6 linked accounts (ezmtebo, elzotebo, etc.) using <a href="http://proton.me">proton.me</a> emails</li>
+<li><strong>Tactics</strong>:
+<ol>
+<li>Target repos with <code>pull_request_target</code> (runs in base repo context, accesses secrets from forks)</li>
+<li>Fork → branch <code>prt-scan-{12hex}</code> → inject payloads (<a href="http://conftest.py">conftest.py</a>, package.json, etc.)</li>
+<li>PR title: &quot;ci: update build configuration&quot;</li>
+</ol>
+</li>
+<li><strong>AI Traits</strong>: ~7 PRs/hour velocity, adaptive targeting (per repo tech stack), idiomatic payloads</li>
+</ul>
+<h3>Payload &amp; Limitations</h3>
+<p>Payloads follow a 5-phase structure (EXFIL → RECON → DISPATCH → LABEL_BYPASS → DELAYED) but reveal critical gaps:</p>
+<ul>
+<li>Misunderstood GitHub permissions (e.g., DISPATCH needs write access they lacked)</li>
+<li>&lt;10% success rate (mostly small hobbyist repos)</li>
+</ul>
+<h3>Impact &amp; Defenses</h3>
+<ul>
+<li>Compromised 2 npm packages, stole AWS/Cloudflare/Netlify tokens</li>
+<li>High-profile repos (Sentry, OpenSearch) blocked attacks via contributor approval gates</li>
+</ul>
+<h3>Actionable Steps</h3>
+<ol>
+<li>Check for IOCs: <code>prt-scan-*</code> branches, PRs with the above title</li>
+<li>Enable contributor approval gates for <code>pull_request_target</code> workflows</li>
+<li>Review GitHub Actions permissions</li>
+</ol>
+<p>This campaign signals AI’s role in lowering supply chain attack barriers—automated, adaptive, and faster than manual review.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://github.com/wardgate/wardgate?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Wardgate (GitHub Repo)</a></div>
+    <div class="news-summary"><h1>AI Agent Security Brief</h1>
+<p><em>Your go-to for securing AI tooling — October 15, 2024</em></p>
+<hr>
+<p><strong>Preview</strong>: A new open-source tool secures AI agents by isolating credentials and sandboxing commands — no more worrying about prompt injection or credential leaks.</p>
+<h2>Wardgate: The Security Layer for AI Agents</h2>
+<p>AI agents (AutoGPT, custom LLMs) are handy, but giving them direct access to your APIs, SSH keys, or shell commands risks disaster: credential leaks, prompt injection attacks, or unintended deletions. <strong>Wardgate</strong> fixes this by acting as a security gateway between agents and your systems.</p>
+<h3>Core Features</h3>
+<ul>
+<li><strong>API Gateway</strong>: Agents never see your credentials. It injects keys/tokens for allowed actions (e.g., read-only calendar access) and blocks risky ops (delete tasks). Supports presets for Todoist, GitHub, and more.</li>
+<li><strong>Conclaves</strong>: Isolated remote execution environments. Agents send commands via Wardgate, which enforces per-conclave rules (allow/deny/ask) before running them in a sandboxed container (no host filesystem access).</li>
+</ul>
+<h3>Who It’s For</h3>
+<ul>
+<li>Personal AI assistant users wanting safe access to calendars/emails.</li>
+<li>Dev teams using AI tools for code repos or task automation.</li>
+<li>Anyone wary of giving agents full system access.</li>
+</ul>
+<h3>Quick Start</h3>
+<ol>
+<li>Copy example configs (<code>cp .env.example .env</code>, <code>cp config.yaml.example config.yaml</code>).</li>
+<li>Add credentials and define allowed actions/conclaves.</li>
+<li>Run <code>./wardgate -config config.yaml</code>.</li>
+</ol>
+<p><strong>Final Take</strong>: Wardgate lets you automate with AI safely — reducing the risk of agent mistakes or attacks without sacrificing functionality.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://github.com/iAnonymous3000/iOS-Hardening-Guide?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">The Ultimate iOS Hardening Guide (GitHub Repo)</a></div>
+    <div class="news-summary"><h1>iOS Hardening Guide: Critical Privacy &amp; Security Tips</h1>
+<p><em>Your go-to for locking down iPhones/iPads — May 20, 2024</em></p>
+<hr>
+<h3>Device Upgrade Priority</h3>
+<p>Older devices (A11 chip or below) have the permanent checkm8 vulnerability (physical access = unauthorized code). Upgrade to A12+ models: they use Pointer Authentication Codes (PAC) for crypto-hardened security.</p>
+<h3>Anonymous Purchase</h3>
+<ul>
+<li>Pay cash (avoid digital trails)</li>
+<li>Skip in-store setup/registration</li>
+<li>Use prepaid cards online; no personal info (pseudonyms okay)</li>
+<li>Ship to PO boxes, not home addresses</li>
+</ul>
+<h3>Initial Setup Must-Dos</h3>
+<ul>
+<li><strong>Strong passcode</strong>: 6-digit min (alphanumeric better; disable &quot;Simple Passcode&quot;)</li>
+<li><strong>Find My</strong>: Enable + network (offline tracking) + last location → locks device even after wipe</li>
+<li><strong>Auto-updates</strong>: Keep iOS patched (Settings → General → Software Update)</li>
+<li><strong>2FA</strong>: Turn on for Apple ID (combines password + trusted device code)</li>
+</ul>
+<h3>Tracking &amp; Location Fixes</h3>
+<ul>
+<li>Toggle off &quot;Allow Apps to Request to Track&quot; (Settings → Privacy &amp; Security)</li>
+<li>Limit location access: &quot;While Using App&quot; only; approximate location for non-essential apps</li>
+<li>Review permissions monthly (iOS updates may reset settings)</li>
+</ul>
+<h3>Biometric Note</h3>
+<p>Face/Touch ID has legal risks (some regions allow law enforcement to compel use). Always use a strong passcode as backup.</p>
+<hr>
+<p><em>Stay tuned for more iOS security deep dives.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://github.com/trailofbits/claude-code-devcontainer?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Claude Code in a devcontainer (GitHub Repo)</a></div>
+    <div class="news-summary"><h1>Dev Tool Briefing</h1>
+<p><em>Your weekly roundup of essential developer tools — &lt;current_date&gt;</em></p>
+<hr>
+<h2>Tool Spotlight: Safe Claude Code Devcontainer</h2>
+<p><strong>Hook</strong>: Tired of risking host system changes with Claude Code’s unrestricted <code>bypassPermissions</code> mode? Trail of Bits’ devcontainer adds filesystem isolation so you get Claude’s productivity without exposure.</p>
+<h3>Why It Matters</h3>
+<p>Running Claude with <code>bypassPermissions</code> on your host lets it execute any command unconfirmed—risky for sensitive work. This container locks off host files while keeping Claude’s full capabilities.</p>
+<h3>Key Use Cases</h3>
+<ul>
+<li>Security audits: Review client code safely</li>
+<li>Untrusted repos: Explore unknown codebases without risk</li>
+<li>Experimental work: Let Claude modify code freely in isolation</li>
+</ul>
+<h3>Quick Setup Options</h3>
+<ol>
+<li><strong>Per-Project</strong>: Isolated per repo (ideal for one-offs)
+<ul>
+<li>Clone repo → <code>devc .</code> → <code>devc shell</code> for access</li>
+</ul>
+</li>
+<li><strong>Shared Workspace</strong>: Group related repos (client engagements)
+<ul>
+<li>Create workspace dir → <code>devc .</code> → clone repos inside the container</li>
+</ul>
+</li>
+</ol>
+<h3>Standout Features</h3>
+<ul>
+<li><strong>Token Auth</strong>: Skip interactive login with <code>claude setup-token</code> (one-time host setup)</li>
+<li><strong>Session Sync</strong>: <code>devc sync</code> copies Claude logs to host for <code>/insights</code> analysis</li>
+<li><strong>Network Isolation</strong>: Restrict outbound access via iptables (allow only Anthropic/GitHub/package registries)</li>
+</ul>
+<h3>Security Note</h3>
+<p>Provides filesystem isolation (host files inaccessible) but not full sandboxing (network access default). Volumes persist settings/shell history across rebuilds.</p>
+<hr>
+<p><em>Next week: 5 AI tools to speed up code reviews</em><br>
+<em>Unsubscribe | Follow us</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.theregister.com/2026/04/17/claude_opus_wrote_chrome_exploit/?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Claude Opus wrote a Chrome exploit for $2,283 (2 minute read)</a></div>
+    <div class="news-summary"><h1>AI Security Brief</h1>
+<p><em>Your weekly roundup of AI-powered cyber threats &amp; defenses</em> — Fri 17 Apr 2026</p>
+<hr>
+<p><strong>Top Story: AI-Generated Chrome Exploit Costs $2k, Targets Outdated Apps</strong><br>
+Hacktron’s CTO used Anthropic’s Claude Opus 4.6 to build a working Chrome V8 engine exploit—for $2,283 (2.3B tokens, ~20h troubleshooting). The exploit “popped calc” (a proof-of-concept win) on Discord, which runs Chrome 138 (9 versions behind current).</p>
+<p><strong>Quick Take: Mythos Hype? AI Exploit Tools Are Already Here</strong><br>
+Anthropic withheld its Mythos bug-finder over attack risks, but Opus 4.6 (now superseded by 4.7) already generates functional exploits. Opus 4.7 adds safeguards but retains similar cyber capabilities.</p>
+<p><strong>What This Means</strong><br>
+AI is shrinking patch windows: Soon, any script kiddie with an API key can exploit unpatched software. Electron apps (Slack, Discord) lag in updates, and open source projects face risks—fixes appear in public commits before releases, giving attackers a head start.</p>
+<p><strong>Action Steps for Devs</strong></p>
+<ol>
+<li>Prioritize pre-deployment security checks</li>
+<li>Enable auto-patching for dependencies</li>
+<li>Limit public vulnerability details until fixes are widely deployed</li>
+</ol>
+<p><em>Stay ahead: Update Electron apps and Chrome dependencies promptly.</em><br>
+© 2026 AI Security Brief</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://arstechnica.com/tech-policy/2026/04/man-with-ihackedthegovernment-instagram-account-tells-judge-i-made-a-mistake/?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Man with @ihackedthegovernment Instagram account tells judge, “I made a mistake” (4 minute read)</a></div>
+    <div class="news-summary"><h1>Tech &amp; Security Brief</h1>
+<p><em>Your quick roundup of tech security news — Apr 17, 2026</em></p>
+<hr>
+<p>A 25-year-old Tennessee man avoided prison time for hacking U.S. government systems and boasting about the deed on social media.</p>
+<p>Nicholas Moore pleaded guilty to accessing three federal platforms (Supreme Court electronic filing system, AmeriCorps, VA My HealtheVet) using stolen credentials between August-October 2023. He posted victims’ personal/medical info (names, addresses, meds, SSN last 4) on his Instagram account @ihackedthegovernment.</p>
+<p>Moore was sentenced to <strong>1 year of probation</strong> in D.C. federal court. The government requested 36 months probation (no jail/fines) citing his long-term disabilities, no reoffense risk, and that he didn’t use info for financial harm — he admitted he wanted to “show off to online acquaintances.”</p>
+<p>In court, Moore said: “I made a mistake. I respect laws and want to be a good citizen.” The judge noted his apparent tech potential but emphasized the harm of disclosing innocent Americans’ data.</p>
+<p><strong>Quick takeaway</strong>: Even non-financial hacking targeting government systems carries legal consequences, with probation (not jail) here due to mitigating factors.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://techcrunch.com/2026/04/17/hackers-are-abusing-unpatched-windows-security-flaws-to-hack-into-organizations/?utm_source=tldrinfosec" target="_blank" rel="noopener noreferrer">Hackers are abusing unpatched Windows security flaws to hack into organizations (2 minute read)</a></div>
+    <div class="news-summary"><h1>Cyber Brief: Weekly Threats &amp; Updates</h1>
+<p><em>Your go-to for critical cybersecurity news — April 18, 2026</em></p>
+<hr>
+<h2>Hackers Exploit Unpatched Windows Defender Flaws</h2>
+<p>Hackers have targeted at least one organization using three Windows Defender vulnerabilities (BlueHammer, UnDefend, RedSun) published by researcher Chaotic Eclipse this month.</p>
+<p>Eclipse shared exploit code on GitHub, citing a conflict with Microsoft’s Security Response Center (MSRC) as motivation. Only BlueHammer has been patched so far; UnDefend and RedSun remain unaddressed.</p>
+<p>This is <strong>full disclosure</strong>—a break from industry-standard coordinated disclosure (where researchers work with vendors to fix flaws first). Cybercriminals are already weaponizing the code, forcing defenders to rush mitigations.</p>
+<p>Huntress researcher John Hammond told TechCrunch: <em>“Defenders are racing against adversaries using ready-made exploit tooling.”</em></p>
+<p>Microsoft emphasized support for coordinated disclosure in a statement, noting it protects customers while supporting researchers.</p>
+<p>Stay vigilant: Patch BlueHammer immediately if unpatched, and monitor for updates on UnDefend/RedSun.</p>
+<hr>
+<p><em>Want more cybersecurity insights? Subscribe for weekly updates.</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-founders-5">
+    <h2 class="source-title">TLDR.tech Founders</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://lightfield.app/blog/introducing-skills?utm_source=newsletter&amp;utm_medium=paid&amp;utm_campaign=tldr&amp;utm_content=primary_4-20-2026" target="_blank" rel="noopener noreferrer">You&#039;re doing the same five things before every sales call. Why? (Sponsor)</a></div>
+    <div class="news-summary"><h1>Lightfield CRM Update Brief</h1>
+<p><em>Supercharge sales workflows with native Skills &amp; Knowledge — Apr 8, 2026</em></p>
+<hr>
+<p><strong>Your CRM just got an action engine.</strong> Lightfield launched native Skills &amp; Knowledge, embedding automated, data-driven workflows directly into its platform—no consultants or custom setup required.</p>
+<h3>Key New Features</h3>
+<p>Pre-built &quot;Skills&quot; use your CRM, calendar, and email data to automate critical tasks:</p>
+<ul>
+<li><strong>Build Pipeline</strong>: Uncover hidden deals in your existing CRM</li>
+<li><strong>Find Similar Companies</strong>: Rank prospects matching your best-fit ICP</li>
+<li><strong>Know Your Deals</strong>: Map buying committees (including unknown stakeholders)</li>
+<li><strong>Draft Outreach</strong>: Auto-personalize emails/DMs with prospect research</li>
+<li><strong>Account Health Score</strong>: Green/Yellow/Red reports with churn risk flags</li>
+</ul>
+<h3>Quick Wins to Start</h3>
+<ol>
+<li>Connect calendar/email → run a pre-built Skill in minutes (no project needed)</li>
+<li>Skip custom builds first—use the pre-made Skills bank for common workflows</li>
+<li>The system improves over time: more interactions = smarter outputs</li>
+</ol>
+<h3>Next Steps</h3>
+<ul>
+<li>New users: Sign up free, connect tools, and test a Skill today</li>
+<li>Existing users: Skills &amp; Knowledge are live in your account now</li>
+</ul>
+<p><em>Try free → <a href="https://lightfield.co">Lightfield.co</a></em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://lightfield.app/blog/introducing-skills?utm_source=newsletter&utm_medium=paid&utm_campaign=tldr&utm_content=primary_4-20-2026" target="_blank" rel="noopener noreferrer">Lightfield</a></div>
+    <div class="news-summary"><h1>Tech Brief: CRM Evolution</h1>
+<p><em>B2B workflow updates — Apr 8, 2026</em></p>
+<hr>
+<p><strong>Headline</strong>: Lightfield adds native AI &quot;Skills&quot; to turn CRMs into action engines.</p>
+<h2>Lightfield’s CRM Upgrade: Skills &amp; Knowledge</h2>
+<p>Lightfield has launched <strong>native Skills &amp; Knowledge</strong>—pre-built AI tools that run on your CRM data to automate sales/GTM tasks. No consultants, no custom setup: connect calendar/email, pick a Skill, and get results in minutes.</p>
+<h3>Top Features</h3>
+<ul>
+<li><strong>Build Pipeline</strong>: Uncover hidden deals in existing CRM data.</li>
+<li><strong>Resurrect Lost Deals</strong>: Identify post-loss changes + draft re-engagement messages.</li>
+<li><strong>Map Buying Committee</strong>: Surface all decision-makers (even unknown ones) using org signals/metadata.</li>
+<li><strong>Draft Proposal</strong>: Turn deal context into ready-to-send docs (pricing/terms included).</li>
+</ul>
+<h3>3 Key Takeaways</h3>
+<ol>
+<li><strong>Zero heavy setup</strong>: Get output before your next meeting.</li>
+<li><strong>Compound intelligence</strong>: The system learns from every interaction (better over time).</li>
+<li><strong>Customizable</strong>: Start with pre-built Skills, tweak later (no scratch work).</li>
+</ol>
+<p><strong>Next step</strong>: Try Lightfield free (link in source) or book a demo to unlock your CRM’s full potential.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://longform.asmartbear.com/hire-better-than-you/?utm_source=tldrfounders" target="_blank" rel="noopener noreferrer">How to Hire People Better Than You (10 minute read)</a></div>
+    <div class="news-summary"><h1>Hiring People Better Than You: A CEO’s Playbook</h1>
+<p><em>Key strategies for evaluating candidates who outexpertise you — &lt;current_date&gt;</em></p>
+<hr>
+<h3>Why It Matters</h3>
+<p>Hiring people better than you is non-negotiable: Orgs grow stronger (not just bigger) only if they add talent that’s infinitely better (not 10x). If your CEO is still the best at anything when you hit 100 employees, you’ve hired poorly.</p>
+<h3>5 Core Strategies (You Can’t Assess Domain Expertise—Focus On These)</h3>
+<ol>
+<li><strong>Post-interview excitement</strong>: Do you want to implement their ideas immediately? (Sign of fit and actionable insight)</li>
+<li><strong>Learning signal</strong>: Would you/your team learn from them? (Zuckerberg’s spirit: hire those who teach you)</li>
+<li><strong>Org-wide lift</strong>: Do they contribute cross-departmentally (communication, goal-setting—not just their silo)?</li>
+<li><strong>Real problem solving</strong>: Give them your actual challenges—watch how they think (not just regurgitate answers)</li>
+<li><strong>Culture fit references</strong>: Ask ideal/hell scenarios and unaware strengths (skip sanitized credentials)</li>
+</ol>
+<h3>Critical Rule</h3>
+<p>Cut mis-hires fast: False positives hurt teams more than false negatives. Interview for the person, not domain details (you’ll never know the counterfactual of what another hire could’ve done).</p>
+<hr>
+<p><em>Printed from: A Smart Bear | <a href="https://longform.asmartbear.com/hire-better-than-you/">https://longform.asmartbear.com/hire-better-than-you/</a> © Jason Cohen</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://insights.euclid.vc/p/how-to-compete-with-legacy-incumbents-alex-niehenke-scale-venture-partners?utm_source=tldrfounders" target="_blank" rel="noopener noreferrer">How to Compete with Legacy Incumbents (7 minute read)</a></div>
+    <div class="news-summary"><h1>The Verticalist Brief</h1>
+<p><em>Your weekly Vertical AI strategy roundup — Apr 17, 2026</em></p>
+<hr>
+<p>Vertical AI founders battling legacy systems of record (SoRs) face existential threats—but Scale Venture Partners’ Alex Niehenke has a playbook to turn incumbents into advantages.</p>
+<h2>Core Strategy: Build a &quot;System of Love&quot;</h2>
+<p>Incumbents (e.g., Westlaw, LexisNexis) often have rock-bottom NPS and price-gouge customers. Win early, fervent loyalty—this is your only leverage in unfair fights.</p>
+<h2>Niehenke’s 5-Point Playbook</h2>
+<ol>
+<li><strong>Standalone First</strong>: Make your product usable without SoR integrations (avoid ARR collapse if cut off).</li>
+<li><strong>Skip Litigation</strong>: Incumbents have unlimited time/money—ship product instead (court timelines kill startups).</li>
+<li><strong>Negotiate When Needed</strong>: Like Dollar Shave Club, give up margin for supply/access to preserve momentum.</li>
+<li><strong>Partner with #2/#3</strong>: Lean into runner-up SoRs for co-selling/embedding until you’re defensible.</li>
+<li><strong>Target Miserable Incumbents</strong>: Pick markets where incumbents are hated (structural flaws = opportunity).</li>
+</ol>
+<h2>Final Takeaway</h2>
+<p>Incumbents (PE-owned, leveraged) can’t cannibalize their base—this vacuum is where next-gen vertical platforms thrive. Success = great product + survival smarts.</p>
+<p>Subscribe for more Vertical AI insights → <a href="https://theverticalist.substack.com">The Verticalist</a></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.build-check.com/?utm_source=tldrfounders" target="_blank" rel="noopener noreferrer">Build Check (for Outsiders) (Tool)</a></div>
+    <div class="news-summary"><h1>Tool Spotlight: Build Check — Validate App Ideas Before Wasting Weeks</h1>
+<p>Tired of building apps nobody needs? <strong>Build Check</strong> is a free, no-tech-required tool for outsiders/vibe coders to test if their idea has legs in under 2 minutes.</p>
+<h3>How it works</h3>
+<ul>
+<li>Uses a 6-dimension framework: Real Problem, Frequency &amp; Pain, Target Audience, Builder Fit, Demand Signals, My Drive</li>
+<li>2 targeted questions per dimension → score 0-10 each (total 60)</li>
+<li>Grades: A(50-60), B(40-49), C(30-39), D(20-29), F(&lt;20) → 42+ = strong go signal</li>
+</ul>
+<h3>Options</h3>
+<ul>
+<li>Take the quiz directly</li>
+<li>Embed it on your site</li>
+<li>Use a DIY AI prompt (copy to Claude/ChatGPT/Gemini)</li>
+</ul>
+<h3>Who it’s for</h3>
+<p>Domain experts (managers, lawyers, teachers) with industry pain points — no technical skills needed.</p>
+<h3>Post-quiz perks</h3>
+<ul>
+<li>Instant scorecard + dimension breakdown</li>
+<li>Competitor benchmarks, domain ideas, ideal first user</li>
+<li>48-hour validation experiment</li>
+</ul>
+<p><strong>Key note</strong>: A low score doesn’t mean your idea is bad — it usually signals the problem or audience needs more specificity. Tailored next steps fix weak areas.</p>
+<p>Built with Next.js/Vercel/Supabase/Node.js, it’s free (no credit card) and was #1 in Vercel Day.</p>
+<p><em>Total visible words: ~150</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://world.hey.com/dhh/the-malleable-computer-7c187a9b?utm_source=tldrfounders" target="_blank" rel="noopener noreferrer">The Malleable Computer (3 minute read)</a></div>
+    <div class="news-summary"><h1>Open Source Insider</h1>
+<p><em>Your weekly roundup of open source trends &amp; analysis — April 15, 2026</em></p>
+<hr>
+<p><strong>This week:</strong> AI is finally turning open source’s &quot;malleable computer&quot; promise into reality.</p>
+<h2>Top Story: AI Breaks Down Code Complexity</h2>
+<p>Open source’s original vision let users modify any code—but few did (it was too hard for most). Now AI changes that: non-technical folks and programmers can tweak open-source apps (even if they don’t know the language or codebase) to create bespoke versions for their needs.</p>
+<h2>OS Customization: Linux Leads the Way</h2>
+<p>The biggest win? Applying this to operating systems. Linux lets you customize <em>everything</em> (menu bars, window managers, notifications)—but Windows/macOS lock core system elements. David Heinemeier Hansson (DHH) notes Omarchy users (not just tech experts) are already using AI to make their systems truly their own, and loving the results.</p>
+<h2>Future Outlook</h2>
+<p>This won’t stay niche. As AI models grow stronger, fixed &quot;black box&quot; computers will feel archaic. The future of malleable computing is here—just not evenly distributed yet.</p>
+<h2>Quick Note on DHH</h2>
+<p>Creator of Ruby on Rails, co-founder of 37signals (Basecamp/HEY), and Le Mans winner—DHH builds tools for &quot;underdogs&quot; and invests in Danish startups.</p>
+<hr>
+<p><em>Subscribe for weekly open source insights</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (5)" data-label-less="Show less">Show all (5)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-design-6">
+    <h2 class="source-title">TLDR.tech Design</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://9to5mac.com/2026/04/15/ios-26-4-adds-brand-new-widgets-for-your-iphones-home-screen/?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">iOS 26.4 adds brand new widgets for your iPhone&#039;s Home Screen (1 minute read)</a></div>
+    <div class="news-summary"><h1>Apple Ecosystem Brief</h1>
+<p><em>Curated Apple news for busy users — April 15, 2026</em></p>
+<hr>
+<p><strong>iOS 26.4 Unveils Ambient Music Widgets for One-Tap Mood Playback</strong></p>
+<p>iOS 26.4 adds handy Ambient Music widgets to the iPhone Home Screen, letting you launch mood-based playlists with a single tap.</p>
+<p>Key details:</p>
+<ul>
+<li><strong>Two widget sizes</strong>: Small (1 mood) and Large (all 4 moods: Chill, Productivity, Sleep, Wellbeing)</li>
+<li><strong>Customization</strong>: Choose Apple’s pre-built playlists (e.g., Sleep Sounds for Sleep) or your own custom playlists</li>
+<li><strong>Compatibility</strong>: Only works with Apple Music (Spotify users miss out)</li>
+<li><strong>Cost</strong>: Apple Music is $10.99/month, or part of the Apple One bundle</li>
+</ul>
+<p>This builds on last year’s Control Center Ambient Music tool, making mood-based playback more accessible than ever.</p>
+<h2><em>Got questions? Drop a comment below!</em></h2>
+<p><em>Follow us for daily Apple updates</em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://www.anthropic.com/news/claude-design-anthropic-labs?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">Introducing Claude Design by Anthropic Labs (3 minute read)</a></div>
+    <div class="news-summary"><h1>AI Design Brief</h1>
+<p><em>Your weekly roundup of AI-powered design tools — Apr 17, 2026</em></p>
+<hr>
+<p><strong>Anthropic Launches Claude Design: AI-Powered Visual Collaboration</strong><br>
+Anthropic Labs rolled out Claude Design (research preview) today for Pro/Max/Team/Enterprise subscribers. Built on its top vision model (Claude Opus 4.7), it lets teams create polished designs, prototypes, slides, and more via natural conversation—no design background required.</p>
+<p>Key Features:</p>
+<ul>
+<li><strong>Brand consistency</strong>: Auto-builds your team’s design system from code/files (supports multiple systems)</li>
+<li><strong>Flexible input</strong>: Start with text, upload docs/images, or capture web elements</li>
+<li><strong>Fine-grained refinement</strong>: Inline comments, direct edits, or adjustment knobs for spacing/color</li>
+<li><strong>Collaboration</strong>: Org-scoped sharing (view/edit access) + group chat with Claude</li>
+<li><strong>Export/handoff</strong>: Send to Canva/PPTX/HTML, or pass directly to Claude Code for implementation</li>
+</ul>
+<p>Real-World Impact (Early Users):</p>
+<ul>
+<li>Canva: Seamless integration to turn Claude drafts into editable Canva designs</li>
+<li>Brilliant: Cut prototype prompts from 20+ to 2 (faster complex interactivity)</li>
+<li>Datadog: From idea to prototype in 1 conversation (vs. 1 week of back-and-forth)</li>
+</ul>
+<p>Availability:</p>
+<ul>
+<li>Included in Claude Pro/Max/Team/Enterprise plans (uses subscription limits; extra usage optional)</li>
+<li>Enterprise: Admins enable via org settings</li>
+<li>Access: <a href="http://claude.ai/design">claude.ai/design</a></li>
+</ul>
+<p><strong>Closing</strong>: This tool bridges the gap between raw ideas and polished, brand-aligned visuals. Next up: more integrations with existing team tools.</p>
+<p>Total visible words: ~165<br>
+Format: Weekly roundup (single deep-dive story)<br>
+Tone: Conversational-professional (target: designers, product managers, founders)</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://9to5mac.com/2026/04/16/reddits-ios-app-is-adding-liquid-glass-soon-heres-how-it-looks/?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">Reddit&#039;s iOS app is adding Liquid Glass soon, here&#039;s how it looks (1 minute read)</a></div>
+    <div class="news-summary"><h1>Tech Brief: Reddit Adopts iOS 26’s Liquid Glass</h1>
+<p><strong>Reddit’s iOS App Gets Apple’s Sleek New Design</strong><br>
+iOS 26’s translucent Liquid Glass interface (launched last fall) is expanding to third-party apps—and Reddit’s iOS version is next.</p>
+<p>The latest Reddit beta (via TestFlight) now supports Liquid Glass, with screenshots showing the layered, glass-like look integrated into the app. Apple recently shared a developer gallery of apps adopting the design, and Reddit’s implementation appears polished enough for a quick full rollout after limited testing.</p>
+<p>Want early access? Join the Reddit iOS beta to try it now—general App Store launch is expected soon.</p>
+<hr>
+<p><em>This snippet is part of a weekly tech roundup covering Apple ecosystem updates.</em><br>
+Date: [Current Date]</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.creativebloq.com/design/branding/this-nyc-park-branding-radiates-pure-whimsy?utm_source=tldrdesign" target="_blank" rel="noopener noreferrer">This new NYC park branding radiates pure whimsy (3 minute read)</a></div>
+    <div class="news-summary"><p><strong>Washington Square Park Conservancy Unveils Vibrant Rebrand</strong><br>
+The Washington Square Park Conservancy (WSP) has launched a new brand identity and website by Pentagram’s Paula Scher team, tailored to reflect the iconic NYC park’s diverse community spirit.</p>
+<p>The rebrand centers on the park’s famous arch, paired with playful illustrations of daily activities (chess matches, dog walks, pétanque, sunbathing, and the Fountain Plaza). Designed to be joyful and distinct from other NYC green spaces, it prioritizes capturing WSP’s essence (a hub for relaxation, performance, protest, and celebration) over flashy design.</p>
+<p>A collaborative website with WeShouldDoItAll blends utility (easy access to park features/programs) and heritage (archival imagery, editorial content) to highlight WSP’s cultural legacy. NYC Parks officials emphasize the rebrand strengthens community connections and supports long-term park stewardship.</p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (3)" data-label-less="Show less">Show all (3)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-marketing-7">
+    <h2 class="source-title">TLDR.tech Marketing</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://lbbonline.com/news/Marketing-Built-to-Be-Forwarded?utm_source=tldrmarketing" target="_blank" rel="noopener noreferrer">Why the Best Marketing Today Is Built to Be Forwarded (3 minute read)</a></div>
+    <div class="news-summary"><h1>The Shareable Shift</h1>
+<h2><em>A weekly roundup of marketing that sticks — 17/04/2026</em></h2>
+<p>This week: Why shareability is no longer a gamble — it’s a design principle brands are engineering for success.</p>
+<h2>Top Story: Virality vs. Shareability</h2>
+<p>Forget &quot;going viral&quot; (it’s not a coffee order). Shareability is systematic:</p>
+<ul>
+<li>Keevx found 500+ viral creatives rely on high-arousal emotions (awe/excitement) for 34% more shares.</li>
+<li>Wyzowl’s 2025 data: 93% of marketers see positive video ROI (highest ever).</li>
+</ul>
+<p>The shift? Brands now build content backward from &quot;what makes someone want to pass this on?&quot;</p>
+<h2>Quick Bites</h2>
+<ul>
+<li><strong>Social First Search</strong>: Sprout Social Q2 2025: 1/3 consumers skip Google for TikTok/Instagram (Gen Z &gt;50%).</li>
+<li><strong>Short Wins</strong>: TikTok 2026: 7-15s &quot;blink-and-get-it&quot; videos outperform 30-60s by 340% in engagement.</li>
+</ul>
+<h2>Shareability Playbook (3 Rules)</h2>
+<ol>
+<li><strong>Specificity &gt; Generality</strong>: Knix’s plus-size launch hit 200k shares in 72h (nailed authentic plus-size experiences, not generic body positivity).</li>
+<li><strong>Single Insight</strong>: No explanation needed — content works as a headline.</li>
+<li><strong>Create a Loop</strong>: Target’s repositioning generated 1.4M impressions by making sharing feel like participation.</li>
+</ol>
+<h2>Closing Thought</h2>
+<p>Shareability isn’t an afterthought — it’s a metric for brand perception. When someone shares your work, they’re staking their reputation on it. That’s the ultimate win.</p>
+<hr>
+<p><em>Subscribe for weekly deep dives into modern marketing trends.</em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://contently.com/2026/04/16/the-content-cultures-that-last-have-one-thing-in-common/?utm_source=tldrmarketing" target="_blank" rel="noopener noreferrer">The Content Cultures That Last Have One Thing in Common (4 minute read)</a></div>
+    <div class="news-summary"><h1>The Content Strategist Weekly</h1>
+<h2><em>Your guide to building content programs that last — [Current Date]</em></h2>
+<p>Why 78% of B2B content efforts stall (and how to beat the odds)</p>
+<h2>Top Story: The Secret to Lasting Content Success</h2>
+<p>Most content programs fizzle by month 18: quality drops, deadlines slip, and purpose fades. Only 22% of B2B marketers call their programs &quot;extremely/very successful&quot; (CMI data). The fix? <strong>A content culture</strong>—not just a strategy.</p>
+<p>Contently’s 3 pillars for durability:</p>
+<ol>
+<li><strong>Shared mission</strong>: Go beyond &quot;what/when&quot; to a clear &quot;why&quot; (brand values + audience needs) that every team member (freelancers too) feels. No mission = disconnected content that erodes trust.</li>
+<li><strong>Cross-functional ownership</strong>: Content isn’t marketing’s alone. Product teams link content to new features; sales flag customer questions; leadership treats it like a strategic asset (only 8% of orgs have strong sales-marketing alignment, Forrester says).</li>
+<li><strong>Sustainable processes</strong>: Ditch heroic sprints. 52% of creators report burnout (2025 study) — instead, build lead time, clear handoffs, and closed feedback loops to keep quality consistent.</li>
+</ol>
+<h2>Quick Bite</h2>
+<p>97% of marketers have a documented strategy—but 42% cite unclear goals as their biggest underperformance driver.</p>
+<h2>Actionable Takeaway</h2>
+<p>Before your next tool upgrade or calendar revamp, ask:</p>
+<ul>
+<li>Do we have a shared &quot;why&quot; everyone understands?</li>
+<li>Is content a team sport (not just marketing)?</li>
+<li>Does our process respect creators’ time/energy?</li>
+</ul>
+<h2>Closing</h2>
+<p>What’s one pillar your team needs to strengthen first? Reply—we’re eager to hear.</p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (1)" data-label-less="Show less">Show all (1)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-crypto-8">
+    <h2 class="source-title">TLDR.tech Crypto</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://www.dlnews.com/articles/regulation/lawyer-criticises-uk-crypto-regulatory-proposal/?utm_source=tldrcrypto" target="_blank" rel="noopener noreferrer">UK FCA Crypto Proposal Criticized as Broadest Regime Globally (4 minute read)</a></div>
+    <div class="news-summary"><h1>Crypto Regulation Brief</h1>
+<p><em>Your quick update on global crypto policy shifts — 18 April 2026</em></p>
+<hr>
+<h3>UK FCA Proposes Sweeping Crypto Rules</h3>
+<p>The UK’s Financial Conduct Authority (FCA) released a crypto regulation framework this week, targeting stablecoins, staking, and trading platforms. The proposal precedes a 2027 crypto bill but faces criticism for overreach.</p>
+<h3>Expert: &quot;Mother, May I?&quot; Industry Risk</h3>
+<p>Bill Hughes (Consensys senior counsel) warns the rules would turn UK crypto into a &quot;mother, may I?&quot; space. Key concerns:</p>
+<ul>
+<li>Entities doing &quot;regulated activities&quot; (dealing, arranging deals, safeguarding crypto, issuing stablecoins, staking) need FCA authorization</li>
+<li>Ambiguity around &quot;arranging deals&quot; could include simple wallet custody</li>
+</ul>
+<h3>Tougher Than US/EU?</h3>
+<p>Hughes says the UK regime is more burdensome than the EU’s MiCA or US’s Trump-era approach (which allows neutral non-custodial trading interfaces). The US has prioritized innovation, while the UK would require pre-approval for user-facing crypto tools.</p>
+<h3>What’s Next?</h3>
+<p>The FCA’s consultation runs until June. The UK Treasury must approve final rules, effective October 2027.</p>
+<hr>
+<p><em>Stay tuned for updates on how this shapes crypto’s future in Europe.</em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://unchainedcrypto.com/hoskinson-says-bitcoins-quantum-proposal-is-a-disguised-hard-fork-that-leaves-1-7-million-btc-unrecoverable-unchained/?utm_source=tldrcrypto" target="_blank" rel="noopener noreferrer">Hoskinson Says Bitcoin&#039;s Quantum Proposal Is a Disguised Hard Fork (3 minute read)</a></div>
+    <div class="news-summary"><h1>Crypto Briefing: Hoskinson Slams Bitcoin’s Quantum Proposal</h1>
+<p><em>Your daily crypto update — April 18, 2026</em></p>
+<hr>
+<h2>Top Story: BIP-361 Mislabeled as Soft Fork, Fails Legacy BTC</h2>
+<p>Cardano founder Charles Hoskinson this week criticized Bitcoin’s BIP-361 (a quantum protection proposal), calling it a disguised hard fork that can’t recover ~1.7M BTC—including Satoshi Nakamoto’s ~1.1M coins.</p>
+<p>Authored by Jameson Lopp, BIP-361 aims to freeze addresses with exposed public keys before quantum computers use Shor’s algorithm to steal funds. It uses zero-knowledge proofs for BIP-39 seed phrase holders—but fails for coins predating BIP-39 (adopted ~2013), which lack seed phrases.</p>
+<p>Hoskinson argues the proposal’s address-freezing and signature changes require a hard fork (not soft fork). Lopp clarified it’s a &quot;rough contingency plan,&quot; not a finished spec.</p>
+<p>Ark Invest data (March 2026) shows 34% of BTC supply (~8M coins) has exposed keys, leaving them vulnerable. Hoskinson predicts two outcomes: quantum attackers drain legacy coins, or institutions (BlackRock, U.S. gov) force a hard fork to freeze them—regardless of community pushback.</p>
+<hr>
+<p><em>Subscribe to Crypto Briefing for daily updates</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (1)" data-label-less="Show less">Show all (1)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-fintech-9">
+    <h2 class="source-title">TLDR.tech Fintech</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://techcrunch.com/2026/04/17/once-close-enough-for-an-acquisition-stripe-and-airwallex-are-now-going-after-each-other/?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Stripe and Airwallex shift from partners to direct competitors (4 minute read)</a></div>
+    <div class="news-summary"><h1>Fintech Briefing</h1>
+<p><em>Global fintech news in 3 minutes — April 18, 2026</em></p>
+<hr>
+<p>Today: How Airwallex rejected a $1.2B Stripe offer and became its rival.</p>
+<h2>Top Story: The Bid That Changed Everything</h2>
+<p>In 2018, Melbourne-based Airwallex (then $2M annual revenue) turned down Stripe’s $1.2B acquisition bid (a 600x revenue multiple). Founder Jack Zhang chose to keep building his vision: global financial infrastructure for businesses to operate anywhere like locals.</p>
+<p>That call paid off: Airwallex now has $1.3B ARR (85% YoY growth) and processes $300B in annual transactions.</p>
+<h2>Quick Bites</h2>
+<ul>
+<li><strong>License Edge</strong>: Airwallex holds 90+ financial licenses across 50 markets (twice Stripe’s count). In Japan, this lets them hold funds in their ecosystem (vs Stripe/Square, which must transfer out immediately), cutting FX fees (2-3% savings) for global businesses.</li>
+<li><strong>Rivalry Heats</strong>: Stripe’s international push and Airwallex’s U.S. entry are overlapping. Airwallex targets CFOs/treasury teams (vs Stripe’s dev-focused default) but needs to win over engineers.</li>
+<li><strong>Valuation vs Growth</strong>: Stripe’s $159B valuation (2025 tender) is 20x Airwallex’s $8B, but Airwallex’s volume is 1/6 Stripe’s—growing faster.</li>
+<li><strong>Next Goals</strong>: Airwallex aims for 1M customers by 2030, $20B ARR, and AI tools that automate corporate finance tasks.</li>
+</ul>
+<hr>
+<p><em>Want more fintech insights? Subscribe to our weekly newsletter.</em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://techcrunch.com/2026/04/16/slash-a-ramp-competitor-founded-by-teenagers-raises-100m-at-1-4b-valuation/?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Slash raises $100M to compete with Ramp and Brex (2 minute read)</a></div>
+    <div class="news-summary"><h1>Fintech Flash</h1>
+<p><em>Your weekly roundup of fintech's biggest moves — April 16, 2026</em></p>
+<hr>
+<h2>Teen-Founded Fintech Slash Hits $1.4B Valuation</h2>
+<p>Slash Financial, a business banking and spend management platform, closed a <strong>$100 million Series C round</strong> at a <strong>$1.4 billion valuation</strong> this week.</p>
+<p>Led by fintech specialists Ribbit Capital, Khosla Ventures, and Goodwater Capital (with returning backers NEA and Y Combinator), the raise caps a remarkable journey: founders Victor Cardenas and Kevin Bai launched the company at 19 (now 24), dropped out of college, and pivoted from serving sneaker resellers (after Yeezy’s fallout) to a generalist platform.</p>
+<h3>Why it matters</h3>
+<p>Slash now boasts <strong>$300 million in annualized revenue (profitably)</strong> and 5,000 corporate customers—competing directly with giants like Ramp ($32B valuation) and Brex (recently acquired by Capital One). For a teen-founded startup, this milestone signals growing acceptance of young-led fintechs in the competitive business finance space.</p>
+<hr>
+<p><strong>Next week</strong>: We’ll break down how AI is reshaping small business banking tools.</p>
+<p><em>Subscribe for weekly fintech insights</em><br>
+[Link to subscribe]</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://thefinanser.com/2026/04/tokenization-and-ai-are-building-a-whole-new-world?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Tokenization and AI are building a whole new world of money (6 minute read)</a></div>
+    <div class="news-summary"><h1>Fintech Deep Dive: The Future of Money (Tokenization + AI)</h1>
+<p><em>Chris Skinner’s take on programmable, agentic finance — April 15, 2026</em></p>
+<hr>
+<h3>Key Distinctions (Stablecoins vs CBDCs vs Tokenized Deposits)</h3>
+<ul>
+<li><strong>Stablecoins</strong>: Private, reserve-backed (USDC/Tether) → trillions in annual volume (mostly crypto/internal markets).</li>
+<li><strong>CBDCs</strong>: State-issued central bank money → 130+ countries exploring (China piloting large-scale).</li>
+<li><strong>Tokenized Deposits</strong>: Commercial bank money on modern rails (JPM Coin) → real-time institutional settlement.</li>
+</ul>
+<h3>Tokenization: Not New, But Transformative</h3>
+<ul>
+<li>Dates to 10k-year-old Mesopotamian clay tokens (asset ownership abstraction).</li>
+<li>Fixes current flaws: SWIFT/Visa are messaging layers (delayed cross-border, non-real-time settlement).</li>
+<li>Merges asset + instruction → instant, programmable settlement (atomic/delivery-versus-payment).</li>
+</ul>
+<h3>AI + Tokenization = Agentic Money</h3>
+<ul>
+<li>Machines act proactively (rules-based) → supply chain auto-reorder/settle, IoT payments, algorithmic trading (majority equity volume).</li>
+<li>Personal finance: &quot;financial agent&quot; automates cash flow, investments, bills, refinancing.</li>
+</ul>
+<h3>Critical Questions &amp; Future</h3>
+<ul>
+<li>Accountability for AI actions, identity/permission controls (zero-knowledge proofs key).</li>
+<li>Future: Layered digital stack (coexisting stablecoins/CBDCs/tokenized deposits) → shift from static → programmable → autonomous finance.</li>
+</ul>
+<p><em>Are you keeping up with this game changer?</em><br>
+— Chris Skinner, The Finanser</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://sapphireventures.com/blog/the-biggest-vertical-ai-markets-are-hiding-in-plain-sight/?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Vertical AI&#039;s biggest opportunities hide in messy markets (4 minute read)</a></div>
+    <div class="news-summary"><h1>Vertical AI Insider</h1>
+<p><em>Your weekly deep dive into hidden vertical AI opportunities — April 15, 2026</em></p>
+<hr>
+<p>The biggest vertical AI wins aren’t in obvious markets—they’re in messy, fragmented industries most founders ignore. Sapphire Ventures’ latest analysis reveals why these hidden gems are both overlooked and defensible.</p>
+<h2>Why These Markets Hide (and Defend)</h2>
+<p>Two core traits keep them off the radar:</p>
+<ol>
+<li><strong>Workflow grit</strong>: Messy, compliance-heavy tasks (e.g., auto lending collections, medical billing) repel generalists. Labs avoid operational chaos; customers lack tech capacity; competitors can’t shortcut the work. This builds proprietary workflow context no one can copy.</li>
+<li><strong>Fragmented structure</strong>: Thousands of small buyers with low tech DNA mean horizontal AI vendors can’t justify go-to-market costs.</li>
+</ol>
+<h2>The Goldilocks TAM</h2>
+<p>Most founders size markets by software spend (too small). But the real prize is <strong>labor/services budgets</strong>:</p>
+<ul>
+<li>Property leasing: $30k software vs. $300k staffing costs.</li>
+<li>Logistics: $1T+ in non-physical operational costs.</li>
+</ul>
+<p>This reframing reveals massive, overlooked TAMs.</p>
+<h2>What Wins? Systems, Not Tools</h2>
+<p>Companies building end-to-end vertical systems (not just AI tools) dominate:</p>
+<ul>
+<li><strong>EliseAI</strong>: Expanded from leasing automation to full property management (serving 1/8 U.S. apartments) by replacing, not assisting, work.</li>
+<li><strong>Salient</strong>: AI voice agents for auto lending collections (navigates FDCPA rules, cuts costs from $4–$12/human to a fraction).</li>
+</ul>
+<h2>Closing Takeaway</h2>
+<p>Models win demos, wedges win pilots, systems win markets. Pick a messy, overlooked wedge—then expand across workflows to displace labor.</p>
+<p><em>Source: Sapphire Ventures (April 15, 2026)</em><br>
+<em>Note: Portfolio companies marked with * in original.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.paymentsdive.com/news/amex-to-buy-hypercard/817795/?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Amex acquires Hyper to build AI-native expense platform (2 minute read)</a></div>
+    <div class="news-summary"><h1>Payments Brief</h1>
+<p><em>Your quick hit of payments industry news — April 17, 2026</em></p>
+<hr>
+<p><strong>Featured Story: Amex Snaps Up Hypercard for AI Expense Tools</strong></p>
+<p>American Express is doubling down on AI-driven business solutions, announcing plans to acquire Hypercard Network (aka Hyper) this week. The New York startup uses AI for automated expense management—they partnered with Amex in 2024 for an AI-powered loyalty card program.</p>
+<p>Backed by OpenAI CEO Sam Altman (who invested in their 2023 $4.5M round), Hyper’s team brings deep AI agent expertise. The deal closes this quarter, with Hyper’s engineers launching a new product later this year to boost Amex’s expense platform.</p>
+<p><strong>Why it matters</strong>: This follows Amex’s 2025 purchase of Center (expense software), building a seamless end-to-end solution. Amex CEO Stephen Squeri says AI will transform how businesses handle travel, inventory, and transactions—this acquisition accelerates their AI integration.</p>
+<p><strong>Quick Bite</strong>: Amex isn’t new to expense buys: last year’s Center acquisition expanded their commercial card and automated accounting offerings.</p>
+<p><strong>Closing Thought</strong>: Expect Hyper’s AI tools to roll into Amex’s commercial services later this year, helping businesses cut expense admin time.</p>
+<hr>
+<p><em>Get more payments news in your inbox: Sign up for Payments Dive’s free daily newsletter.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://finovate.com/airwallex-launches-physical-point-of-sale-device/?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">Airwallex launches physical point of sale device (3 minute read)</a></div>
+    <div class="news-summary"><h1>FinTech Briefing</h1>
+<p><em>Global fintech innovations at a glance — April 16, 2026</em></p>
+<hr>
+<h2>Top Story: Airwallex Launches Physical POS Device</h2>
+<p>Singapore-based fintech Airwallex rolled out <strong>Airwallex POS Payments</strong>, a physical point-of-sale device integrating with its global commerce stack to unify online and in-store payments.</p>
+<h2>Key Details</h2>
+<ul>
+<li>Unifies payment flows, reporting, and customer experiences across channels</li>
+<li>Benefits: Enterprise retailers (cross-channel visibility) + SaaS platforms (embedded in-store payments)</li>
+<li>Competitive edge: Banking licenses in regions like Japan let Airwallex hold merchant funds directly (no transfers to primary banks)</li>
+</ul>
+<h2>Competitive Landscape</h2>
+<p>The launch pits Airwallex against Square (mobile POS pioneer) and Stripe (which offered to acquire Airwallex for $1.2B in 2019).</p>
+<h2>Rollout</h2>
+<p>Available now in UK, Europe, Hong Kong, Singapore; upcoming launches in Australia and US (serves 46k businesses there).</p>
+<h2>Quick Context</h2>
+<p>Founded in 2015, Airwallex holds ~90 regulatory licenses across 50 markets, operating in 200+ countries. This move bucks the digital-first &quot;agentic payments&quot; trend by doubling down on physical retail.</p>
+<hr>
+<p><em>Subscribe for weekly fintech updates</em> | <em>Send tips to [fintechbriefing@example.com]</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.pymnts.com/earnings/2026/bnys-ai-strategy-signals-a-new-era-of-platform-banking/?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">BNY&#039;s AI strategy signals a new era of platform banking (4 minute read)</a></div>
+    <div class="news-summary"><h1>Fintech Briefing</h1>
+<p><em>Your weekly B2B fintech insights — April 16, 2026</em></p>
+<hr>
+<h2>BNY’s AI Push Redefines Platform Banking</h2>
+<p>BNY Mellon reported record Q1 2026 earnings: $5.41B revenue (13% YoY growth, beating estimates), $59.4T in assets under custody, and $2.1T under management—pushing shares to a 52-week high. The bigger shift? Moving from discrete services (custody, payments) to an integrated operating partner embedded in client workflows.</p>
+<h2>AI Is Now a Margin Engine</h2>
+<p>AI is core to BNY’s operations, with tangible results:</p>
+<ul>
+<li>50% of employees use AI daily; 50% build AI agents in workflows</li>
+<li>220 enterprise AI solutions in production; 140 &quot;digital employees&quot; deployed</li>
+<li>Onboarding +20% faster, compliance resolution +30% faster; 40% of code AI-authored (double-digit release velocity up); account planning 60% faster</li>
+</ul>
+<h2>Industry Paradigm Shift</h2>
+<p>Traditional banking advantages (scale, regulation) are no longer enough. The new moat? Data integration, workflow embedding, and AI intelligence. PYMNTS data shows 83% of CFOs plan to use AI for cash flow improvements—agentic AI automates up to 95% of accounts receivable.</p>
+<hr>
+<p><em>Stay updated: Subscribe to PYMNTS Today for daily fintech news.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.carriermanagement.com/news/2026/04/17/286898.htm?utm_source=tldrfintech" target="_blank" rel="noopener noreferrer">More than a dozen US states consider temporary data center bans (4 minute read)</a></div>
+    <div class="news-summary"><h1>Data Center Moratorium Wave: 13 U.S. States Target AI-Powered Facilities</h1>
+<p>April 17, 2026</p>
+<p>Maine lawmakers have approved a bill (awaiting Governor Janet Mills’ sign-off) to freeze approvals for data centers requiring ≥20 megawatts of power until October 2027. The move—studying grid strain, electricity bills, air, and water impacts—could make Maine the first U.S. state to impose such a moratorium, amid local pushback against facilities fueling Washington’s AI race against Beijing.</p>
+<p>Thirteen other states are considering similar measures, with distinct rules:</p>
+<ul>
+<li><strong>Georgia</strong>: Bars permits until March 2027 (exceptions for pre-July 2026 approvals)</li>
+<li><strong>Maryland</strong>: Prohibits new centers unless paired with power gen (gas, nuclear, SMRs)</li>
+<li><strong>Michigan</strong>: Pauses state incentives for data centers</li>
+<li><strong>NH</strong>: 1-year ban + environmental impact study</li>
+<li><strong>MN</strong>: Blocks permits until utility commission submits development reports</li>
+<li><strong>NY</strong>: Moratorium + directs regulators to minimize rate hikes</li>
+<li><strong>OK</strong>: 5-year ban (until 2029) + study water, property values, and costs</li>
+<li><strong>SC</strong>: Bars permits/incentives until 2028</li>
+<li><strong>SD</strong>: 1-year hyperscale ban (House bill adds cost/risk allocation)</li>
+<li><strong>VT</strong>: 4-year moratorium (until 2030) + regulatory framework recommendations</li>
+<li><strong>VA</strong>: Blocks final approvals until grid interconnection conditions are met</li>
+<li><strong>WI</strong>: Moratorium until legislature enacts rules (state planning, no cost shifting to residents)</li>
+</ul>
+<p>These efforts reflect growing concerns over data centers’ strain on local infrastructure and environmental impacts as AI demand surges.</p>
+<hr>
+<p><em>This summary is curated from Carrier Management’s coverage of U.S. state data center policy shifts.</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
+</div>
+<div class="source-section" id="source-tldr-tech-it-10">
+    <h2 class="source-title">TLDR.tech IT</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://www.theregister.com/2026/04/18/atlassians_new_data_collection_policy/?utm_source=tldrit" target="_blank" rel="noopener noreferrer">Atlassian mandates metadata collection for AI training starting August 17 (4 minute read)</a></div>
+    <div class="news-summary"><h1>Tech Brief: Atlassian AI Data Policy</h1>
+<h2><em>Key updates for cloud users — Sat 18 Apr 2026</em></h2>
+<h2>Atlassian’s New AI Training Data Rules</h2>
+<p><strong>Hook</strong>: Atlassian is forcing some customers to share data for AI models — no opt-out for metadata.</p>
+<p>Starting Aug 17, the company will collect two data types from cloud customers (Jira, Confluence, etc.):</p>
+<ol>
+<li><strong>Metadata</strong>: De-identified info like Confluence page complexity, Jira story points.
+<ul>
+<li><strong>No opt-out</strong>: Free/Standard/Premium tiers (only Enterprise+ can skip). Stored 7 years.</li>
+</ul>
+</li>
+<li><strong>In-app data</strong>: User-created content (pages, comments, custom fields).
+<ul>
+<li><strong>Opt-out options</strong>: Free/Standard can opt out; Premium/Enterprise have it off by default.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Exclusions</strong>: HIPAA-compliant, government/financial services, and customers using customer-managed keys are exempt.</p>
+<p><strong>Why it matters</strong>: Atlassian says the data will boost AI features (better search, summarization, workflows). But non-Enterprise users face privacy tradeoffs — no choice on metadata collection.</p>
+<p><strong>Quick note</strong>: Opt-outs for in-app data take effect Aug 17; data removal happens within 30 days of request.</p>
+<hr>
+<p><em>Stay informed: Next update — Mon 20 Apr 2026</em></p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://siliconangle.com/2026/04/18/ai-powers-google-whats-next-google-cloud/?utm_source=tldrit" target="_blank" rel="noopener noreferrer">AI Powers Google&#039;s Next Phase: From Tools to Execution (4 minute read)</a></div>
+    <div class="news-summary"><h1>AI Cloud Briefing</h1>
+<p><em>Enterprise AI &amp; Google Cloud Update — April 18, 2026</em></p>
+<hr>
+<p>The agentic AI era is resetting enterprise architecture: Autonomous decision loops demand end-to-end integrated systems, not fragmented &quot;modern data stacks&quot; (now legacy).</p>
+<p><strong>Google’s Hidden Edge</strong><br>
+Google has a rare full-stack advantage: Tight integration of TPUs (custom silicon), global network, security, data engines, and apps. This solves agentic AI bottlenecks (latency, identity, cost-per-token) that patchwork platforms can’t.</p>
+<p><strong>Capex Bet: $175–185B in 2026</strong><br>
+Alphabet’s massive infrastructure spend (doubling prior levels) signals AI demand confidence. Dual silicon strategy (Broadcom TPUs + Nvidia GPUs) controls cost/supply while accessing Nvidia’s ecosystem. Investors are bullish (stock up 118% YoY) thanks to ad revenue funding the buildout.</p>
+<p><strong>Cloud Momentum</strong><br>
+Google Cloud’s IaaS/PaaS hits $42B 2026 (mid-40% growth), lifting share to ~11.5% (up 1 point YoY). ETR data shows 40% Net Score (high momentum) and rising account penetration.</p>
+<p><strong>What’s Next?</strong><br>
+Ahead of Google Cloud Next next week, watch for updates on translating infrastructure into enterprise outcomes.</p>
+<hr>
+<p><em>Source: theCUBE Research Breaking Analysis (April 18, 2026)</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://trustedsec.com/blog/mythos-memory-loss-and-the-part-infosec-keeps-missing?utm_source=tldrit" target="_blank" rel="noopener noreferrer">Mythos and the reality of AI-driven vulnerability research in cybersecurity (8 minute read)</a></div>
+    <div class="news-summary"><h1>InfoSec Brief: Mythos &amp; the Unchanging Breach Reality</h1>
+<p><em>No-hype insights for security teams — April 17, 2026</em></p>
+<hr>
+<p>AI tool Mythos (for bug hunting/exploit dev) is grabbing headlines, but most defenders are ignoring the real threat: the same old breach vectors still dominate.</p>
+<h2>Top Story: Mythos Hype vs. Operational Truth</h2>
+<p>Mythos is impressive—it accelerates vulnerability research and exploit creation. But the industry’s panic over &quot;AI zero-day storms&quot; misses a critical point: <strong>most organizations get compromised via boring, persistent issues</strong>, not cutting-edge exploits.</p>
+<h2>Quick Bites</h2>
+<ol>
+<li><strong>History Repeats</strong>: InfoSec always overreacts to new offensive tools (e.g., Metasploit, exploit kits). Each felt unprecedented, but attackers shifted to cheaper, scalable paths (phishing, stolen credentials) instead.</li>
+<li><strong>Real Breach Vectors</strong>: Ransomware crews still use phishing, exposed edges, weak identity controls, and known vulnerabilities—Mythos doesn’t replace these.</li>
+<li><strong>Defender Gaps</strong>: CTI/EDR improved, but exposure management, patch velocity, and bad segmentation still leave organizations vulnerable.</li>
+</ol>
+<h2>Actionable Takeaway</h2>
+<p>Stop fixating on AI hype. Prioritize:</p>
+<ul>
+<li>Patching Known Exploited Vulnerabilities (KEVs) fast.</li>
+<li>Hardening identity controls and segmentation.</li>
+<li>Reducing exposed Internet-facing attack surface.</li>
+</ul>
+<p>Mythos speeds up exploit timelines—but the core problem is unaddressed basic security hygiene.</p>
+<p><em>Until next week, stay focused on the basics.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://fandf.co/48Jol6e?utm_source=tldrit" target="_blank" rel="noopener noreferrer">Join us for Windows Server Summit 2026, May 11-13. (Sponsor)</a></div>
+    <div class="news-summary"><h1>Server Insights Weekly</h1>
+<p><em>Your guide to Windows Server updates &amp; events — April 8, 2026</em></p>
+<hr>
+<p><strong>Preview</strong>: Mark your calendars: The Windows Server Summit 2026 is coming May 11–13 with real-world guidance to modernize your infrastructure.</p>
+<h2>What’s On Tap</h2>
+<p>Microsoft’s free virtual summit focuses on three core areas:</p>
+<ul>
+<li>Windows Server 2025 innovations &amp; updates</li>
+<li>Hybrid/multicloud scenarios powered by Azure Arc</li>
+<li>Secure, resilient cloud-to-edge infrastructure best practices</li>
+</ul>
+<h2>Can’t-Miss Sessions</h2>
+<p><strong>May 11</strong>: Future of Hyper-V, AI workloads on Windows Server, modernizing AD for hybrid identity<br>
+<strong>May12</strong>: Azure Arc for Servers deep dive, Windows Admin Center Virtualization Mode, easier migration paths<br>
+<strong>May13</strong>: Windows Server 2025 PKI future, NVMe/ReFS storage updates, failover clustering insights</p>
+<h2>How to Join</h2>
+<ol>
+<li>Add sessions to your calendar via the <a href="https://techcommunity.microsoft.com/t5/windows-server-events/windows-server-summit-2026/ba-p/398765">event page</a></li>
+<li>Sign in to the Microsoft Tech Community</li>
+<li>Select “Attend” for reminders</li>
+</ol>
+<p><strong>Closing</strong>: Don’t miss out on actionable insights from product leaders—save the dates now!</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://fandf.co/48Jol6e" target="_blank" rel="noopener noreferrer">Learn more &amp; save the date.</a></div>
+    <div class="news-summary"><h1>Tech Brief: Windows Server Summit 2026</h1>
+<p><em>Your guide to Windows Server’s latest advancements — Apr 01, 2026</em></p>
+<hr>
+<p><strong>Windows Server Summit 2026</strong> returns with real-world architecture guidance, scenario deep dives, and actionable insights to modernize your infrastructure using the latest (and upcoming) Windows Server capabilities.</p>
+<h3>Key Focus Areas</h3>
+<p>Product leaders will prioritize three core topics:</p>
+<ol>
+<li>Windows Server 2025 innovations &amp; updates</li>
+<li>Hybrid/multicloud scenarios powered by Azure Arc</li>
+<li>Best practices for secure, resilient cloud-to-edge infrastructure</li>
+</ol>
+<h3>Can’t-Miss Sessions (May 11–13, 2026)</h3>
+<ul>
+<li><strong>Mon:</strong> &quot;Today, Tomorrow, What’s Next&quot; (7AM), Hyper-V future (9AM), AI workloads on Windows Server (10:30AM)</li>
+<li><strong>Tue:</strong> Azure Arc for Servers deep dive (7AM), Windows Admin Center Virtualization Mode (8AM)</li>
+<li><strong>Wed:</strong> Feedback on 2025/vNext (7AM), Azure Virtual Desktop for admins (8AM), storage updates (10AM)</li>
+</ul>
+<h3>How to Join</h3>
+<ul>
+<li>Add sessions to your calendar via the event page</li>
+<li>Sign in to the Microsoft Tech Community and select &quot;Attend&quot; for reminders</li>
+</ul>
+<hr>
+<p><em>Mark your calendar — don’t miss out on Windows Server’s future roadmap!</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.csoonline.com/article/4159889/rce-by-design-mcp-architectural-choice-haunts-ai-agent-ecosystem.html?utm_source=tldrit" target="_blank" rel="noopener noreferrer">RCE by design: MCP architectural choice haunts AI agent ecosystem (7 minute read)</a></div>
+    <div class="news-summary"><h1>AI Security Brief</h1>
+<p><em>Your weekly roundup of AI security risks and fixes — April 16, 2026</em></p>
+<hr>
+<h2>Top Story: MCP’s STDIO Flaw Exposes AI Agents to RCE</h2>
+<p>A critical design choice in Anthropic’s Model Context Protocol (MCP) is putting AI agent ecosystems at risk of remote code execution (RCE).</p>
+<p>OX Security researchers found unsafe defaults in MCP’s STDIO interface (used for local server communication) allow arbitrary command execution—affecting <strong>6 commercial services</strong> (paying customers) and <strong>thousands of public servers</strong> from 200+ open-source projects (hundreds of millions of downloads).</p>
+<p>Anthropic argues this is &quot;by design,&quot; shifting responsibility to client developers to sanitize inputs. But few have implemented proper filtering—even those who tried (e.g., Upsonic, Flowise) had easy bypasses (like <code>npx -c</code>).</p>
+<p>Affected tools include IDEs (Windsurf, Claude Code, Gemini CLI), AI agent frameworks (LangFlow, GPT Researcher, LiteLLM), and platforms (Letta AI, DocsGPT). Over 30 RCE issues reported; 10 have CVE IDs.</p>
+<h2>Quick Takeaway</h2>
+<p>If you use AI agents or MCP-integrated tools:</p>
+<ul>
+<li>Check if your framework has MCP STDIO command allowlists (most don’t).</li>
+<li>Avoid unfiltered user input in MCP configurations.</li>
+</ul>
+<hr>
+<p><em>Stay ahead of AI security threats—subscribe for weekly updates.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-cui-cert-8jSZYhWL?utm_source=tldrit" target="_blank" rel="noopener noreferrer">Cisco Systems issues three advisories for critical vulnerabilities in Webex, ISE (3 minute read)</a></div>
+    <div class="news-summary"><h1>Cybersecurity Briefing</h1>
+<p><em>Critical enterprise security updates | 2026 April 16</em></p>
+<hr>
+<p><strong>Cisco Webex Critical Vulnerability: Act Now</strong></p>
+<h2>Top Story: High-Severity SSO Flaw Fixed</h2>
+<p>A critical vulnerability (CVE-2026-20184, CVSS 9.8) in Cisco Webex Services could have let unauthenticated attackers impersonate any user via SSO integration with Control Hub.</p>
+<h3>What’s the Risk?</h3>
+<p>The flaw stemmed from improper certificate validation in trust anchor configurations. Exploiting it required a crafted token to access legitimate Webex services (meetings, data, accounts).</p>
+<h3>Who’s Affected?</h3>
+<p>Only customers using trust anchors in their Webex SSO setup. Verify via Control Hub’s SSO configuration page.</p>
+<h3>Required Action</h3>
+<p>Cisco has fixed the cloud service, but <strong>no workarounds exist</strong>. To avoid interruptions:</p>
+<ul>
+<li>Upload a new IdP SAML certificate to Control Hub.</li>
+</ul>
+<h3>Key Notes</h3>
+<ul>
+<li>No public exploitation or malicious use reported.</li>
+<li>Found during Cisco’s internal security testing.</li>
+</ul>
+<p>For full details: <a href="https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-cui-cert-8jSZYhWL">Cisco Advisory Link</a></p>
+<hr>
+<p><em>Stay vigilant—regularly check vendor advisories for critical fixes.</em></p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.atlassian.com/trust/ai/data-contribution?utm_source=tldrit" target="_blank" rel="noopener noreferrer">Atlassian publishes its AI data contribution policy (2 minute read)</a></div>
+    <div class="news-summary"><h1>Atlassian AI Data Update Brief</h1>
+<p><em>Your quick guide to upcoming changes</em> — [Current Date]</p>
+<hr>
+<p>Atlassian is rolling out AI-focused data usage updates starting August 17, 2026, with new admin controls to manage data contribution. Here’s what you need to know:</p>
+<h3>Key Timeline</h3>
+<ul>
+<li><strong>April 16, 2026</strong>: Data contribution settings launch in Atlassian Administration.</li>
+<li><strong>May 19, 2026</strong>: Settings fully available (90 days to adjust preferences).</li>
+<li><strong>Aug 17, 2026</strong>: Changes take effect (updated terms + data usage rules).</li>
+</ul>
+<h3>What Data Is Used?</h3>
+<p>Atlassian uses <strong>de-identified/aggregated</strong> metadata and in-app data to improve AI features (search, workflow recommendations, etc.):</p>
+<ul>
+<li><strong>Metadata</strong>: Content attributes (story points, page complexity) + common patterns (frequent phrases like &quot;vacation policy&quot;).</li>
+<li><strong>In-app data</strong>: Confluence/Jira content (titles, comments) + custom fields (emoji names, statuses).</li>
+</ul>
+<h3>Control Your Data</h3>
+<p>Admins adjust settings at the org level:</p>
+<ul>
+<li><strong>Metadata</strong>: Opt-out only for Enterprise plans; Free/Standard/Premium can’t opt out (data fully de-identified).</li>
+<li><strong>In-app data</strong>: Adjustable for all plans (defaults: Free/Standard = On; Premium/Enterprise = Off).</li>
+</ul>
+<h3>Safeguards &amp; Resources</h3>
+<ul>
+<li><strong>Protections</strong>: No direct personal info, re-identification controls, aggregation.</li>
+<li><strong>Help</strong>: Webinar (April 28, 2026), documentation, checklist, demo video.</li>
+</ul>
+<hr>
+<p><em>Stay in control: Review settings in Atlassian Administration before Aug 17.</em></p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (7)" data-label-less="Show less">Show all (7)</button>
+    </div>
+</div>
+<div class="source-section" id="source-qbitai-11">
+    <h2 class="source-title">QbitAI</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://www.qbitai.com/2026/04/403822.html" target="_blank" rel="noopener noreferrer">K型分化，如何破局？| 第20届中国投资年会·年度峰会即将启幕</a></div>
+    <div class="news-summary"><h3>第20届中国投资年会·年度峰会总结</h3>
+<p><strong>基本信息</strong></p>
+<ul>
+<li>主题：K型分化破局</li>
+<li>时间：2026年4月22-24日</li>
+<li>地点：北京海淀</li>
+<li>主办方：投中信息、投中网</li>
+</ul>
+<p><strong>核心探讨</strong><br>
+聚焦<strong>K型复苏</strong>（整体市场回暖但投资群体分化加剧），剖析三大底层变量：</p>
+<ol>
+<li><strong>人口结构</strong>：人口红利转向约束条件；</li>
+<li><strong>地缘变局</strong>：全球资本流向不确定性；</li>
+<li><strong>技术渗透</strong>：AI等技术落地的非均衡性。</li>
+</ol>
+<p><strong>重点内容</strong></p>
+<ul>
+<li><strong>投资方法论重塑</strong>：探讨募资、退出、LP-GP关系等环节的重构；</li>
+<li><strong>产业赛道聚焦</strong>：AI+千行百业、机器人、高端制造、创新药等科技创新方向；</li>
+<li><strong>投中榜发布</strong>：揭晓“投中榜2025”（含“中国创投20年影响力人物榜”），见证分化时代的投资力量；</li>
+<li><strong>特色环节</strong>：“拾日谈”（行业领袖深度对话）、“巅峰对话”（痛点议题碰撞）、“NOVA FORUM”（新一代投资人成长）等。</li>
+</ul>
+<p><strong>峰会意义</strong><br>
+作为中国股权投资行业20周年节点，旨在通过对话思辨，探寻K型时代的破局之道。</p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://www.qbitai.com/2026/04/403790.html" target="_blank" rel="noopener noreferrer">这次，库克真的要卸任苹果CEO了！</a></div>
+    <div class="news-summary"><h3>Apple CEO Transition: Tim Cook Steps Down, John Ternus Takes Over</h3>
+<p>Apple announced Tim Cook will step down as CEO on September 1, 2026, after 15 years leading the company, transitioning to Executive Chairman. His successor is <strong>John Ternus</strong>, current Senior Vice President of Hardware Engineering.</p>
+<p>Ternus, a 25-year Apple veteran, has led core hardware teams (iPhone, iPad, Mac, AirPods) and spearheaded the Mac’s shift to Apple Silicon. Known for his calm demeanor, cross-functional collaboration (e.g., bringing OLED to iPad), and hands-on engineering focus, he’s praised for aligning with Cook’s leadership style.</p>
+<p>Cook’s tenure saw Apple’s market cap grow nearly 10x, though he faced criticism for the company’s slower AI adoption. In his farewell letter, he thanked users and expressed confidence in Ternus, calling him “the perfect choice” to lead Apple’s next chapter.</p>
+<p>Notably, Ternus is around 50—matching Cook’s age when he took over from Steve Jobs in 2011. The transition comes as Apple marks its 50th anniversary.</p>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.qbitai.com/2026/04/403777.html" target="_blank" rel="noopener noreferrer">跨维智能DexWorldModel斩获榜首，世界模型真正的考场在机器人执行里</a></div>
+    <div class="news-summary"><h3>Kuawei Intelligence’s DexWorldModel: Redefining World Models for Robot Execution</h3>
+<h4><strong>Paradigm Shift: Beyond Video-Centric World Models</strong></h4>
+<p>The embodied AI field is moving from Vision-Language Action (VLA) to <strong>world models</strong>, but most current models prioritize <strong>video generation quality</strong> (e.g., Veo 3.1) over <strong>robot task success</strong>. This mismatch was emphasized by VLA co-founder Pete Florence, who noted VLA is a temporary &quot;crutch&quot; for data scarcity—world models need to focus on real-world robot execution, not just visual realism.</p>
+<h4><strong>DexWorldModel: A System-Level Solution to Core Bottlenecks</strong></h4>
+<p>Kuawei Intelligence’s DexWorldModel addresses four critical gaps in traditional world models with a unified architecture:</p>
+<ol>
+<li>
+<p><strong>Causal Latent World Model (CLWM)</strong></p>
+<ul>
+<li>Shifts from pixel-level prediction to <strong>semantic state forecasting</strong> (e.g., &quot;is the object graspable?&quot;) instead of &quot;does the next frame look real?&quot;</li>
+<li>Eliminates irrelevant info (texture, lighting) and boosts task relevance.</li>
+</ul>
+</li>
+<li>
+<p><strong>Dual-State TTT Memory</strong></p>
+<ul>
+<li>Separates <strong>long-term memory</strong> (real causal history, updated only with actual observations/actions) from <strong>working memory</strong> (temporary context for current predictions).</li>
+<li>Fixes memory bottlenecks: constant O(1) usage for long tasks (no linear growth from KV Cache).</li>
+</ul>
+</li>
+<li>
+<p><strong>Speculative Asynchronous Inference (SAI)</strong></p>
+<ul>
+<li>Overlaps model inference with robot action execution: while the robot moves, the model pre-processes next-step predictions.</li>
+<li>Cuts blocking latency by ~50% (critical for real-time robot performance).</li>
+</ul>
+</li>
+<li>
+<p><strong>EmbodiChain (Open-Source Data Pipeline)</strong></p>
+<ul>
+<li>A community-driven infrastructure for <strong>continuous, physics-consistent data generation</strong> (simulation + real-world).</li>
+<li>Features: failure recovery (learn from mistakes), online data streaming (replace static datasets), and reachability-aware sampling (boost task diversity).</li>
+</ul>
+</li>
+</ol>
+<h4><strong>Performance Highlights</strong></h4>
+<ul>
+<li><strong>Simulation</strong>: 94% average task success rate on RoboTwin (outperforming all baselines).</li>
+<li><strong>Real Robots</strong>: <strong>Zero-shot sim-to-real success</strong> on 4 tasks (grasping, manipulation) without real-world fine-tuning—even beating baselines (π0, GR00T N1.5) that used real demos.</li>
+</ul>
+<h4><strong>Open Source &amp; Community Impact</strong></h4>
+<p>EmbodiChain is open-sourced to shift the field’s focus from &quot;bigger models&quot; to <strong>better, continuous data</strong>—a key bottleneck for embodied AI scaling.</p>
+<h4><strong>Core Takeaway</strong></h4>
+<p>DexWorldModel proves world models for robots must prioritize <strong>task execution</strong> over visual fidelity. By solving system-level issues (representation, memory, inference, data), it bridges the sim-to-real gap and brings embodied AI closer to real-world deployment.</p>
+<hr>
+<p><strong>Key Links</strong>:</p>
+<ul>
+<li>DexWorldModel: <a href="https://dexforce.com/docs/DexWorldModel.pdf">https://dexforce.com/docs/DexWorldModel.pdf</a></li>
+<li>EmbodiChain (Open Source): <a href="https://dexforce.com/embodichain/index.html">https://dexforce.com/embodichain/index.html</a></li>
+</ul>
+</div>
+</div>
+<div class="news-item">
+    <div class="news-title"><a href="https://www.qbitai.com/2026/04/403751.html" target="_blank" rel="noopener noreferrer">继Harness之后，“龙虾”JiuwenClaw率先开启“Coordination Engineering”时代</a></div>
+    <div class="news-summary"><h3>JiuwenClaw：华为支持的多Agent协同新突破</h3>
+<p>华为支持的<strong>openJiuwen开源社区</strong>发布AI工具<strong>JiuwenClaw</strong>，核心亮点是新增<strong>AgentTeam多智能体协同能力</strong>，并提出AI工程范式从「Harness Engineering（单Agent驾驭）」升级为「<strong>Coordination Engineering（多Agent协调工程）</strong>」，首次将多Agent自主协同落地为可实战的工具。</p>
+<h4>核心能力：模拟真实团队协作</h4>
+<ol>
+<li>
+<p><strong>分级自主协同</strong></p>
+<ul>
+<li>1个<strong>Leader Agent</strong>：动态组建团队、拆解任务、监控进度，可随时增减成员；</li>
+<li>多个<strong>Teammate Agent</strong>：自主认领匹配任务，独立执行（复杂任务可自拆分子步骤），完成后自动同步结果；</li>
+<li>双驱动机制：<strong>任务流</strong>（认领→执行→完成）+ <strong>消息流</strong>（讨论方案、反馈问题）并行。</li>
+</ul>
+</li>
+<li>
+<p><strong>共享工作区</strong><br>
+团队成员通过统一共享路径读写文件，无需手动传输，自动同步调研数据、分析报告等产物，支持冲突解决策略。</p>
+</li>
+<li>
+<p><strong>全生命周期管控</strong></p>
+<ul>
+<li><strong>Plan审批</strong>：Teammate执行计划需Leader审核；</li>
+<li><strong>事件驱动自愈</strong>：任务超时、成员异常自动触发Leader干预；</li>
+<li><strong>持久化团队</strong>：跨会话保留团队配置，无需重复组建；</li>
+<li><strong>实时可观测</strong>：通过API查询状态、订阅事件流，全程可追踪。</li>
+</ul>
+</li>
+</ol>
+<h4>实战案例</h4>
+<ul>
+<li>装修设计：上传毛坯房照片，AgentTeam自动组建「硬装+软装+艺术」团队，生成质感方案；</li>
+<li>内容生成：20分钟生成<strong>200页技术PPT</strong>（10个Agent并行调研+整合）；</li>
+<li>趣味交互：多Agent自主对弈五子棋，实时展示攻防策略。</li>
+</ul>
+<h4>开源与体验</h4>
+<p>JiuwenClaw已开源，支持飞书等平台体验（<code>/mode team</code>切换协同模式），项目地址：</p>
+<ul>
+<li>openJiuwen：<a href="https://gitcode.com/openJiuwen">gitcode.com/openJiuwen</a></li>
+<li>JiuwenClaw：<a href="https://gitcode.com/openJiuwen/jiuwenclaw">gitcode.com/openJiuwen/jiuwenclaw</a></li>
+</ul>
+<p>该工具标志着AI从「单Agent可用」向「多Agent高效协作」的关键跨越，为复杂任务（如工程设计、内容生产）提供自动化解决方案。</p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (3)" data-label-less="Show less">Show all (3)</button>
+    </div>
+</div>
+<div class="source-section" id="source-github-blog-12">
+    <h2 class="source-title">GitHub Blog</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://github.blog/news-insights/company-news/changes-to-github-copilot-individual-plans/" target="_blank" rel="noopener noreferrer">Changes to GitHub Copilot Individual plans</a></div>
+    <div class="news-summary"><h3>Joe Binder Author Bio Summary</h3>
+<p>The snippet is an author profile for Joe Binder on the GitHub Blog. He holds the role of VP of Product. His GitHub handle is @binderjoe, with links to both his GitHub Blog author page and personal GitHub account. The bio includes his GitHub-sourced avatar and prominently displays his professional title.</p>
+<p>(Note: The provided content is only Joe Binder’s author bio—no full article content was included to summarize.)</p>
+</div>
+</div>
+    </div>
+    <div class="items-hidden">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://github.blog/open-source/git/highlights-from-git-2-54/" target="_blank" rel="noopener noreferrer">Highlights from Git 2.54</a></div>
+    <div class="news-summary"><h3>Taylor Blau Bio Summary</h3>
+<p>Taylor Blau is a Principal Software Engineer at GitHub, where his work centers on core Git development. He contributes to the GitHub Blog and maintains a GitHub profile at @ttaylorr.</p>
+</div>
+</div>
+    </div>
+    <div class="collapse-btn-row">
+        <button class="toggle-items" type="button" data-toggle-items="1" data-label-more="Show all (1)" data-label-less="Show less">Show all (1)</button>
+    </div>
+</div>
+<div class="source-section" id="source-openai-news-13">
+    <h2 class="source-title">OpenAI News</h2>
+    <div class="items-visible">
+        
+<div class="news-item">
+    <div class="news-title"><a href="https://openai.com/index/hyatt-advances-ai-with-chatgpt-enterprise" target="_blank" rel="noopener noreferrer">OpenAI helps Hyatt advance AI among colleagues </a></div>
+    <div class="news-summary"><p><strong>OpenAI &amp; Cloudflare Partner to Boost Enterprise AI Agent Workflows</strong></p>
+<p>OpenAI has launched a collaboration with Cloudflare to integrate its advanced AI models into Cloudflare’s Agent Cloud platform, enabling enterprises to build and deploy agentic workflows more efficiently.</p>
+<p>The integration lets businesses leverage OpenAI’s cutting-edge models (including GPT-4o) directly within Cloudflare’s global network—reducing latency by running AI close to end-users and enhancing data security by keeping sensitive information within Cloudflare’s infrastructure.</p>
+<p>Cloudflare’s Agent Cloud is a platform for creating AI agents that automate tasks, improve customer interactions, and streamline internal operations. With this partnership, enterprises skip the complexity of managing separate AI infrastructure, accelerating adoption of AI-powered tools for use cases like personalized customer support, internal productivity automation, and data-driven decision-making.</p>
+<p>This collaboration expands OpenAI’s enterprise ecosystem (joining partners like Accenture and Walmart) and makes advanced AI more accessible for businesses scaling agentic capabilities.</p>
+<p><em>Source: OpenAI Global Affairs (April 13, 2026)</em></p>
+</div>
+</div>
+    </div>
+    
+</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+            const d = document.documentElement;
+            const btn = document.getElementById('tocToggle');
+            const mask = document.getElementById('sidebarMask');
+            const closeBtn = document.getElementById('sidebarClose');
+
+            const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+            const setSidebarOpen = (open) => {
+                d.classList.toggle('sidebar-open', !!open);
+                d.classList.toggle('sidebar-closed', !open);
+            };
+
+            btn?.addEventListener('click', () => {
+                const open = d.classList.contains('sidebar-open');
+                setSidebarOpen(!open);
+            });
+            mask?.addEventListener('click', () => setSidebarOpen(false));
+            closeBtn?.addEventListener('click', () => setSidebarOpen(false));
+
+            document.addEventListener('click', (e) => {
+                const a = e.target && e.target.closest ? e.target.closest('a[data-toc-link]') : null;
+                if (!a) return;
+                if (isMobile()) setSidebarOpen(false);
+            });
+
+            document.addEventListener('click', (e) => {
+                const btn = e.target && e.target.closest ? e.target.closest('button[data-toggle-items]') : null;
+                if (!btn) return;
+                const section = btn.closest('.source-section');
+                if (!section) return;
+                const expanded = section.classList.toggle('is-expanded');
+                const labelMore = btn.getAttribute('data-label-more') || '';
+                const labelLess = btn.getAttribute('data-label-less') || '';
+                btn.textContent = expanded ? labelLess : labelMore;
+            });
+        })();
+    </script>
+</body>
+</html>
